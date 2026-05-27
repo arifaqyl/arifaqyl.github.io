@@ -392,144 +392,154 @@ footer{position:relative;z-index:1}
 <script>
 /* ── THREE.JS GPU WAVE GRID ── */
 (function () {
-  if (typeof THREE === 'undefined') return;
-  const canvas = document.getElementById('bg-canvas');
-  const isMobile = window.innerWidth < 768;
-  const SEG = isMobile ? 30 : 50;
-  const SIZE = 44;
-  const STEP = SIZE / SEG;
-  const HALF = SIZE / 2;
+  try {
+    if (typeof THREE === 'undefined') return;
+    const canvas = document.getElementById('bg-canvas');
+    const isMobile = window.innerWidth < 768;
+    const SEG = isMobile ? 30 : 50;
+    const SIZE = 44;
+    const STEP = SIZE / SEG;
+    const HALF = SIZE / 2;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0A0A0B);
-  scene.fog = new THREE.FogExp2(0x0A0A0B, 0.022);
-
-  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 120);
-  camera.position.set(0, 10, 22);
-  camera.lookAt(0, 0, 0);
-
-  const linePos = [];
-  for (let i = 0; i <= SEG; i++) {
-    const z = -HALF + i * STEP;
-    for (let j = 0; j < SEG; j++) {
-      linePos.push(-HALF + j * STEP, 0, z, -HALF + (j + 1) * STEP, 0, z);
-    }
-  }
-  for (let i = 0; i <= SEG; i++) {
-    const x = -HALF + i * STEP;
-    for (let j = 0; j < SEG; j++) {
-      linePos.push(x, 0, -HALF + j * STEP, x, 0, -HALF + (j + 1) * STEP);
-    }
-  }
-  const gridGeo = new THREE.BufferGeometry();
-  gridGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePos, 3));
-
-  const VERT = `
-    uniform float uT;
-    varying float vH;
-    void main() {
-      vec3 p = position;
-      p.y = sin(p.x * 0.32 + uT) * cos(p.z * 0.24 + uT * 0.68) * 0.72;
-      vH = clamp((p.y + 0.72) / 1.44, 0.0, 1.0);
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-    }
-  `;
-  const FRAG_LINE = `
-    varying float vH;
-    void main() {
-      float t = vH * vH;
-      vec3 col = mix(vec3(0.133,0.141,0.157), vec3(0.8,1.0,0.0), t * 0.5);
-      gl_FragColor = vec4(col, mix(0.2, 0.75, t));
-    }
-  `;
-  const gridMat = new THREE.ShaderMaterial({
-    uniforms: { uT: { value: 0 } },
-    vertexShader: VERT,
-    fragmentShader: FRAG_LINE,
-    transparent: true,
-  });
-  scene.add(new THREE.LineSegments(gridGeo, gridMat));
-
-  const ptPos = [];
-  for (let i = 0; i <= SEG; i++)
-    for (let j = 0; j <= SEG; j++)
-      ptPos.push(-HALF + j * STEP, 0, -HALF + i * STEP);
-  const ptGeo = new THREE.BufferGeometry();
-  ptGeo.setAttribute('position', new THREE.Float32BufferAttribute(ptPos, 3));
-  const FRAG_PT = `
-    varying float vH;
-    void main() {
-      float t = vH * vH;
-      vec3 col = mix(vec3(0.133,0.141,0.157), vec3(0.8,1.0,0.0), t * 0.8);
-      gl_FragColor = vec4(col, mix(0.05, 0.9, t));
-    }
-  `;
-  const ptMat = new THREE.ShaderMaterial({
-    uniforms: { uT: { value: 0 } },
-    vertexShader: VERT.replace('gl_Position', 'gl_PointSize = 2.0;\n      gl_Position'),
-    fragmentShader: FRAG_PT,
-    transparent: true,
-  });
-  scene.add(new THREE.Points(ptGeo, ptMat));
-
-  let t = 0, mx = 0, camX = 0;
-  document.addEventListener('mousemove', e => { mx = (e.clientX / window.innerWidth - 0.5) * 4; });
-
-  (function loop() {
-    requestAnimationFrame(loop);
-    t += 0.005;
-    gridMat.uniforms.uT.value = t;
-    ptMat.uniforms.uT.value = t;
-    camX += (mx - camX) * 0.03;
-    camera.position.x = camX;
-    camera.lookAt(0, 0, 0);
-    renderer.render(scene, camera);
-  })();
-
-  window.addEventListener('resize', () => {
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-  });
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0A0A0B);
+    scene.fog = new THREE.FogExp2(0x0A0A0B, 0.022);
+
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 120);
+    camera.position.set(0, 10, 22);
+    camera.lookAt(0, 0, 0);
+
+    const linePos = [];
+    for (let i = 0; i <= SEG; i++) {
+      const z = -HALF + i * STEP;
+      for (let j = 0; j < SEG; j++) {
+        linePos.push(-HALF + j * STEP, 0, z, -HALF + (j + 1) * STEP, 0, z);
+      }
+    }
+    for (let i = 0; i <= SEG; i++) {
+      const x = -HALF + i * STEP;
+      for (let j = 0; j < SEG; j++) {
+        linePos.push(x, 0, -HALF + j * STEP, x, 0, -HALF + (j + 1) * STEP);
+      }
+    }
+    const gridGeo = new THREE.BufferGeometry();
+    gridGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePos, 3));
+
+    const VERT = `
+      uniform float uT;
+      varying float vH;
+      void main() {
+        vec3 p = position;
+        p.y = sin(p.x * 0.32 + uT) * cos(p.z * 0.24 + uT * 0.68) * 0.72;
+        vH = clamp((p.y + 0.72) / 1.44, 0.0, 1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+      }
+    `;
+    const FRAG_LINE = `
+      varying float vH;
+      void main() {
+        float t = vH * vH;
+        vec3 col = mix(vec3(0.133,0.141,0.157), vec3(0.8,1.0,0.0), t * 0.5);
+        gl_FragColor = vec4(col, mix(0.2, 0.75, t));
+      }
+    `;
+    const gridMat = new THREE.ShaderMaterial({
+      uniforms: { uT: { value: 0 } },
+      vertexShader: VERT,
+      fragmentShader: FRAG_LINE,
+      transparent: true,
+    });
+    scene.add(new THREE.LineSegments(gridGeo, gridMat));
+
+    const ptPos = [];
+    for (let i = 0; i <= SEG; i++)
+      for (let j = 0; j <= SEG; j++)
+        ptPos.push(-HALF + j * STEP, 0, -HALF + i * STEP);
+    const ptGeo = new THREE.BufferGeometry();
+    ptGeo.setAttribute('position', new THREE.Float32BufferAttribute(ptPos, 3));
+    const FRAG_PT = `
+      varying float vH;
+      void main() {
+        float t = vH * vH;
+        vec3 col = mix(vec3(0.133,0.141,0.157), vec3(0.8,1.0,0.0), t * 0.8);
+        gl_FragColor = vec4(col, mix(0.05, 0.9, t));
+      }
+    `;
+    const ptMat = new THREE.ShaderMaterial({
+      uniforms: { uT: { value: 0 } },
+      vertexShader: VERT.replace('gl_Position', 'gl_PointSize = 2.0;\n      gl_Position'),
+      fragmentShader: FRAG_PT,
+      transparent: true,
+    });
+    scene.add(new THREE.Points(ptGeo, ptMat));
+
+    let t = 0, mx = 0, camX = 0;
+    document.addEventListener('mousemove', e => { mx = (e.clientX / window.innerWidth - 0.5) * 4; });
+
+    (function loop() {
+      requestAnimationFrame(loop);
+      t += 0.005;
+      gridMat.uniforms.uT.value = t;
+      ptMat.uniforms.uT.value = t;
+      camX += (mx - camX) * 0.03;
+      camera.position.x = camX;
+      camera.lookAt(0, 0, 0);
+      renderer.render(scene, camera);
+    })();
+
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
+  } catch (err) {
+    console.warn("Three.js grid canvas load failed: ", err);
+  }
 })();
 
 /* ── CURSOR ── */
-if (window.matchMedia('(hover:hover)').matches) {
-  const cur = document.getElementById('cur');
-  let cx = 0, cy = 0;
-  document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
-  document.addEventListener('mouseleave', () => cur.classList.add('gone'));
-  document.addEventListener('mouseenter', () => cur.classList.remove('gone'));
-  document.querySelectorAll('a,button,[role=button],.pf-tab').forEach(el => {
-    el.addEventListener('mouseenter', () => cur.classList.add('big'));
-    el.addEventListener('mouseleave', () => cur.classList.remove('big'));
-  });
-  (function loop() { gsap.set(cur, { x: cx, y: cy }); requestAnimationFrame(loop); })();
+try {
+  if (window.matchMedia('(hover:hover)').matches) {
+    const cur = document.getElementById('cur');
+    let cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+    document.addEventListener('mouseleave', () => cur.classList.add('gone'));
+    document.addEventListener('mouseenter', () => cur.classList.remove('gone'));
+    document.querySelectorAll('a,button,[role=button],.pf-tab').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
+    (function loop() { gsap.set(cur, { x: cx, y: cy }); requestAnimationFrame(loop); })();
+  }
+} catch (err) {
+  console.warn("Cursor loop initialization failed: ", err);
 }
 
 /* ── LENIS + GSAP ── */
-gsap.registerPlugin(ScrollTrigger);
-const lenis = new Lenis({
-  autoRaf: false,
-  duration: 1.1,
-  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  wheelMultiplier: 0.65,
-  touchMultiplier: 1.4,
-  syncTouch: true,
-});
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add(t => lenis.raf(t * 1000));
-gsap.ticker.lagSmoothing(0);
+try {
+  gsap.registerPlugin(ScrollTrigger);
+  const lenis = new Lenis({
+    autoRaf: false,
+    duration: 1.1,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    wheelMultiplier: 0.65,
+    touchMultiplier: 1.4,
+    syncTouch: true,
+  });
+  lenis.on('scroll', ScrollTrigger.update);
 
-function raf(time) {
-  lenis.raf(time);
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
   requestAnimationFrame(raf);
+} catch (err) {
+  console.warn("Lenis smooth scroll initialization failed: ", err);
 }
-requestAnimationFrame(raf);
 
 /* ── NAV ── */
 const nav = document.getElementById('nav');
