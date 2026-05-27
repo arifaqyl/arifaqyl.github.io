@@ -49,8 +49,8 @@ button{background:none;border:none;color:inherit;font:inherit;cursor:none}
 .nav-links a:hover{color:var(--fg)}
 @media(max-width:760px){.nav{padding:18px 20px}.nav-links{display:none}}
 
-.hero{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 44px 72px;border-bottom:1px solid var(--border)}
-.hero-h1{font-family:var(--font-mono);font-size:clamp(3.6rem,9vw,10.5rem);font-weight:700;line-height:.93;letter-spacing:-.04em;color:var(--fg)}
+.hero{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;padding:120px 44px 72px;border-bottom:1px solid var(--border)}
+.hero-h1{font-family:var(--font-mono);font-size:clamp(3.6rem,9vw,10.5rem);font-weight:700;line-height:.93;letter-spacing:-.04em;color:var(--fg);margin-top:auto}
 .hero-h1 .line{display:block}
 .hero-h1 .li{display:block}
 .hero-h1 em{font-style:normal;color:var(--accent)}
@@ -60,7 +60,7 @@ button{background:none;border:none;color:inherit;font:inherit;cursor:none}
 @media(max-width:480px){.hero-h1{font-size:clamp(2.6rem,12vw,4rem)}}
 
 .ticker{overflow:hidden;border-bottom:1px solid var(--border);padding:12px 0;position:relative;z-index:1}
-.ticker-track{display:flex;width:max-content;animation:tick 160s linear infinite}
+.ticker-track{display:flex;width:max-content;animation:tick 320s linear infinite}
 .ticker-item{display:flex;align-items:center;gap:28px;padding:0 28px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3);white-space:nowrap;font-feature-settings:"tnum" 1,"kern" 1}
 .ticker-item::after{content:'//';color:var(--border-hi);margin-left:4px}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -300,7 +300,7 @@ footer{position:relative;z-index:1}
           <div><p class="pf-block-label solution">solution</p><p class="pf-text">A scheduled Python script that monitors a target route on a set interval, compares live prices against a threshold, and fires a Telegram alert the moment a qualifying fare appears. Runs unattended — no missed deals.</p></div>
         </div>
         <div class="pf-footer">
-          <span class="pf-link dead">personal</span>
+          <a href="https://github.com/arifaqyl/flight-sniper" target="_blank" rel="noreferrer" class="pf-link">github.com ↗</a>
           <div class="pf-chips"><span class="chip">python</span><span class="chip">telegram bot api</span><span class="chip">requests</span></div>
         </div>
       </div></div>
@@ -547,30 +547,40 @@ const nav = document.getElementById('nav');
 ScrollTrigger.create({ start: 40, onUpdate: s => nav.classList.toggle('scrolled', s.progress > 0) });
 
 /* ── PROGRESS ── */
-gsap.to('#bar', { scaleX: 1, ease: 'none',
-  scrollTrigger: { scrub: .4, start: 'top top', end: 'bottom bottom' } });
+try {
+  gsap.to('#bar', { scaleX: 1, ease: 'none',
+    scrollTrigger: { scrub: .4, start: 'top top', end: 'bottom bottom' } });
+} catch (err) {
+  console.warn("Progress bar animation failed: ", err);
+}
 
 /* ── DYNAMIC SYSTEM TICKER ── */
-const ITEMS = [
-  'python','java','c++','ffmpeg','whisper ai','sqlite','gsap','lenis',
-  'telegram bot api','github actions','cloudflare dns','numpy',
-  'faster-whisper','digital ocean','gemini api','html / css','three.js','waha',
-  'git','rest api','maven','paramiko','pm2'
-];
-const ttTrack = document.getElementById('ttTrack');
-function buildTicker() {
-  const single = ITEMS.map(x => `<span class="ticker-item">${x}</span>`).join('');
-  /* half = copies needed so one half fills any viewport width with buffer.
-     reps = half * 2 so translateX(-50%) always lands on a copy boundary → seamless loop.
-     duration scales with half so visual speed is identical on every screen size. */
-  const half = Math.max(2, Math.ceil(window.innerWidth / 600) + 2);
-  const reps = half * 2;
-  ttTrack.innerHTML = single.repeat(reps);
-  ttTrack.style.animationDuration = (half * 160) + 's';
+try {
+  const ITEMS = [
+    'python','java','c++','ffmpeg','whisper ai','sqlite','gsap','lenis',
+    'telegram bot api','github actions','cloudflare dns','numpy',
+    'faster-whisper','digital ocean','gemini api','html / css','three.js','waha',
+    'git','rest api','maven','paramiko','pm2'
+  ];
+  const ttTrack = document.getElementById('ttTrack');
+  if (ttTrack) {
+    function buildTicker() {
+      const single = ITEMS.map(x => `<span class="ticker-item">${x}</span>`).join('');
+      /* half = copies needed so one half fills any viewport width with buffer.
+         reps = half * 2 so translateX(-50%) always lands on a copy boundary → seamless loop.
+         duration scales with half so visual speed is identical on every screen size. */
+      const half = Math.max(2, Math.ceil(window.innerWidth / 600) + 2);
+      const reps = half * 2;
+      ttTrack.innerHTML = single.repeat(reps);
+      ttTrack.style.animationDuration = (half * 320) + 's';
+    }
+    buildTicker();
+    let tickTO;
+    window.addEventListener('resize', () => { clearTimeout(tickTO); tickTO = setTimeout(buildTicker, 150); });
+  }
+} catch (err) {
+  console.warn("Dynamic system ticker initialization failed: ", err);
 }
-buildTicker();
-let tickTO;
-window.addEventListener('resize', () => { clearTimeout(tickTO); tickTO = setTimeout(buildTicker, 150); });
 
 /* ── HERO ENTRANCE ── */
 try {
