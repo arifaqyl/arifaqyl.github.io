@@ -525,6 +525,12 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(t => lenis.raf(t * 1000));
 gsap.ticker.lagSmoothing(0);
 
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
 /* ── NAV ── */
 const nav = document.getElementById('nav');
 ScrollTrigger.create({ start: 40, onUpdate: s => nav.classList.toggle('scrolled', s.progress > 0) });
