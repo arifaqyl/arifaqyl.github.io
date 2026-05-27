@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Arif Aqyl — Software Engineer</title>
@@ -390,7 +391,6 @@ footer{position:relative;z-index:1}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
 /* ── THREE.JS GPU WAVE GRID ── */
 (function () {
   try {
@@ -523,6 +523,9 @@ try {
 /* ── LENIS + GSAP ── */
 try {
   gsap.registerPlugin(ScrollTrigger);
+  if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger.clearScrollMemory) {
+    ScrollTrigger.clearScrollMemory();
+  }
   const lenis = new Lenis({
     autoRaf: false,
     duration: 1.1,
@@ -532,6 +535,10 @@ try {
     syncTouch: true,
   });
   lenis.on('scroll', ScrollTrigger.update);
+
+  // Force scroll to top immediately on load
+  window.scrollTo(0, 0);
+  lenis.scrollTo(0, { immediate: true });
 
   function raf(time) {
     lenis.raf(time);
@@ -543,8 +550,14 @@ try {
 }
 
 /* ── NAV ── */
-const nav = document.getElementById('nav');
-ScrollTrigger.create({ start: 40, onUpdate: s => nav.classList.toggle('scrolled', s.progress > 0) });
+try {
+  const nav = document.getElementById('nav');
+  if (nav && typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.create({ start: 40, onUpdate: s => nav.classList.toggle('scrolled', s.progress > 0) });
+  }
+} catch (err) {
+  console.warn("Navigation scroll trigger failed: ", err);
+}
 
 /* ── PROGRESS ── */
 try {
@@ -572,7 +585,9 @@ try {
       const half = Math.max(2, Math.ceil(window.innerWidth / 600) + 2);
       const reps = half * 2;
       ttTrack.innerHTML = single.repeat(reps);
-      ttTrack.style.animationDuration = (half * 320) + 's';
+      ttTrack.style.animation = 'none';
+      ttTrack.offsetHeight; // Force reflow
+      ttTrack.style.animation = `tick ${(half * 320)}s linear infinite`;
     }
     buildTicker();
     let tickTO;
