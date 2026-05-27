@@ -573,52 +573,64 @@ let tickTO;
 window.addEventListener('resize', () => { clearTimeout(tickTO); tickTO = setTimeout(buildTicker, 150); });
 
 /* ── HERO ENTRANCE ── */
-gsap.timeline({ defaults: { ease: 'power3.out' } })
-  .from('.li', { y: 60, opacity: 0, duration: 1.1, stagger: .12 }, .15)
-  .from('.hero-bottom > *', { opacity: 0, y: 14, duration: .7 }, .75);
+try {
+  gsap.timeline({ defaults: { ease: 'power3.out' } })
+    .from('.li', { y: 60, opacity: 0, duration: 1.1, stagger: .12 }, .15)
+    .from('.hero-bottom > *', { opacity: 0, y: 14, duration: .7 }, .75);
+} catch (err) {
+  console.warn("Hero entrance animation failed: ", err);
+}
 
 /* ── PROJECT ACCORDIONS ── */
-document.querySelectorAll('.pf').forEach(pf => {
-  gsap.from(pf, { opacity: 0, y: 14, duration: .55, ease: 'power2.out',
-    scrollTrigger: { trigger: pf, start: 'top 93%', once: true } });
-  const tab = pf.querySelector('.pf-tab');
-  const body = pf.querySelector('.pf-body');
-  function toggle() {
-    const isOpen = pf.dataset.open === '1';
-    document.querySelectorAll(".pf[data-open='1']").forEach(o => {
-      o.dataset.open = '0';
-      o.querySelector('.pf-tab').setAttribute('aria-expanded', 'false');
-      o.querySelector('.pf-body').style.height = '0';
-    });
-    if (!isOpen) {
-      pf.dataset.open = '1';
-      tab.setAttribute('aria-expanded', 'true');
-      body.style.height = body.scrollHeight + 'px';
+try {
+  document.querySelectorAll('.pf').forEach(pf => {
+    gsap.from(pf, { opacity: 0, y: 14, duration: .55, ease: 'power2.out',
+      scrollTrigger: { trigger: pf, start: 'top 93%', once: true } });
+    const tab = pf.querySelector('.pf-tab');
+    const body = pf.querySelector('.pf-body');
+    function toggle() {
+      const isOpen = pf.dataset.open === '1';
+      document.querySelectorAll(".pf[data-open='1']").forEach(o => {
+        o.dataset.open = '0';
+        o.querySelector('.pf-tab').setAttribute('aria-expanded', 'false');
+        o.querySelector('.pf-body').style.height = '0';
+      });
+      if (!isOpen) {
+        pf.dataset.open = '1';
+        tab.setAttribute('aria-expanded', 'true');
+        body.style.height = body.scrollHeight + 'px';
+      }
+      setTimeout(() => { try { ScrollTrigger.refresh(); } catch (e) {} }, 420);
     }
-    setTimeout(() => { ScrollTrigger.refresh(); }, 420);
-  }
-  tab.addEventListener('click', toggle);
-  tab.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
-});
+    tab.addEventListener('click', toggle);
+    tab.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+} catch (err) {
+  console.warn("Project accordions initialization failed: ", err);
+}
 
 /* ── SCROLL REVEALS ── */
-gsap.utils.toArray('.sec-label').forEach(el =>
-  gsap.from(el, { opacity: 0, x: -12, duration: .55, ease: 'power2.out',
-    scrollTrigger: { trigger: el, start: 'top 92%', once: true } }));
-gsap.from('.approach-h2', { opacity: 0, y: 22, duration: .85, ease: 'power2.out',
-  scrollTrigger: { trigger: '.approach-h2', start: 'top 88%', once: true } });
-gsap.utils.toArray('.approach-p').forEach((p, i) =>
-  gsap.from(p, { opacity: 0, y: 12, duration: .6, ease: 'power2.out', delay: i * .07,
-    scrollTrigger: { trigger: '.approach-grid', start: 'top 86%', once: true } }));
-gsap.utils.toArray('.fact-row').forEach((r, i) =>
-  gsap.from(r, { opacity: 0, x: 12, duration: .4, ease: 'power2.out', delay: i * .04,
-    scrollTrigger: { trigger: '.fact-table', start: 'top 88%', once: true } }));
-gsap.from('.sc', { opacity: 0, y: 10, duration: .45, stagger: .04, ease: 'power2.out',
-  scrollTrigger: { trigger: '.stack-grid', start: 'top 88%', once: true } });
-gsap.from('.contact-big', { opacity: 0, y: 20, duration: .85, ease: 'power2.out',
-  scrollTrigger: { trigger: '.contact-big', start: 'top 88%', once: true } });
-gsap.from('.contact-sub,.socials', { opacity: 0, y: 12, duration: .6, stagger: .1, ease: 'power2.out',
-  scrollTrigger: { trigger: '.contact-sub', start: 'top 90%', once: true } });
+try {
+  gsap.utils.toArray('.sec-label').forEach(el =>
+    gsap.from(el, { opacity: 0, x: -12, duration: .55, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 92%', once: true } }));
+  gsap.from('.approach-h2', { opacity: 0, y: 22, duration: .85, ease: 'power2.out',
+    scrollTrigger: { trigger: '.approach-h2', start: 'top 88%', once: true } });
+  gsap.utils.toArray('.approach-p').forEach((p, i) =>
+    gsap.from(p, { opacity: 0, y: 12, duration: .6, ease: 'power2.out', delay: i * .07,
+      scrollTrigger: { trigger: '.approach-grid', start: 'top 86%', once: true } }));
+  gsap.utils.toArray('.fact-row').forEach((r, i) =>
+    gsap.from(r, { opacity: 0, x: 12, duration: .4, ease: 'power2.out', delay: i * .04,
+      scrollTrigger: { trigger: '.fact-table', start: 'top 88%', once: true } }));
+  gsap.from('.sc', { opacity: 0, y: 10, duration: .45, stagger: .04, ease: 'power2.out',
+    scrollTrigger: { trigger: '.stack-grid', start: 'top 88%', once: true } });
+  gsap.from('.contact-big', { opacity: 0, y: 20, duration: .85, ease: 'power2.out',
+    scrollTrigger: { trigger: '.contact-big', start: 'top 88%', once: true } });
+  gsap.from('.contact-sub,.socials', { opacity: 0, y: 12, duration: .6, stagger: .1, ease: 'power2.out',
+    scrollTrigger: { trigger: '.contact-sub', start: 'top 90%', once: true } });
+} catch (err) {
+  console.warn("Scroll reveals failed: ", err);
+}
 </script>
 
 </body>
