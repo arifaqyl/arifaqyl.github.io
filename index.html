@@ -514,6 +514,7 @@ if (window.matchMedia('(hover:hover)').matches) {
 /* ── LENIS + GSAP ── */
 gsap.registerPlugin(ScrollTrigger);
 const lenis = new Lenis({
+  autoRaf: false,
   duration: 1.1,
   easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   wheelMultiplier: 0.65,
