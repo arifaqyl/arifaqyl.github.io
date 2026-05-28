@@ -1056,6 +1056,38 @@
       color: var(--fg-3);
       margin: 0;
     }
+    .aw-card-desc {
+      font-size: 0.78rem;
+      color: var(--fg-3);
+      line-height: 1.5;
+      margin: 2px 0 0;
+    }
+    .aw-card-preview {
+      margin-top: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .aw-card-preview img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 4 / 3;
+      filter: grayscale(30%) brightness(0.85);
+      transition: filter 0.4s ease;
+    }
+    .aw-card:hover .aw-card-preview img {
+      filter: grayscale(0%) brightness(0.95);
+    }
+    .aw-card-preview-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      color: var(--fg-3);
+      padding: 5px 10px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
 
     /* plain table for no-photo entries */
     .awards-table {
@@ -1837,6 +1869,7 @@
         </div>
         <p class="aw-card-title">SCOUT STEMBoree MRSM Se-Malaysia</p>
         <p class="aw-card-org">MARA MRSM</p>
+        <p class="aw-card-desc">Inter-MRSM scouts competition — STEM challenges and fieldcraft over multiple days. Our team placed champion overall among all MRSM schools nationally.</p>
       </div>
     </div>
     <div class="aw-card">
@@ -1848,8 +1881,13 @@
           <span class="aw-card-year">2023</span>
           <span class="aw-badge aw-badge--place">2nd Place</span>
         </div>
-        <p class="aw-card-title">iOS App Ideation &amp; Prototyping — Compostify</p>
+        <p class="aw-card-title">iOS App Ideation &amp; Prototyping</p>
         <p class="aw-card-org">MARA MRSM</p>
+        <p class="aw-card-desc">Designed and pitched Compostify — a composting habit tracker iOS app. Built a working 3D prototype model. Placed 2nd nationally among MRSM school teams.</p>
+        <div class="aw-card-preview">
+          <img src="compostifymodel.jpg" alt="Compostify composting app — 3D prototype model" loading="lazy">
+          <div class="aw-card-preview-label">Compostify — the project</div>
+        </div>
       </div>
     </div>
     <div class="aw-card">
@@ -1863,6 +1901,7 @@
         </div>
         <p class="aw-card-title">STERF Science &amp; Technology Camp</p>
         <p class="aw-card-org">MRSM Gerik</p>
+        <p class="aw-card-desc">Volunteered as facilitator for a science and technology enrichment camp for secondary school students held at MRSM Gerik.</p>
       </div>
     </div>
     <div class="aw-card">
@@ -1876,6 +1915,7 @@
         </div>
         <p class="aw-card-title">STEM Digital Ideation Inter-MRSM Se-Malaysia</p>
         <p class="aw-card-org">MARA MRSM · Taiping</p>
+        <p class="aw-card-desc">National inter-MRSM digital ideation showcase held in Taiping. Represented MRSM Gerik in the early round of the competition.</p>
       </div>
     </div>
   </div>
