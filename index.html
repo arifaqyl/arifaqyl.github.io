@@ -1,662 +1,2463 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }</script>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Arif Aqyl — Software Engineer</title>
-<meta name="description" content="Software engineer building automation tools, bots, and systems that remove friction."/>
-<meta name="color-scheme" content="dark"/>
-<link rel="preconnect" href="https://rsms.me"/>
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"/>
-<style>
-html.lenis,html.lenis body{height:auto}
-.lenis-smooth{scroll-behavior:auto!important}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arif Aqyl — Software Engineer</title>
+  <meta name="description" content="Software Engineering student at UniKL MIIT. I build practical tools — AI video editors, audio analysis pipelines, and automation scripts." />
+  <meta property="og:title" content="Arif Aqyl — Software Engineer" />
+  <meta property="og:description" content="Software Engineering student at UniKL MIIT building practical tools and automation scripts." />
+  <meta property="og:image" content="https://arifaqyl.me/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://arifaqyl.me/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Arif Aqyl — Software Engineer" />
+  <meta name="twitter:description" content="Software Engineering student at UniKL MIIT building practical tools and automation scripts." />
+  <meta name="twitter:image" content="https://arifaqyl.me/og-image.jpg" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#040506" />
+  <link rel="canonical" href="https://arifaqyl.me/" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23040506'/><text x='16' y='23' font-family='monospace' font-size='18' font-weight='bold' fill='%23CCFF00' text-anchor='middle'>a</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-:root{
-  --bg:#0A0A0B;--bg-card:#111113;--bg-hover:#17181C;
-  --accent:#CCFF00;--border:#222428;--border-hi:#4A4A4E;
-  --fg:#F4F5F6;--fg-2:#8E939E;--fg-3:#4A4A4E;
-  --font-sans:'Inter',system-ui,-apple-system,sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
-  --ease:cubic-bezier(0.16,1,0.3,1);--max:1320px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
-body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;font-weight:430;line-height:1.72;overflow-x:hidden;cursor:none}
-a{color:inherit;text-decoration:none}
-button{background:none;border:none;color:inherit;font:inherit;cursor:none}
-::selection{background:var(--accent);color:var(--bg)}
-@media(hover:none){body,button{cursor:auto}}
+  <style>
+    /* ─── RESET & ROOT ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;background:#0A0A0B}
+    :root {
+      --bg: #040506;
+      --bg-card: #07080a;
+      --bg-raised: #111214;
+      --bg-overlay: #1b1c1e;
+      --border: #363739;
+      --border-hi: #454647;
+      --fg: #ffffff;
+      --fg-2: #9c9c9d;
+      --fg-3: #6a6b6c;
+      --accent: #CCFF00;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+      --sec-pad: clamp(80px, 10vw, 140px);
+      --mouse-x: 0px;
+      --mouse-y: 0px;
+    }
 
-#cur{position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s var(--ease),height .18s var(--ease),opacity .18s;mix-blend-mode:difference}
-#cur.big{width:36px;height:36px;opacity:.5}
-#cur.gone{opacity:0}
-@media(hover:none){#cur{display:none}}
+    html { scroll-behavior: smooth; }
 
-#bar{position:fixed;top:0;left:0;right:0;height:1px;background:var(--accent);transform-origin:left;transform:scaleX(0);z-index:200;pointer-events:none}
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
-.nav{position:fixed;inset:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:22px 44px;z-index:100;pointer-events:none;border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
-.nav.scrolled{border-bottom-color:var(--border);background:rgba(10,10,11,.92);backdrop-filter:blur(20px)}
-.nav>*{pointer-events:all}
-.nav-logo{font-family:var(--font-mono);font-size:.8rem;font-weight:500;color:var(--fg);letter-spacing:.02em;font-feature-settings:"tnum" 1,"kern" 1}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-2);transition:color .2s;font-feature-settings:"tnum" 1,"kern" 1}
-.nav-links a:hover{color:var(--fg)}
-@media(max-width:760px){.nav{padding:18px 20px}.nav-links{display:none}}
+    a { color: inherit; text-decoration: none; }
+    button { background: none; border: none; cursor: none; font: inherit; color: inherit; }
 
-.hero{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;padding:120px 44px 72px;border-bottom:1px solid var(--border)}
-.hero-h1{font-family:var(--font-mono);font-size:clamp(3.6rem,9vw,10.5rem);font-weight:700;line-height:.93;letter-spacing:-.04em;color:var(--fg);margin-top:auto}
-.hero-h1 .line{display:block}
-.hero-h1 .li{display:block}
-.hero-h1 em{font-style:normal;color:var(--accent)}
-.hero-bottom{margin-top:56px;padding-top:32px;border-top:1px solid var(--border)}
-.hero-desc{font-family:var(--font-sans);font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--fg-2);max-width:52ch;line-height:1.75;font-weight:400}
-@media(max-width:760px){.hero{padding:0 20px 56px}}
-@media(max-width:480px){.hero-h1{font-size:clamp(2.6rem,12vw,4rem)}}
+    /* ─── SCROLL BAR (Effect 9) ─────────────────────────────────── */
+    #scroll-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(204,255,0,0.5);
+      z-index: 10000;
+      width: 0%;
+    }
 
-.ticker{overflow:hidden;border-bottom:1px solid var(--border);padding:12px 0;position:relative;z-index:1}
-.ticker-track{display:flex;width:max-content;animation:tick 320s linear infinite}
-.ticker-item{display:flex;align-items:center;gap:28px;padding:0 28px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3);white-space:nowrap;font-feature-settings:"tnum" 1,"kern" 1}
-.ticker-item::after{content:'//';color:var(--border-hi);margin-left:4px}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    /* ─── SPOTLIGHT (Effect 3) ─────────────────────────────────── */
+    #spotlight {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(600px circle at 0px 0px, rgba(204,255,0,0.03), transparent 80%);
+    }
 
-.shell{max-width:var(--max);margin:0 auto;padding:100px 44px;position:relative;z-index:1}
-@media(max-width:760px){.shell{padding:72px 20px}}
+    /* ─── CUSTOM CURSOR ────────────────────────────────────────── */
+    #cur {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--fg);
+      mix-blend-mode: difference;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease;
+      will-change: transform;
+    }
+    #cur.grow { width: 36px; height: 36px; }
 
-.sec-label{display:flex;align-items:center;gap:16px;font-family:var(--font-mono);font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3);margin-bottom:40px;font-feature-settings:"tnum" 1,"kern" 1}
-.sec-label .num{color:var(--accent)}
-.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+    .cur-ghost {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--fg);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+    }
 
-.proj-stack{display:flex;flex-direction:column;gap:1px}
-.pf{border:1px solid var(--border);border-radius:0!important;overflow:hidden;background:rgba(17,17,19,.88);backdrop-filter:blur(16px);transition:border-color .18s}
-.pf:hover,.pf[data-open="1"]{border-color:var(--accent)}
-.pf-tab{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:none;user-select:none;background:rgba(17,17,19,.8);border-bottom:1px solid transparent;transition:background .18s}
-.pf[data-open="1"] .pf-tab{border-bottom-color:var(--border);background:var(--bg-hover)}
-.pf:not([data-open="1"]):hover .pf-tab{background:var(--bg-hover)}
-.pf-indicator{width:6px;height:6px;border-radius:50%;background:var(--fg-3);flex-shrink:0;transition:background .18s}
-.pf[data-open="1"] .pf-indicator,.pf:hover .pf-indicator{background:var(--accent)}
-.pf-filename{font-family:var(--font-mono);font-size:.78rem;font-weight:500;color:var(--fg-2);flex:1;transition:color .18s;font-feature-settings:"tnum" 1,"kern" 1}
-.pf[data-open="1"] .pf-filename,.pf:hover .pf-filename{color:var(--fg)}
-.pf-meta{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.pf-year{font-family:var(--font-mono);font-size:.62rem;color:var(--fg-3);letter-spacing:.06em;font-feature-settings:"tnum" 1,"kern" 1}
-.pf-badge{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:0!important;font-weight:500;font-feature-settings:"tnum" 1,"kern" 1}
-.pf-badge.live{color:var(--accent);background:rgba(204,255,0,.08);border:1px solid rgba(204,255,0,.2)}
-.pf-badge.priv{color:var(--fg-3);background:rgba(74,74,78,.12);border:1px solid var(--border)}
-.pf-chevron{font-family:var(--font-mono);font-size:.68rem;color:var(--fg-3);transition:transform .3s var(--ease),color .18s;margin-left:4px}
-.pf[data-open="1"] .pf-chevron{transform:rotate(180deg);color:var(--accent)}
-.pf-body{overflow:hidden;height:0;transition:height .42s var(--ease)}
-.pf-inner{padding:28px 24px 28px 36px}
-.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.pf-block-label{font-family:var(--font-mono);font-size:.6rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;font-feature-settings:"tnum" 1,"kern" 1}
-.pf-block-label::before{content:'//'}
-.pf-block-label.problem{color:var(--fg-3)}
-.pf-block-label.solution{color:var(--accent)}
-.pf-text{font-family:var(--font-sans);font-size:.875rem;color:var(--fg-2);line-height:1.8;font-weight:400}
-.pf-footer{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.pf-link{font-family:var(--font-mono);font-size:.72rem;color:var(--accent);display:inline-flex;align-items:center;gap:6px;border-bottom:1px solid rgba(204,255,0,.2);padding-bottom:2px;transition:gap .18s,border-color .18s;font-feature-settings:"tnum" 1,"kern" 1}
-.pf-link:hover{gap:10px;border-color:var(--accent)}
-.pf-link.dead{color:var(--fg-3);border-bottom-color:transparent;pointer-events:none}
-.pf-chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);padding:3px 9px;border:1px solid var(--border-hi);border-radius:0!important;background:var(--bg);font-feature-settings:"tnum" 1,"kern" 1}
-@media(max-width:880px){.pf-grid{grid-template-columns:1fr;gap:24px}.pf-inner{padding:22px 18px}}
+    /* ─── SCROLLBAR ────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-.approach-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:80px;align-items:start}
-.approach-h2{font-family:var(--font-mono);font-size:clamp(1.8rem,3.2vw,3rem);font-weight:700;letter-spacing:-.025em;line-height:1.05;color:var(--fg);margin-bottom:32px}
-.approach-h2 em{font-style:normal;color:var(--accent)}
-.approach-p{font-family:var(--font-sans);font-size:.93rem;color:var(--fg-2);line-height:1.85;font-weight:400;margin-top:18px}
-.approach-p:first-of-type{margin-top:0}
-.approach-p strong{color:var(--fg);font-weight:500}
-.fact-table{border:1px solid var(--border);border-radius:0!important;overflow:hidden;background:rgba(17,17,19,.88);backdrop-filter:blur(16px)}
-.fact-row{display:grid;grid-template-columns:1fr 1fr;padding:13px 18px;border-bottom:1px solid var(--border)}
-.fact-row:last-child{border-bottom:0}
-.fk{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);align-self:center;font-feature-settings:"tnum" 1,"kern" 1}
-.fv{font-family:var(--font-mono);font-size:.8rem;color:var(--fg);font-weight:500;text-align:right;align-self:center;font-feature-settings:"tnum" 1,"kern" 1}
-@media(max-width:900px){.approach-grid{grid-template-columns:1fr;gap:48px}}
+    /* ─── NAV ──────────────────────────────────────────────────── */
+    #nav-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: center;
+    }
 
-.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:0!important;overflow:hidden;background:rgba(17,17,19,.88);backdrop-filter:blur(16px)}
-.sc{padding:24px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:background .18s}
-.sc:hover{background:rgba(204,255,0,.03)}
-.sc:nth-child(4n){border-right:0}
-.sc:nth-last-child(-n+4){border-bottom:0}
-.sc-name{font-family:var(--font-mono);font-size:.88rem;font-weight:700;color:var(--fg);margin-bottom:5px}
-.sc-role{font-family:var(--font-sans);font-size:.68rem;color:var(--fg-3)}
-@media(max-width:760px){
-  .stack-grid{grid-template-columns:repeat(2,1fr)}
-  .sc:nth-child(4n){border-right:1px solid var(--border)}
-  .sc:nth-child(2n){border-right:0}
-  .sc:nth-last-child(-n+4){border-bottom:1px solid var(--border)}
-  .sc:nth-last-child(-n+2){border-bottom:0}
-}
-/* 12-item grid: remove bottom border from last row */
-.stack-grid .sc:nth-last-child(-n+4){border-bottom:0}
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 740px;
+      background: rgba(7,8,10,0.85);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 10px 20px;
+      transition: box-shadow 0.3s ease;
+    }
 
-.contact-wrap{border-top:1px solid var(--border);text-align:center}
-.contact-pre{font-family:var(--font-mono);font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3);margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:12px;font-feature-settings:"tnum" 1,"kern" 1}
-.contact-pre::before,.contact-pre::after{content:'';width:28px;height:1px;background:var(--border)}
-.contact-big{font-family:var(--font-mono);font-size:clamp(2.4rem,7vw,7.5rem);font-weight:700;letter-spacing:-.035em;line-height:.9;color:var(--fg);display:block;margin-bottom:36px;transition:color .22s}
-.contact-big:hover{color:var(--accent)}
-.contact-sub{font-family:var(--font-sans);font-size:.88rem;color:var(--fg-2);margin-bottom:40px}
-.socials{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.soc{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-2);padding:10px 20px;border:1px solid var(--border);border-radius:0!important;background:rgba(17,17,19,.7);backdrop-filter:blur(8px);transition:color .18s,border-color .18s;font-feature-settings:"tnum" 1,"kern" 1}
-.soc:hover{color:var(--fg);border-color:var(--border-hi)}
+    nav.scrolled {
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px;
+    }
 
-footer{position:relative;z-index:1}
-.foot{max-width:var(--max);margin:0 auto;padding:24px 44px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:.62rem;color:var(--fg-3);letter-spacing:.08em;font-feature-settings:"tnum" 1,"kern" 1}
-@media(max-width:760px){.foot{padding:20px;flex-direction:column;gap:8px;text-align:center}}
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--fg);
+    }
 
-.awards-grid{display:flex;flex-direction:column;gap:1px}
-.award-item{display:grid;grid-template-columns:60px 1fr auto;align-items:center;gap:20px;padding:14px 18px;border:1px solid var(--border);background:rgba(17,17,19,.88);backdrop-filter:blur(16px);transition:border-color .18s}
-.award-item:hover{border-color:var(--border-hi)}
-.award-year{font-family:var(--font-mono);font-size:.62rem;color:var(--accent);font-feature-settings:"tnum" 1,"kern" 1;flex-shrink:0}
-.award-title{font-family:var(--font-mono);font-size:.78rem;font-weight:500;color:var(--fg);font-feature-settings:"tnum" 1,"kern" 1}
-.award-org{font-family:var(--font-mono);font-size:.62rem;color:var(--fg-3);text-align:right;font-feature-settings:"tnum" 1,"kern" 1;white-space:nowrap}
-@media(max-width:640px){.award-item{grid-template-columns:50px 1fr}.award-org{display:none}}
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
 
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}}
-</style>
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--fg); }
+
+    .nav-gh {
+      display: flex;
+      align-items: center;
+      color: var(--fg-2);
+      transition: color 0.2s ease;
+    }
+    .nav-gh:hover { color: var(--fg); }
+
+    /* ─── CANVAS / HERO ────────────────────────────────────────── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 clamp(24px, 6vw, 120px);
+      padding-top: 120px;
+    }
+
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 1;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      border: 1px solid rgba(204,255,0,0.25);
+      border-radius: 20px;
+      padding: 3px 10px;
+      background: rgba(204,255,0,0.05);
+    }
+    .hero-avail-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-ring 2s ease-out infinite;
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-size: clamp(3.6rem, 9vw, 10.5rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 0.93;
+      color: var(--fg);
+      max-width: 14ch;
+      opacity: 1;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .li { opacity: 1; transform: translateY(0); display: inline; }
+
+    .hero-terminal {
+      margin-top: 32px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      color: var(--fg-3);
+      opacity: 1;
+    }
+    .hero-terminal .cursor {
+      color: var(--accent);
+      animation: blink 0.5s step-end infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-bottom {
+      margin-top: 64px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-bottom > * { opacity: 1; }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      max-width: 44ch;
+      line-height: 1.65;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--fg);
+      background: var(--bg-raised);
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-cta:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(204,255,0,0.05);
+    }
+
+    /* ─── SECTION SHARED ───────────────────────────────────────── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: var(--sec-pad) clamp(24px, 6vw, 120px);
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    section > * { position: relative; z-index: 1; }
+
+    .sec-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+      margin-bottom: 48px;
+      user-select: none;
+    }
+
+    .sec-heading {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 48px;
+    }
+
+    /* ─── TICKER ───────────────────────────────────────────────── */
+    #ticker {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      background: var(--bg-card);
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: tick 900s linear infinite;
+      will-change: transform;
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 24px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+    }
+
+    .ticker-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border-hi);
+      flex-shrink: 0;
+    }
+
+    @keyframes tick {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── WORK ─────────────────────────────────────────────────── */
+    #work::before {
+      background: radial-gradient(84.6% 73.49% at 50% 0%, rgba(4,63,150,0.12), transparent);
+    }
+
+    /* Filter chips */
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .filter-chip {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-card);
+      color: var(--fg-3);
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .filter-chip:hover { color: var(--fg-2); border-color: var(--border-hi); }
+    .filter-chip.active {
+      background: rgba(204,255,0,0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Project cards */
+    .pf-grid { display: flex; flex-direction: column; gap: 2px; }
+
+    .pf {
+      background: var(--bg-card);
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px, rgb(7,8,10) 0px 0px 0px 1px inset;
+      transition: box-shadow 0.25s ease, opacity 0.2s ease, transform 0.5s ease;
+      opacity: 1;
+      pointer-events: auto;
+      position: relative;
+      transform-style: preserve-3d;
+      --mouse-x: 0px;
+      --mouse-y: 0px;
+    }
+
+    .pf::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 11px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      background: radial-gradient(200px circle at var(--mouse-x) var(--mouse-y), rgba(204,255,0,0.08), transparent);
+    }
+
+    .pf:hover::after { opacity: 1; }
+
+    .pf.hidden {
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .pf:hover, .pf[data-open="1"] {
+      box-shadow: rgba(0,0,0,0.4) 0px 4px 40px 8px,
+                  rgba(0,0,0,0.8) 0px 0px 0px 0.5px,
+                  rgba(255,255,255,0.3) 0px 0.5px 0px 0px inset;
+    }
+
+    .pf-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: 11px;
+      opacity: 0;
+      pointer-events: none;
+      background: radial-gradient(300px circle at 50% 50%, rgba(255,255,255,0.08), transparent);
+      transition: opacity 0.3s ease;
+    }
+
+    .pf:hover .pf-glare { opacity: 1; }
+
+    .pf-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      gap: 16px;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pf-left { display: flex; align-items: center; gap: 20px; flex: 1; min-width: 0; }
+
+    .pf-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--fg-3);
+      flex-shrink: 0;
+      width: 24px;
+    }
+
+    .pf-name {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pf-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--fg-3);
+      background: var(--bg-raised);
+      flex-shrink: 0;
+    }
+    .pf-badge.live { border-color: rgba(204,255,0,0.3); color: var(--accent); background: rgba(204,255,0,0.06); }
+    .pf-badge.private { border-color: var(--border-hi); color: var(--fg-3); }
+
+    .pf-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+
+    .pf-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--fg-3);
+      background: var(--bg-raised);
+    }
+
+    .pf-chevron {
+      color: var(--fg-3);
+      transition: transform 0.3s ease, color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .pf[data-open="1"] .pf-chevron { transform: rotate(180deg); color: var(--accent); }
+
+    .pf-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
+    }
+    .pf[data-open="1"] .pf-body { grid-template-rows: 1fr; }
+
+    .pf-body-inner {
+      overflow: hidden;
+    }
+
+    .pf-content {
+      padding: 0 28px 28px 28px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .pf-block-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 8px;
+    }
+
+    .pf-block-text {
+      font-size: 0.88rem;
+      color: var(--fg-2);
+      line-height: 1.65;
+    }
+
+    .pf-code {
+      grid-column: 1 / -1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .pf-code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+    }
+
+    .pf-code pre {
+      margin: 0;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.65;
+      color: var(--fg-2);
+    }
+
+    /* Syntax highlighting */
+    .tok-kw    { color: #cc99cd; }
+    .tok-str   { color: #7ec699; }
+    .tok-cmt   { color: var(--fg-3); font-style: italic; }
+    .tok-num   { color: #f08d49; }
+    .tok-fn    { color: #6fb3d2; }
+
+    .pf-footer {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .pf-stack { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .pf-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(204,255,0,0.25);
+      border-radius: 6px;
+      padding: 6px 14px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .pf-link:hover { background: rgba(204,255,0,0.08); border-color: var(--accent); }
+
+    /* ─── ABOUT ────────────────────────────────────────────────── */
+    #about::before {
+      background: radial-gradient(86.88% 75.47% at 50% 0%, rgba(82,48,145,0.08), transparent);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: var(--fg-2);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--fg); font-weight: 500; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+    }
+
+    .fact-table {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px, rgb(7,8,10) 0px 0px 0px 1px inset;
+    }
+
+    .fact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .fact-row:last-child { border-bottom: none; }
+
+    .fact-key {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      min-width: 88px;
+      padding-top: 1px;
+    }
+
+    .fact-val {
+      font-size: 0.88rem;
+      color: var(--fg-2);
+      line-height: 1.5;
+    }
+    .fact-val.accent { color: var(--accent); }
+
+    /* ─── EDUCATION ────────────────────────────────────────────── */
+    .edu-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .edu-row:last-child { border-bottom: none; }
+
+    .edu-year {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+    }
+
+    .edu-inst {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .edu-deg {
+      font-size: 0.85rem;
+      color: var(--fg-2);
+    }
+
+    /* ─── JOURNEY ──────────────────────────────────────────────── */
+    .journey-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 0 16px;
+      margin-top: 48px;
+    }
+
+    .journey-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 48px;
+    }
+    .journey-connector span {
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), var(--accent), var(--border));
+      opacity: 0.5;
+    }
+
+    .journey-node {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .journey-node.in-view { opacity: 1; transform: translateY(0); }
+
+    .journey-photo {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-raised) 100%);
+      position: relative;
+    }
+    .journey-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(80%) brightness(0.85);
+      transform: scale(1);
+      transition: filter 0.5s ease, transform 0.5s ease;
+    }
+    .journey-photo img[data-missing] {
+      display: none;
+    }
+    .journey-photo::after {
+      content: attr(data-label);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .journey-photo[data-missing]::after { opacity: 1; }
+    .journey-node:hover .journey-photo img {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.03);
+    }
+
+    .journey-meta { display: flex; flex-direction: column; gap: 4px; }
+
+    .journey-year {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--fg-3);
+    }
+
+    .journey-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      margin: 4px 0;
+    }
+    .journey-dot--pulse {
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(204,255,0,0.4);
+      animation: dot-pulse 2s infinite;
+    }
+    @keyframes dot-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(204,255,0,0.4); }
+      70%  { box-shadow: 0 0 0 8px rgba(204,255,0,0); }
+      100% { box-shadow: 0 0 0 0 rgba(204,255,0,0); }
+    }
+
+    .journey-name { font-size: 0.95rem; font-weight: 600; color: var(--fg); margin: 0; }
+    .journey-node--current .journey-name { color: var(--accent); }
+    .journey-desc { font-size: 0.78rem; color: var(--fg-3); margin: 0; }
+
+    /* ─── APPROACH ─────────────────────────────────────────────── */
+    #approach::before {
+      background: radial-gradient(86.88% 75.47% at 50% 0%, rgba(82,48,145,0.12), transparent);
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+    }
+
+    .sc {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      transition: box-shadow 0.2s ease;
+      position: relative;
+      --mouse-x: 0px;
+      --mouse-y: 0px;
+    }
+
+    .sc::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      background: radial-gradient(200px circle at var(--mouse-x) var(--mouse-y), rgba(204,255,0,0.08), transparent);
+    }
+
+    .sc:hover::after { opacity: 1; }
+
+    .sc:hover {
+      box-shadow: rgba(255,255,255,0.05) 0px 1px 0px 0px inset,
+                  rgba(255,255,255,0.08) 0px 0px 0px 1px;
+    }
+
+    .sc-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(204,255,0,0.06);
+      border: 1px solid rgba(204,255,0,0.12);
+      margin-bottom: 16px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .sc-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .sc-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin-bottom: 12px;
+    }
+
+    .sc-text {
+      font-size: 0.88rem;
+      color: var(--fg-2);
+      line-height: 1.65;
+    }
+
+    /* ─── STACK ────────────────────────────────────────────────── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 2px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px, rgb(7,8,10) 0px 0px 0px 1px inset;
+    }
+
+    .stack-item {
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: var(--fg-2);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s ease, color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stack-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 75%;
+      height: 100%;
+      background: linear-gradient(105deg, transparent, rgba(255,255,255,0.06), transparent);
+      transition: left 0.6s ease;
+      pointer-events: none;
+    }
+
+    .stack-item:hover::after { left: 125%; }
+
+    .stack-item:hover { background: var(--bg-raised); color: var(--fg); }
+
+    /* ─── AWARDS ───────────────────────────────────────────────── */
+    .awards-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .awards-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .awards-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .awards-table td {
+      padding: 13px 0;
+      vertical-align: top;
+    }
+
+    .awards-table .aw-year {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      width: 60px;
+    }
+
+    .awards-table .aw-title {
+      font-size: 0.88rem;
+      color: var(--fg);
+      font-weight: 500;
+      padding-right: 24px;
+    }
+
+    .awards-table .aw-org {
+      font-size: 0.78rem;
+      color: var(--fg-3);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* ─── CONTACT ──────────────────────────────────────────────── */
+    #contact::before {
+      background: radial-gradient(80% 70% at 50% 0%, rgba(204,255,0,0.04), transparent);
+    }
+
+    .contact-inner {
+      max-width: 560px;
+    }
+
+    .contact-heading {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .contact-sub {
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .soc-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .soc {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--fg-2);
+      background: var(--bg-card);
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .soc:hover {
+      border-color: var(--border-hi);
+      color: var(--fg);
+      background: var(--bg-raised);
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 28px clamp(24px, 6vw, 120px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--fg-3);
+    }
+
+    @keyframes pulse-ring {
+      0%   { transform: scale(1); opacity: 0.4; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-ring 2s ease-out infinite;
+    }
+
+    /* ─── FOCUS VISIBLE ───────────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    button:focus-visible, a:focus-visible { outline-offset: 4px; }
+
+    /* ─── REDUCED MOTION ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .ticker-track { animation: none; }
+      .journey-node { opacity: 1; transform: none; }
+    }
+
+    /* ─── MOBILE ───────────────────────────────────────────────── */
+    @media (max-width: 760px) {
+      body { cursor: auto; }
+      #cur, .cur-ghost { display: none; }
+      #spotlight { display: none; }
+
+      .nav-links { display: none; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .edu-row { grid-template-columns: 1fr; gap: 8px; }
+
+      .pf-content { grid-template-columns: 1fr; }
+
+      .pf-tags { display: none; }
+
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+      .pf-header { padding: 18px 20px; }
+      .pf-content { padding: 0 20px 20px; padding-top: 20px; }
+
+      .contact-heading { font-size: clamp(2rem, 8vw, 3rem); }
+
+      .journey-grid {
+        grid-template-columns: 1fr;
+        gap: 32px 0;
+      }
+      .journey-connector { display: none; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Arif Aqyl",
+    "url": "https://arifaqyl.me",
+    "email": "arifaqyl@gmail.com",
+    "jobTitle": "Software Engineering Student",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "UniKL MIIT"
+    },
+    "knowsAbout": ["Python", "Java", "C++", "FFmpeg", "Machine Learning", "Automation"],
+    "sameAs": [
+      "https://github.com/arifaqyl",
+      "https://linkedin.com/in/arifaqyl"
+    ]
+  }
+  </script>
 </head>
 <body>
+<noscript>
+  <style>
+    .li, .hero-bottom > * { opacity: 1 !important; transform: none !important; }
+    .journey-node { opacity: 1 !important; transform: none !important; }
+    #cur, .cur-ghost { display: none !important; }
+    #scroll-bar { display: none !important; }
+  </style>
+</noscript>
 
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<!-- Scroll bar (Effect 9) -->
+<div id="scroll-bar"></div>
+
+<!-- Spotlight (Effect 3) -->
+<div id="spotlight"></div>
+
+<!-- Custom cursor -->
 <div id="cur"></div>
-<div id="bar"></div>
 
-<header class="nav" id="nav">
-  <a href="#top" class="nav-logo">arif-aqyl</a>
-  <nav aria-label="Main">
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<div id="nav-wrap">
+  <nav id="main-nav" aria-label="Main navigation">
+    <span class="nav-logo">arif-aqyl</span>
     <ul class="nav-links">
       <li><a href="#work">work</a></li>
-      <li><a href="#approach">approach</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="now.html">now</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
+    <a href="https://github.com/arifaqyl" target="_blank" rel="noopener" class="nav-gh" aria-label="GitHub">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+    </a>
   </nav>
-</header>
+</div>
+
+<!-- ─── THREE.JS CANVAS ───────────────────────────────────────── -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <main>
 
-<section class="hero" id="top" aria-labelledby="h1">
-  <h1 class="hero-h1" id="h1">
-    <span class="line"><span class="li">Software built</span></span>
-    <span class="line"><span class="li">around the</span></span>
-    <span class="line"><span class="li"><em>problem.</em></span></span>
+<!-- ─── HERO ──────────────────────────────────────────────────── -->
+<section id="hero">
+  <p class="hero-label li">
+    // software engineer
+    <span class="hero-avail"><span class="hero-avail-dot"></span>open to internship</span>
+  </p>
+  <h1 class="hero-title">
+    <span class="li">Software</span><br>
+    <span class="li">built around</span><br>
+    <span class="li">the problem.</span>
   </h1>
+  <div class="hero-terminal" id="hero-terminal">
+    <span id="typed-text"></span><span class="cursor" id="typed-cursor">|</span>
+  </div>
   <div class="hero-bottom">
-    <p class="hero-desc">Automation tools, bots, and systems that target what makes work repetitive. The focus is always on what the tool removes — friction, manual steps, repeated effort.</p>
+    <p class="hero-desc">
+      I build practical tools outside of class — AI video editors, audio analysis pipelines, and automation scripts. Most of my work is open source on GitHub.
+    </p>
+    <a href="#work" class="hero-cta">
+      View work
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track" id="ttTrack"></div>
+<!-- ─── TICKER ────────────────────────────────────────────────── -->
+<div id="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tt-track">
+    <!-- items injected by JS -->
+  </div>
 </div>
 
-<section class="shell" id="work" style="border-top:1px solid var(--border)">
-  <div class="sec-label"><span class="num">// 01.</span>&nbsp;selected_work</div>
-  <div class="proj-stack">
+<!-- ─── WORK ──────────────────────────────────────────────────── -->
+<section id="work">
+  <p class="sec-label">// work</p>
 
-    <div class="pf">
-      <div class="pf-tab" role="button" tabindex="0" aria-expanded="false">
-        <span class="pf-indicator" aria-hidden="true"></span>
-        <span class="pf-filename">index.html</span>
-        <div class="pf-meta"><span class="pf-year">2025</span><span class="pf-badge live">live</span><span class="pf-chevron" aria-hidden="true">▾</span></div>
-      </div>
-      <div class="pf-body"><div class="pf-inner">
-        <div class="pf-grid">
-          <div><p class="pf-block-label problem">problem</p><p class="pf-text">Portfolio sites built from templates read as templates. Every element signals the tool that generated it, not the person behind the work.</p></div>
-          <div><p class="pf-block-label solution">solution</p><p class="pf-text">Hand-built in plain HTML, CSS, and JavaScript — no framework, no page builder. Three.js GPU wave grid, GSAP ScrollTrigger, Lenis smooth scroll. The code is readable and all of it ships.</p></div>
-        </div>
-        <div class="pf-footer">
-          <a href="https://arifaqyl.me" target="_blank" rel="noreferrer" class="pf-link">arifaqyl.me ↗</a>
-          <div class="pf-chips"><span class="chip">html/css</span><span class="chip">three.js</span><span class="chip">gsap</span><span class="chip">github pages</span></div>
-        </div>
-      </div></div>
-    </div>
+  <div class="filter-row" id="filter-row">
+    <button class="filter-chip active" data-filter="all">All</button>
+    <button class="filter-chip" data-filter="python">Python</button>
+    <button class="filter-chip" data-filter="java">Java</button>
+    <button class="filter-chip" data-filter="cpp">C++</button>
+    <button class="filter-chip" data-filter="javascript">JavaScript</button>
+    <button class="filter-chip" data-filter="ffmpeg">ffmpeg</button>
+    <button class="filter-chip" data-filter="apis">APIs</button>
+  </div>
 
-    <div class="pf">
-      <div class="pf-tab" role="button" tabindex="0" aria-expanded="false">
-        <span class="pf-indicator" aria-hidden="true"></span>
-        <span class="pf-filename">vlog_editor.py</span>
-        <div class="pf-meta"><span class="pf-year">2026</span><span class="pf-badge live">live</span><span class="pf-chevron" aria-hidden="true">▾</span></div>
-      </div>
-      <div class="pf-body"><div class="pf-inner">
-        <div class="pf-grid">
-          <div><p class="pf-block-label problem">problem</p><p class="pf-text">Three video creators were spending full days editing vlogs manually — cutting silences, trimming dead air, syncing audio, exporting. Time that should go toward filming was going toward the timeline.</p></div>
-          <div><p class="pf-block-label solution">solution</p><p class="pf-text">Transcribes audio with faster-whisper, detects and removes dead air automatically, exports a clean cut with no manual intervention. 40+ hours of footage processed. What used to take a day now runs overnight on GPU.</p></div>
-        </div>
-        <div class="pf-footer">
-          <a href="https://github.com/arifaqyl/vlog-automation" target="_blank" rel="noreferrer" class="pf-link">github.com ↗</a>
-          <div class="pf-chips"><span class="chip">python</span><span class="chip">whisper ai</span><span class="chip">ffmpeg</span><span class="chip">cuda</span></div>
-        </div>
-      </div></div>
-    </div>
+  <div class="pf-grid" id="pf-grid">
 
-    <div class="pf">
-      <div class="pf-tab" role="button" tabindex="0" aria-expanded="false">
-        <span class="pf-indicator" aria-hidden="true"></span>
-        <span class="pf-filename">clip_finder.py</span>
-        <div class="pf-meta"><span class="pf-year">2026</span><span class="pf-badge live">live</span><span class="pf-chevron" aria-hidden="true">▾</span></div>
+    <!-- 1 -->
+    <article class="pf" data-tags="javascript html css threejs gsap" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">01</span>
+          <span class="pf-name">index.html — arifaqyl.me</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">html/css</span>
+            <span class="chip">three.js</span>
+            <span class="chip">gsap</span>
+          </div>
+          <span class="pf-badge live">live · 2025</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
       </div>
-      <div class="pf-body"><div class="pf-inner">
-        <div class="pf-grid">
-          <div><p class="pf-block-label problem">problem</p><p class="pf-text">Gaming sessions run 2–3 hours. The actual highlights — the clips worth sharing — are 90 seconds scattered somewhere in that recording. Finding them by hand means scrubbing through the entire file.</p></div>
-          <div><p class="pf-block-label solution">solution</p><p class="pf-text">Scans recordings using audio energy and motion detection, locates the interesting moments, and outputs a highlight reel in under 2 minutes. 50+ hours of footage processed.</p></div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Portfolio sites built from templates read as templates. Every element signals the tool that generated it, not the person behind the work.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Hand-built in plain HTML, CSS, and JavaScript — no framework, no page builder. Three.js GPU wave grid, GSAP ScrollTrigger, Lenis smooth scroll. The code is readable and all of it ships.</p>
+            </div>
+            <div class="pf-code">
+              <div class="pf-code-header">vertex.glsl</div>
+              <pre id="code-1"></pre>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">html/css</span>
+                <span class="chip">three.js</span>
+                <span class="chip">gsap</span>
+                <span class="chip">github pages</span>
+              </div>
+              <a href="https://arifaqyl.me" target="_blank" rel="noopener" class="pf-link">
+                View live
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="pf-footer">
-          <a href="https://github.com/arifaqyl/clip-finder" target="_blank" rel="noreferrer" class="pf-link">github.com ↗</a>
-          <div class="pf-chips"><span class="chip">python</span><span class="chip">ffmpeg</span><span class="chip">numpy</span></div>
-        </div>
-      </div></div>
-    </div>
+      </div>
+    </article>
 
-    <div class="pf">
-      <div class="pf-tab" role="button" tabindex="0" aria-expanded="false">
-        <span class="pf-indicator" aria-hidden="true"></span>
-        <span class="pf-filename">github_sync.java</span>
-        <div class="pf-meta"><span class="pf-year">2025</span><span class="pf-badge live">live</span><span class="pf-chevron" aria-hidden="true">▾</span></div>
+    <!-- 2 -->
+    <article class="pf" data-tags="python ffmpeg apis whisper cuda" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">02</span>
+          <span class="pf-name">vlog_editor.py — Vlog Automation</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">ffmpeg</span>
+            <span class="chip">cuda</span>
+          </div>
+          <span class="pf-badge live">live · 2026</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
       </div>
-      <div class="pf-body"><div class="pf-inner">
-        <div class="pf-grid">
-          <div><p class="pf-block-label problem">problem</p><p class="pf-text">A cluttered public GitHub profile — unlabeled repos, no pinned projects, inconsistent naming — reads as a missed first impression. Keeping it clean manually requires regular upkeep.</p></div>
-          <div><p class="pf-block-label solution">solution</p><p class="pf-text">A standalone Java backend using Maven and the GitHub REST API to dynamically audit repository metadata. Categorizes, labels, and optimizes public repo visibility based on real-time activity metrics — no manual profile management.</p></div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Three video creators spending full days editing vlogs manually — cutting silences, trimming dead air, syncing audio, exporting.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Transcribes audio with faster-whisper, detects and removes dead air automatically, exports a clean cut. 40+ hours of footage processed. What used to take a day now runs overnight on GPU.</p>
+            </div>
+            <div class="pf-code">
+              <div class="pf-code-header">vlog_editor.py</div>
+              <pre id="code-2"></pre>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">python</span>
+                <span class="chip">whisper ai</span>
+                <span class="chip">ffmpeg</span>
+                <span class="chip">cuda</span>
+              </div>
+              <a href="https://github.com/arifaqyl/vlog-automation" target="_blank" rel="noopener" class="pf-link">
+                GitHub
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="pf-footer">
-          <a href="https://github.com/arifaqyl/github-auto-sorter" target="_blank" rel="noreferrer" class="pf-link">github.com ↗</a>
-          <div class="pf-chips"><span class="chip">java 17</span><span class="chip">github api</span><span class="chip">maven</span></div>
-        </div>
-      </div></div>
-    </div>
+      </div>
+    </article>
 
-    <div class="pf">
-      <div class="pf-tab" role="button" tabindex="0" aria-expanded="false">
-        <span class="pf-indicator" aria-hidden="true"></span>
-        <span class="pf-filename">student_bot.py</span>
-        <div class="pf-meta"><span class="pf-year">2026</span><span class="pf-badge priv">private</span><span class="pf-chevron" aria-hidden="true">▾</span></div>
+    <!-- 3 -->
+    <article class="pf" data-tags="python ffmpeg cpp numpy" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">03</span>
+          <span class="pf-name">clip_finder.py — Clip Finder</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">ffmpeg</span>
+            <span class="chip">numpy</span>
+          </div>
+          <span class="pf-badge live">live · 2026</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
       </div>
-      <div class="pf-body"><div class="pf-inner">
-        <div class="pf-grid">
-          <div><p class="pf-block-label problem">problem</p><p class="pf-text">University deadlines and announcements were scattered across a Moodle VLE, multiple WhatsApp class groups, and email. Keeping track meant checking three separate platforms several times a day — and still missing things.</p></div>
-          <div><p class="pf-block-label solution">solution</p><p class="pf-text">A Python daemon stack running 24/7 on DigitalOcean via PM2: a VLE scraper, a WhatsApp-to-Telegram bridge (WAHA API + MacroDroid), and a Gemini-powered daily digest. Course deadlines, lecturer messages, and class announcements consolidated into one Telegram channel automatically.</p></div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Gaming sessions run 2–3 hours. Highlights are 90 seconds scattered somewhere in that recording.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Scans recordings using audio energy and motion detection, locates interesting moments, outputs a highlight reel in under 2 minutes. 50+ hours of footage processed.</p>
+            </div>
+            <div class="pf-code">
+              <div class="pf-code-header">clip_finder.py</div>
+              <pre id="code-3"></pre>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">python</span>
+                <span class="chip">ffmpeg</span>
+                <span class="chip">numpy</span>
+              </div>
+              <a href="https://github.com/arifaqyl/clip-finder" target="_blank" rel="noopener" class="pf-link">
+                GitHub
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="pf-footer">
-          <span class="pf-link dead">private</span>
-          <div class="pf-chips"><span class="chip">python</span><span class="chip">telegram bot api</span><span class="chip">sqlite</span><span class="chip">gemini api</span><span class="chip">waha</span><span class="chip">digital ocean</span></div>
-        </div>
-      </div></div>
-    </div>
+      </div>
+    </article>
 
-    <div class="pf">
-      <div class="pf-tab" role="button" tabindex="0" aria-expanded="false">
-        <span class="pf-indicator" aria-hidden="true"></span>
-        <span class="pf-filename">flight_sniper.py</span>
-        <div class="pf-meta"><span class="pf-year">2026</span><span class="pf-badge live">live</span><span class="pf-chevron" aria-hidden="true">▾</span></div>
+    <!-- 4 -->
+    <article class="pf" data-tags="java apis maven" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">04</span>
+          <span class="pf-name">github_sync.java — GitHub Auto-Sorter</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">java 17</span>
+            <span class="chip">github api</span>
+            <span class="chip">maven</span>
+          </div>
+          <span class="pf-badge live">live · 2025</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
       </div>
-      <div class="pf-body"><div class="pf-inner">
-        <div class="pf-grid">
-          <div><p class="pf-block-label problem">problem</p><p class="pf-text">Flight prices on a specific route fluctuate constantly. Manually checking for deals every day against a budget threshold means either missing the drop or checking obsessively.</p></div>
-          <div><p class="pf-block-label solution">solution</p><p class="pf-text">A scheduled Python script that monitors a target route on a set interval, compares live prices against a threshold, and fires a Telegram alert the moment a qualifying fare appears. Runs unattended — no missed deals.</p></div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Cluttered public GitHub profile — unlabeled repos, no pinned projects, inconsistent naming.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Standalone Java backend using Maven and the GitHub REST API. Categorizes, labels, and optimizes public repo visibility based on real-time activity metrics — no manual profile management.</p>
+            </div>
+            <div class="pf-code">
+              <div class="pf-code-header">RepoSorter.java</div>
+              <pre id="code-4"></pre>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">java 17</span>
+                <span class="chip">github api</span>
+                <span class="chip">maven</span>
+              </div>
+              <a href="https://github.com/arifaqyl/github-auto-sorter" target="_blank" rel="noopener" class="pf-link">
+                GitHub
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="pf-footer">
-          <a href="https://github.com/arifaqyl/flight-sniper" target="_blank" rel="noreferrer" class="pf-link">github.com ↗</a>
-          <div class="pf-chips"><span class="chip">python</span><span class="chip">telegram bot api</span><span class="chip">requests</span></div>
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="pf" data-tags="python apis sqlite" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">05</span>
+          <span class="pf-name">student_bot.py — Student Bot</span>
         </div>
-      </div></div>
-    </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">telegram api</span>
+            <span class="chip">gemini</span>
+          </div>
+          <span class="pf-badge private">private · 2026</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">University deadlines scattered across Moodle VLE, WhatsApp groups, and email. Keeping track meant checking three platforms several times a day.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Python daemon stack running 24/7 on DigitalOcean via PM2: a VLE scraper, a WhatsApp-to-Telegram bridge (WAHA API + MacroDroid), and a Gemini-powered daily digest. Course deadlines, lecturer messages, and class announcements consolidated into one Telegram channel automatically.</p>
+            </div>
+            <div class="pf-code">
+              <div class="pf-code-header">scraper.py</div>
+              <pre id="code-5"></pre>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">python</span>
+                <span class="chip">telegram bot api</span>
+                <span class="chip">sqlite</span>
+                <span class="chip">gemini api</span>
+                <span class="chip">waha</span>
+                <span class="chip">digital ocean</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6 -->
+    <article class="pf" data-tags="python apis" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">06</span>
+          <span class="pf-name">flight_sniper.py — Flight Sniper</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">telegram api</span>
+            <span class="chip">requests</span>
+          </div>
+          <span class="pf-badge live">live · 2026</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Flight prices fluctuate constantly. Manually checking for deals means either missing the drop or checking obsessively.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Scheduled Python script that monitors a target route, compares live prices against a threshold, and fires a Telegram alert the moment a qualifying fare appears. Runs unattended — no missed deals.</p>
+            </div>
+            <div class="pf-code">
+              <div class="pf-code-header">sniper.py</div>
+              <pre id="code-6"></pre>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">python</span>
+                <span class="chip">telegram bot api</span>
+                <span class="chip">requests</span>
+              </div>
+              <a href="https://github.com/arifaqyl/flight-sniper" target="_blank" rel="noopener" class="pf-link">
+                GitHub
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
 
   </div>
 </section>
 
-<section class="shell" id="approach" style="border-top:1px solid var(--border)">
-  <div class="sec-label"><span class="num">// 02.</span>&nbsp;approach</div>
-  <div class="approach-grid">
-    <div>
-      <h2 class="approach-h2">The interesting<br>problems are<br>always <em>specific.</em></h2>
-      <p class="approach-p">Not "build a CRUD app" — but "cut 3 hours of gaming footage to 90 seconds automatically, reliably, overnight." The specificity is where the real engineering happens. Generic tools are built once and forgotten. Specific ones get used every day.</p>
-      <p class="approach-p">The goal for any system is that it runs a month later without anyone touching it. <strong>Clean code, clear logic, no workarounds that need a comment to explain.</strong> If a future reader needs to ask why, the code hasn't done its job.</p>
+<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+<section id="about">
+  <p class="sec-label">// about</p>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Software Engineering student at UniKL MIIT (Class of 2028), based in Kuala Lumpur.</p>
+      <p>I build practical tools outside of class — AI video editors, audio analysis pipelines, and automation scripts. Most of my work is open source on GitHub.</p>
+      <p>Current stack: <strong>Python, Java, C++</strong>, FFmpeg, Whisper AI, GitHub Actions.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num" data-target="6" data-suffix="+">0</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-target="40" data-suffix="+">0</span>
+          <span class="stat-label">Hours Automated</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-target="3" data-suffix="">0</span>
+          <span class="stat-label">Languages</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-target="24" data-suffix="/7">0</span>
+          <span class="stat-label">Uptime</span>
+        </div>
+      </div>
     </div>
     <div>
       <div class="fact-table">
-        <div class="fact-row"><span class="fk">background</span><span class="fv">Software Engineering</span></div>
-        <div class="fact-row"><span class="fk">focus</span><span class="fv">Automation · Systems</span></div>
-        <div class="fact-row"><span class="fk">certifications</span><span class="fv">MUET Band 4.0</span></div>
-        <div class="fact-row"><span class="fk">available</span><span class="fv">Open to Internship</span></div>
+        <div class="fact-row">
+          <span class="fact-key">Degree</span>
+          <span class="fact-val">B.IT (Hons) Software Engineering</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-key">University</span>
+          <span class="fact-val">UniKL MIIT · Class of 2028</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-key">Location</span>
+          <span class="fact-val">Kuala Lumpur, Malaysia</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-key">Available</span>
+          <span class="fact-val accent">Open to internship</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="shell" id="stack" style="border-top:1px solid var(--border);padding-top:72px;padding-bottom:72px">
-  <div class="sec-label"><span class="num">// 03.</span>&nbsp;stack</div>
+<!-- ─── EDUCATION ─────────────────────────────────────────────── -->
+<section id="education">
+  <p class="sec-label">// education</p>
+  <div class="edu-row">
+    <span class="edu-year">2025 – 2028</span>
+    <span class="edu-inst">UniKL MIIT</span>
+    <span class="edu-deg">B.IT (Hons) Software Engineering</span>
+  </div>
+  <div class="edu-row">
+    <span class="edu-year">2024 – 2025</span>
+    <span class="edu-inst">Kolej MARA Kuala Nerang</span>
+    <span class="edu-deg">Foundation in Engineering & Technology · CGPA 3.55</span>
+  </div>
+  <div class="edu-row">
+    <span class="edu-year">2022 – 2024</span>
+    <span class="edu-inst">MRSM Gerik</span>
+    <span class="edu-deg">Secondary (SPM) · 7As</span>
+  </div>
+</section>
+
+<!-- ─── JOURNEY ────────────────────────────────────────────────── -->
+<section id="journey">
+  <p class="sec-label">// journey</p>
+  <div class="journey-grid">
+    <div class="journey-node">
+      <div class="journey-photo" data-label="mrsm gerik · 2022–2024">
+        <img src="mrsm.jpg" alt="MRSM Gerik" loading="lazy" width="480" height="300">
+      </div>
+      <div class="journey-meta">
+        <span class="journey-year">2022 – 2024</span>
+        <span class="journey-dot"></span>
+        <h3 class="journey-name">MRSM Gerik</h3>
+        <p class="journey-desc">Secondary school · Perak</p>
+      </div>
+    </div>
+    <div class="journey-connector"><span></span></div>
+    <div class="journey-node">
+      <div class="journey-photo" data-label="kolej mara kn · 2024–2025">
+        <img src="kmkn.jpg" alt="Kolej MARA Kuala Nerang" loading="lazy" width="480" height="300">
+      </div>
+      <div class="journey-meta">
+        <span class="journey-year">2024 – 2025</span>
+        <span class="journey-dot"></span>
+        <h3 class="journey-name">Kolej MARA Kuala Nerang</h3>
+        <p class="journey-desc">Foundation in Engineering & Technology</p>
+      </div>
+    </div>
+    <div class="journey-connector"><span></span></div>
+    <div class="journey-node journey-node--current">
+      <div class="journey-photo" data-label="unikl miit · 2025–present">
+        <img src="unikl.jpg" alt="UniKL MIIT" loading="lazy" width="480" height="300">
+      </div>
+      <div class="journey-meta">
+        <span class="journey-year">2025 – 2028</span>
+        <span class="journey-dot journey-dot--pulse"></span>
+        <h3 class="journey-name">UniKL MIIT</h3>
+        <p class="journey-desc">B.IT (Hons) Software Engineering · Current</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── APPROACH ──────────────────────────────────────────────── -->
+<section id="approach">
+  <p class="sec-label">// capabilities</p>
+  <div class="approach-grid">
+    <div class="sc">
+      <div class="sc-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      </div>
+      <p class="sc-num">01</p>
+      <p class="sc-title">Python automation</p>
+      <p class="sc-text">ffmpeg pipelines, async scrapers, Telegram bots, scheduled daemons</p>
+    </div>
+    <div class="sc">
+      <div class="sc-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <p class="sc-num">02</p>
+      <p class="sc-title">Backend systems</p>
+      <p class="sc-text">REST API clients, SQLite data stores, Java/Maven builds, PM2 process management</p>
+    </div>
+    <div class="sc">
+      <div class="sc-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </div>
+      <p class="sc-num">03</p>
+      <p class="sc-title">Video processing</p>
+      <p class="sc-text">Whisper speech recognition, silent-segment detection, GPU-accelerated encoding</p>
+    </div>
+    <div class="sc">
+      <div class="sc-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <p class="sc-num">04</p>
+      <p class="sc-title">Web infrastructure</p>
+      <p class="sc-text">Static sites, GitHub Actions CI/CD, Cloudflare DNS, GitHub Pages</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STACK ──────────────────────────────────────────────────── -->
+<section id="stack">
+  <p class="sec-label">// stack</p>
   <div class="stack-grid">
-    <div class="sc"><div class="sc-name">Python</div><div class="sc-role">Primary · Automation &amp; tooling</div></div>
-    <div class="sc"><div class="sc-name">Java</div><div class="sc-role">OOP · Backend systems</div></div>
-    <div class="sc"><div class="sc-name">C++</div><div class="sc-role">Core CS &amp; algorithms</div></div>
-    <div class="sc"><div class="sc-name">HTML / CSS / JS</div><div class="sc-role">Frontend · This site</div></div>
-    <div class="sc"><div class="sc-name">ffmpeg</div><div class="sc-role">Video processing pipeline</div></div>
-    <div class="sc"><div class="sc-name">SQLite</div><div class="sc-role">Lightweight DB for bots</div></div>
-    <div class="sc"><div class="sc-name">Three.js</div><div class="sc-role">WebGL · 3D visuals</div></div>
-    <div class="sc"><div class="sc-name">Git / GitHub</div><div class="sc-role">Version control · CI/CD</div></div>
-    <div class="sc"><div class="sc-name">Telegram Bot API</div><div class="sc-role">Bot delivery layer</div></div>
-    <div class="sc"><div class="sc-name">GitHub Actions</div><div class="sc-role">Deploy automation</div></div>
-    <div class="sc"><div class="sc-name">Cloudflare DNS</div><div class="sc-role">Domain &amp; edge routing</div></div>
-    <div class="sc"><div class="sc-name">Gemini API</div><div class="sc-role">Text clustering · NLP</div></div>
+    <div class="stack-item">Python</div>
+    <div class="stack-item">Java</div>
+    <div class="stack-item">C++</div>
+    <div class="stack-item">HTML/CSS/JS</div>
+    <div class="stack-item">ffmpeg</div>
+    <div class="stack-item">SQLite</div>
+    <div class="stack-item">Three.js</div>
+    <div class="stack-item">Git/GitHub</div>
+    <div class="stack-item">Telegram Bot API</div>
+    <div class="stack-item">GitHub Actions</div>
+    <div class="stack-item">Cloudflare DNS</div>
+    <div class="stack-item">Numpy</div>
+    <div class="stack-item">Faster-Whisper</div>
+    <div class="stack-item">DigitalOcean</div>
+    <div class="stack-item">Gemini API</div>
+    <div class="stack-item">WAHA</div>
+    <div class="stack-item">REST API</div>
+    <div class="stack-item">Maven</div>
+    <div class="stack-item">PM2</div>
   </div>
 </section>
 
-<section class="shell" id="awards" style="border-top:1px solid var(--border);padding-top:72px;padding-bottom:72px">
-  <div class="sec-label"><span class="num">// 04.</span>&nbsp;recognitions</div>
-  <div class="awards-grid">
-    <div class="award-item"><span class="award-year">2026</span><span class="award-title">Committee Member — FYP Innovation Showcase</span><span class="award-org">UniKL MIIT</span></div>
-    <div class="award-item"><span class="award-year">2025</span><span class="award-title">MUET Band 4.0</span><span class="award-org">Malaysian University English Test</span></div>
-    <div class="award-item"><span class="award-year">2025</span><span class="award-title">1st Runner Up — Aerodance Interclass</span><span class="award-org">Kolej MARA Kuala Nerang</span></div>
-    <div class="award-item"><span class="award-year">2023</span><span class="award-title">2nd Place — iOS App Ideation &amp; Prototyping</span><span class="award-org">MRSM Inter-school</span></div>
-    <div class="award-item"><span class="award-year">2023</span><span class="award-title">Academic Excellence — Lonjakan Saujana PNG</span><span class="award-org">MRSM Gerik</span></div>
-    <div class="award-item"><span class="award-year">2022</span><span class="award-title">Champion — SCOUT STEMBoree Se-Malaysia</span><span class="award-org">Johan Keseluruhan Pengakap Muda</span></div>
-  </div>
+<!-- ─── RECOGNITION ───────────────────────────────────────────── -->
+<section id="awards">
+  <p class="sec-label">// recognition</p>
+  <table class="awards-table">
+    <tr><td class="aw-year">2026</td><td class="aw-title">FYP Innovation Showcase — Committee</td><td class="aw-org">UniKL MIIT</td></tr>
+    <tr><td class="aw-year">2025</td><td class="aw-title">MUET Band 4.0</td><td class="aw-org">Malaysian University English Test</td></tr>
+    <tr><td class="aw-year">2025</td><td class="aw-title">Aerodance Interclass — 1st Runner Up</td><td class="aw-org">KMKN</td></tr>
+    <tr><td class="aw-year">2023</td><td class="aw-title">iOS App Ideation — 2nd Place (Compostify)</td><td class="aw-org">MARA MRSM</td></tr>
+    <tr><td class="aw-year">2023</td><td class="aw-title">GPA Improvement Award</td><td class="aw-org">MRSM Gerik</td></tr>
+    <tr><td class="aw-year">2022</td><td class="aw-title">SCOUT STEMBoree — Champion</td><td class="aw-org">MARA MRSM</td></tr>
+  </table>
 </section>
 
-<section class="shell contact-wrap" id="contact">
-  <div class="contact-pre">05. contact</div>
-  <a href="mailto:hello@arifaqyl.me" class="contact-big">Have something<br>to build?</a>
-  <p class="contact-sub">Open to internship opportunities and engineering projects. Reach out directly.</p>
-  <div class="socials">
-    <a href="mailto:hello@arifaqyl.me" class="soc">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-      hello@arifaqyl.me
-    </a>
-    <a href="https://github.com/arifaqyl" target="_blank" rel="noreferrer" class="soc">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.31.76-1.6-2.66-.31-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23A11.51 11.51 0 0 1 12 5.8c1.02.01 2.05.14 3.01.4 2.29-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.87.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-      github
-    </a>
-    <a href="https://linkedin.com/in/arifaqyl" target="_blank" rel="noreferrer" class="soc">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      linkedin
-    </a>
+<!-- ─── CONTACT ───────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="sec-label">// contact</p>
+    <h2 class="contact-heading">Get in touch.</h2>
+    <p class="contact-sub">
+      I'm open to internship roles in backend engineering or automation. Email is fastest.
+    </p>
+    <div class="soc-row">
+      <a href="mailto:arifaqyl@gmail.com" class="soc">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+        Email
+      </a>
+      <a href="https://github.com/arifaqyl" target="_blank" rel="noopener" class="soc">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/arifaqyl" target="_blank" rel="noopener" class="soc">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
   </div>
 </section>
 
 </main>
 
-<footer><div class="foot">
-  <span>© 2026 arif aqyl</span>
-  <span>arifaqyl.me</span>
-</div></footer>
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <span class="footer-copy">© 2026 arif aqyl</span>
+  <div class="footer-status">
+    <span class="status-dot"></span>
+    open to internship
+  </div>
+</footer>
 
+<!-- ─── LIBRARIES ─────────────────────────────────────────────── -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
 <script>
-/* ── THREE.JS GPU WAVE GRID ── */
+/* ═══════════════════════════════════════════════════════════════
+   CODE SNIPPETS (populate pre elements)
+═══════════════════════════════════════════════════════════════ */
+const snippets = {
+  'code-1': `// Wave grid vertex shader
+uniform float t;
+varying float vY;
+
+void main() {
+  vec3 p = position;
+  float d = length(p.xz) * 0.08;
+  p.y = sin(p.x * 0.35 + t) * cos(p.z * 0.35 + t) * 1.6
+      - sin(d - t * 1.2) * 2.2;
+  vY = p.y;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+}`,
+  'code-2': `from faster_whisper import WhisperModel
+import subprocess
+
+model = WhisperModel("large-v3", device="cuda", compute_type="float16")
+segments, _ = model.transcribe(audio_path, beam_size=5, language="ms")
+
+silent = [
+    (s.start, s.end)
+    for s in segments
+    if s.no_speech_prob > 0.85
+]
+
+# Build ffmpeg filter to cut silent ranges
+filter_parts = []
+for i, (start, end) in enumerate(silent):
+    filter_parts.append(
+        f"[0:v]trim=start={start}:end={end},setpts=PTS-STARTPTS[v{i}]"
+    )
+subprocess.run(["ffmpeg", "-i", src, "-filter_complex",
+                ";".join(filter_parts), output])`,
+  'code-3': `import librosa, numpy as np
+
+y, sr = librosa.load(video_path, sr=None, mono=True)
+onset_env = librosa.onset.onset_strength(y=y, sr=sr)
+
+# Peak-pick high-energy moments
+peaks = librosa.util.peak_pick(
+    onset_env, pre_max=7, post_max=7,
+    pre_avg=7, post_avg=7, delta=0.5, wait=5
+)
+times = librosa.frames_to_time(peaks, sr=sr)
+
+# Extract ±15s around each peak as highlight clip
+for t in times:
+    start = max(0, t - 15)
+    extract_clip(video_path, start, start + 30)`,
+  'code-4': `GitHub gh = new GitHubBuilder()
+    .withOAuthToken(System.getenv("GH_TOKEN"))
+    .build();
+
+gh.getMyself()
+  .listRepositories()
+  .toList()
+  .stream()
+  .filter(r -> !r.isPrivate())
+  .sorted(Comparator.comparing(
+      GHRepository::getPushedAt).reversed())
+  .forEach(repo -> {
+      String topic = classify(repo.getName());
+      repo.listTopics();
+      gh.getRepository(repo.getFullName())
+        .setTopics(List.of(topic));
+  });`,
+  'code-5': `import aiohttp
+from bs4 import BeautifulSoup
+
+async def poll_vle(session: aiohttp.ClientSession) -> list[dict]:
+    async with session.get(VLE_BASE + "/assignments",
+                           headers={"Authorization": TOKEN}) as r:
+        html = await r.text()
+
+    soup = BeautifulSoup(html, "lxml")
+    return [
+        {"title": el.select_one(".title").text.strip(),
+         "due":   el.select_one(".due-date").text.strip()}
+        for el in soup.select(".assignment-row")
+        if el.select_one(".due-date")
+    ]`,
+  'code-6': `import requests, time
+
+def fetch_fare(route: str, date: str) -> float | None:
+    r = requests.get(API_URL, params={"route": route,
+                                       "date": date},
+                     timeout=10)
+    r.raise_for_status()
+    prices = [f["price"] for f in r.json()["fares"]]
+    return min(prices) if prices else None
+
+while True:
+    price = fetch_fare(ROUTE, TARGET_DATE)
+    if price and price <= THRESHOLD:
+        requests.post(TG_URL, json={
+            "chat_id": CHAT_ID,
+            "text": f"{ROUTE} — RM{price:.0f}"
+        })
+    time.sleep(POLL_INTERVAL)`
+};
+
+// Populate code blocks
+Object.entries(snippets).forEach(([id, code]) => {
+  const el = document.getElementById(id);
+  if (el) el.textContent = code;
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   SYNTAX HIGHLIGHTING
+═══════════════════════════════════════════════════════════════ */
+function highlight(code, lang) {
+  let html = code;
+  
+  // Keywords
+  const kwPattern = /\b(def|import|from|async|await|class|return|if|for|while|try|except|as|is|in|and|or|not|void|public|private|static|new|this|super|extends|implements|interface|package|throws|synchronized|final|abstract|enum|const|let|const|var|function|const|async|await|yield|break|continue|switch|case|default|do|throw|try|catch|finally)\b/g;
+  html = html.replace(kwPattern, '<span class="tok-kw">$1</span>');
+  
+  // Strings
+  const strPattern = /(['"`])((?:\\.|(?!\1).)*?)\1/g;
+  html = html.replace(strPattern, '<span class="tok-str">$&</span>');
+  
+  // Comments
+  const cmtPattern = /(\/\/.*?$|\/\*[\s\S]*?\*\/|#.*?$)/gm;
+  html = html.replace(cmtPattern, '<span class="tok-cmt">$1</span>');
+  
+  // Numbers
+  const numPattern = /\b(\d+\.?\d*)\b/g;
+  html = html.replace(numPattern, '<span class="tok-num">$1</span>');
+  
+  // Function calls
+  const fnPattern = /\b([a-zA-Z_]\w*)\s*(?=\()/g;
+  html = html.replace(fnPattern, '<span class="tok-fn">$1</span>');
+  
+  return html;
+}
+
+// Apply highlighting to all code blocks
+document.querySelectorAll('.pf-code pre').forEach(pre => {
+  const code = pre.textContent;
+  const lang = pre.closest('.pf-code').querySelector('.pf-code-header').textContent.split('.').pop();
+  pre.innerHTML = highlight(code, lang);
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   THREE.JS WAVE GRID
+═══════════════════════════════════════════════════════════════ */
 (function () {
-  try {
-    if (typeof THREE === 'undefined') return;
-    const canvas = document.getElementById('bg-canvas');
-    const isMobile = window.innerWidth < 768;
-    const SEG = isMobile ? 30 : 50;
-    const SIZE = 44;
-    const STEP = SIZE / SEG;
-    const HALF = SIZE / 2;
+  const canvas = document.getElementById('bg-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x040506, 1);
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x040506, 0.035);
 
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0A0A0B);
-    scene.fog = new THREE.FogExp2(0x0A0A0B, 0.022);
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+  camera.position.set(0, 14, 28);
+  camera.lookAt(0, 0, 0);
 
-    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 120);
-    camera.position.set(0, 10, 22);
-    camera.lookAt(0, 0, 0);
+  const W = 120, H = 120;
+  const geo = new THREE.PlaneGeometry(80, 80, W - 1, H - 1);
+  geo.rotateX(-Math.PI / 2);
 
-    const linePos = [];
-    for (let i = 0; i <= SEG; i++) {
-      const z = -HALF + i * STEP;
-      for (let j = 0; j < SEG; j++) {
-        linePos.push(-HALF + j * STEP, 0, z, -HALF + (j + 1) * STEP, 0, z);
-      }
+  const vertexShader = `
+    uniform float t;
+    varying float vY;
+    void main() {
+      vec3 p = position;
+      float d = length(p.xz) * 0.08;
+      p.y = sin(p.x * 0.35 + t) * cos(p.z * 0.35 + t) * 1.6
+          - sin(d - t * 1.2) * 2.2;
+      vY = p.y;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
     }
-    for (let i = 0; i <= SEG; i++) {
-      const x = -HALF + i * STEP;
-      for (let j = 0; j < SEG; j++) {
-        linePos.push(x, 0, -HALF + j * STEP, x, 0, -HALF + (j + 1) * STEP);
-      }
+  `;
+
+  const fragmentShader = `
+    varying float vY;
+    void main() {
+      float n = clamp((vY + 2.2) / 4.4, 0.0, 1.0);
+      vec3 lo = vec3(0.016, 0.02, 0.024);
+      vec3 hi = vec3(0.13, 0.14, 0.16);
+      gl_FragColor = vec4(mix(lo, hi, n), 1.0);
     }
-    const gridGeo = new THREE.BufferGeometry();
-    gridGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePos, 3));
+  `;
 
-    const VERT = `
-      uniform float uT;
-      varying float vH;
-      void main() {
-        vec3 p = position;
-        p.y = sin(p.x * 0.32 + uT) * cos(p.z * 0.24 + uT * 0.68) * 0.72;
-        vH = clamp((p.y + 0.72) / 1.44, 0.0, 1.0);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-      }
-    `;
-    const FRAG_LINE = `
-      varying float vH;
-      void main() {
-        float t = vH * vH;
-        vec3 col = mix(vec3(0.133,0.141,0.157), vec3(0.8,1.0,0.0), t * 0.5);
-        gl_FragColor = vec4(col, mix(0.2, 0.75, t));
-      }
-    `;
-    const gridMat = new THREE.ShaderMaterial({
-      uniforms: { uT: { value: 0 } },
-      vertexShader: VERT,
-      fragmentShader: FRAG_LINE,
-      transparent: true,
-    });
-    scene.add(new THREE.LineSegments(gridGeo, gridMat));
+  const mat = new THREE.ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    uniforms: { t: { value: 0 } },
+    wireframe: true,
+  });
 
-    const ptPos = [];
-    for (let i = 0; i <= SEG; i++)
-      for (let j = 0; j <= SEG; j++)
-        ptPos.push(-HALF + j * STEP, 0, -HALF + i * STEP);
-    const ptGeo = new THREE.BufferGeometry();
-    ptGeo.setAttribute('position', new THREE.Float32BufferAttribute(ptPos, 3));
-    const FRAG_PT = `
-      varying float vH;
-      void main() {
-        float t = vH * vH;
-        vec3 col = mix(vec3(0.133,0.141,0.157), vec3(0.8,1.0,0.0), t * 0.8);
-        gl_FragColor = vec4(col, mix(0.05, 0.9, t));
-      }
-    `;
-    const ptMat = new THREE.ShaderMaterial({
-      uniforms: { uT: { value: 0 } },
-      vertexShader: VERT.replace('gl_Position', 'gl_PointSize = 2.0;\n      gl_Position'),
-      fragmentShader: FRAG_PT,
-      transparent: true,
-    });
-    scene.add(new THREE.Points(ptGeo, ptMat));
+  const mesh = new THREE.Mesh(geo, mat);
+  scene.add(mesh);
 
-    let t = 0, mx = 0, camX = 0;
-    document.addEventListener('mousemove', e => { mx = (e.clientX / window.innerWidth - 0.5) * 4; });
-
-    (function loop() {
-      requestAnimationFrame(loop);
-      t += 0.005;
-      gridMat.uniforms.uT.value = t;
-      ptMat.uniforms.uT.value = t;
-      camX += (mx - camX) * 0.03;
-      camera.position.x = camX;
-      camera.lookAt(0, 0, 0);
-      renderer.render(scene, camera);
-    })();
-
-    window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-    });
-  } catch (err) {
-    console.warn("Three.js grid canvas load failed: ", err);
+  let t = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.005;
+    mat.uniforms.t.value = t;
+    renderer.render(scene, camera);
   }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
 })();
 
-/* ── CURSOR ── */
-try {
-  if (window.matchMedia('(hover:hover)').matches) {
-    const cur = document.getElementById('cur');
-    let cx = 0, cy = 0;
-    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
-    document.addEventListener('mouseleave', () => cur.classList.add('gone'));
-    document.addEventListener('mouseenter', () => cur.classList.remove('gone'));
-    document.querySelectorAll('a,button,[role=button],.pf-tab').forEach(el => {
-      el.addEventListener('mouseenter', () => cur.classList.add('big'));
-      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
-    });
-    (function loop() { gsap.set(cur, { x: cx, y: cy }); requestAnimationFrame(loop); })();
-  }
-} catch (err) {
-  console.warn("Cursor loop initialization failed: ", err);
-}
+/* ═══════════════════════════════════════════════════════════════
+   LENIS SMOOTH SCROLL
+═══════════════════════════════════════════════════════════════ */
+const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
 
-/* ── LENIS + GSAP ── */
-try {
-  gsap.registerPlugin(ScrollTrigger);
-  if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger.clearScrollMemory) {
-    ScrollTrigger.clearScrollMemory();
-  }
-  const lenis = new Lenis({
-    autoRaf: false,
-    duration: 1.1,
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    wheelMultiplier: 0.65,
-    touchMultiplier: 1.4,
-    syncTouch: true,
-  });
-  lenis.on('scroll', ScrollTrigger.update);
+/* ═══════════════════════════════════════════════════════════════
+   GSAP + ScrollTrigger
+═══════════════════════════════════════════════════════════════ */
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
 
-  // Force scroll to top immediately on load
-  window.scrollTo(0, 0);
-  lenis.scrollTo(0, { immediate: true });
+/* ─── Hero animation (Bug Fix #1) ─── */
+gsap.set('.li', { opacity: 0, y: 60 });
+gsap.set('.hero-bottom > *', { opacity: 0, y: 14 });
+gsap.timeline({ defaults: { ease: 'power3.out' } })
+  .to('.li', { y: 0, opacity: 1, duration: 1.1, stagger: 0.12 }, 0.15)
+  .to('.hero-bottom > *', { opacity: 1, y: 0, duration: 0.7 }, 0.75);
 
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-} catch (err) {
-  console.warn("Lenis smooth scroll initialization failed: ", err);
-}
+/* ─── Nav scroll shadow ─── */
+const mainNav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  mainNav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
-/* ── NAV ── */
-try {
-  const nav = document.getElementById('nav');
-  if (nav && typeof ScrollTrigger !== 'undefined') {
-    ScrollTrigger.create({ start: 40, onUpdate: s => nav.classList.toggle('scrolled', s.progress > 0) });
-  }
-} catch (err) {
-  console.warn("Navigation scroll trigger failed: ", err);
-}
-
-/* ── PROGRESS ── */
-try {
-  gsap.to('#bar', { scaleX: 1, ease: 'none',
-    scrollTrigger: { scrub: .4, start: 'top top', end: 'bottom bottom' } });
-} catch (err) {
-  console.warn("Progress bar animation failed: ", err);
-}
-
-/* ── DYNAMIC SYSTEM TICKER ── */
-try {
-  const ITEMS = [
-    'python','java','c++','ffmpeg','whisper ai','sqlite','gsap','lenis',
-    'telegram bot api','github actions','cloudflare dns','numpy',
-    'faster-whisper','digital ocean','gemini api','html / css','three.js','waha',
-    'git','rest api','maven','paramiko','pm2'
+/* ═══════════════════════════════════════════════════════════════
+   TICKER (Bug Fix #2)
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const items = [
+    'Python','Java','C++','HTML/CSS/JS','ffmpeg','SQLite','Three.js',
+    'Git/GitHub','Telegram Bot API','GitHub Actions','Cloudflare DNS',
+    'Numpy','Faster-Whisper','DigitalOcean','Gemini API','WAHA',
+    'REST API','Maven','PM2'
   ];
-  const ttTrack = document.getElementById('ttTrack');
-  if (ttTrack) {
-    function buildTicker() {
-      const single = ITEMS.map(x => `<span class="ticker-item">${x}</span>`).join('');
-      /* half = copies needed so one half fills any viewport width with buffer.
-         reps = half * 2 so translateX(-50%) always lands on a copy boundary → seamless loop.
-         duration scales with half so visual speed is identical on every screen size. */
-      const half = Math.max(2, Math.ceil(window.innerWidth / 600) + 2);
-      const reps = half * 2;
-      ttTrack.innerHTML = single.repeat(reps);
-      ttTrack.style.animation = 'none';
-      ttTrack.offsetHeight; // Force reflow
-      ttTrack.style.animation = `tick ${(half * 320)}s linear infinite`;
-    }
-    buildTicker();
-    let tickTO;
-    window.addEventListener('resize', () => { clearTimeout(tickTO); tickTO = setTimeout(buildTicker, 150); });
-  }
-} catch (err) {
-  console.warn("Dynamic system ticker initialization failed: ", err);
-}
-
-/* ── HERO ENTRANCE ── */
-try {
-  gsap.timeline({ defaults: { ease: 'power3.out' } })
-    .from('.li', { y: 60, opacity: 0, duration: 1.1, stagger: .12 }, .15)
-    .from('.hero-bottom > *', { opacity: 0, y: 14, duration: .7 }, .75);
-} catch (err) {
-  console.warn("Hero entrance animation failed: ", err);
-}
-
-/* ── PROJECT ACCORDIONS ── */
-try {
-  document.querySelectorAll('.pf').forEach(pf => {
-    gsap.from(pf, { opacity: 0, y: 14, duration: .55, ease: 'power2.out',
-      scrollTrigger: { trigger: pf, start: 'top 93%', once: true } });
-    const tab = pf.querySelector('.pf-tab');
-    const body = pf.querySelector('.pf-body');
-    function toggle() {
-      const isOpen = pf.dataset.open === '1';
-      document.querySelectorAll(".pf[data-open='1']").forEach(o => {
-        o.dataset.open = '0';
-        o.querySelector('.pf-tab').setAttribute('aria-expanded', 'false');
-        o.querySelector('.pf-body').style.height = '0';
-      });
-      if (!isOpen) {
-        pf.dataset.open = '1';
-        tab.setAttribute('aria-expanded', 'true');
-        body.style.height = body.scrollHeight + 'px';
-      }
-      setTimeout(() => { try { ScrollTrigger.refresh(); } catch (e) {} }, 420);
-    }
-    tab.addEventListener('click', toggle);
-    tab.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  const track = document.getElementById('tt-track');
+  const doubled = [...items, ...items];
+  doubled.forEach(item => {
+    const span = document.createElement('span');
+    span.className = 'ticker-item';
+    span.innerHTML = `<span class="ticker-dot"></span>${item}`;
+    track.appendChild(span);
   });
-} catch (err) {
-  console.warn("Project accordions initialization failed: ", err);
+  const half = items.length;
+  const BASE = 500;
+  track.style.animation = `tick ${Math.max(900, half * BASE)}s linear infinite`;
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   TERMINAL TYPING EFFECT
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const text = '> building systems that run themselves_';
+  const el = document.getElementById('typed-text');
+  const cursor = document.getElementById('typed-cursor');
+  let i = 0;
+  cursor.style.display = 'none';
+
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i++];
+      setTimeout(type, 45);
+    } else {
+      cursor.style.display = 'inline';
+    }
+  }
+
+  setTimeout(type, 1200);
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 1: HERO TITLE SCRAMBLE ON LOAD
+═══════════════════════════════════════════════════════════════ */
+function scramble(el, text, opts = {}) {
+  const iterations = opts.iterations || 4;
+  const speed = opts.speed || 30;
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+  
+  let currentIteration = 0;
+  
+  function randomizeText() {
+    let scrambled = '';
+    for (let i = 0; i < text.length; i++) {
+      if (Math.random() > currentIteration / iterations) {
+        scrambled += chars[Math.floor(Math.random() * chars.length)];
+      } else {
+        scrambled += text[i];
+      }
+    }
+    el.textContent = scrambled;
+    currentIteration++;
+    
+    if (currentIteration <= iterations) {
+      setTimeout(randomizeText, speed);
+    } else {
+      el.textContent = text;
+    }
+  }
+  
+  randomizeText();
 }
 
-/* ── SCROLL REVEALS ── */
-try {
-  gsap.utils.toArray('.sec-label').forEach(el =>
-    gsap.from(el, { opacity: 0, x: -12, duration: .55, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 92%', once: true } }));
-  gsap.from('.approach-h2', { opacity: 0, y: 22, duration: .85, ease: 'power2.out',
-    scrollTrigger: { trigger: '.approach-h2', start: 'top 88%', once: true } });
-  gsap.utils.toArray('.approach-p').forEach((p, i) =>
-    gsap.from(p, { opacity: 0, y: 12, duration: .6, ease: 'power2.out', delay: i * .07,
-      scrollTrigger: { trigger: '.approach-grid', start: 'top 86%', once: true } }));
-  gsap.utils.toArray('.fact-row').forEach((r, i) =>
-    gsap.from(r, { opacity: 0, x: 12, duration: .4, ease: 'power2.out', delay: i * .04,
-      scrollTrigger: { trigger: '.fact-table', start: 'top 88%', once: true } }));
-  gsap.from('.sc', { opacity: 0, y: 10, duration: .45, stagger: .04, ease: 'power2.out',
-    scrollTrigger: { trigger: '.stack-grid', start: 'top 88%', once: true } });
-  gsap.from('.contact-big', { opacity: 0, y: 20, duration: .85, ease: 'power2.out',
-    scrollTrigger: { trigger: '.contact-big', start: 'top 88%', once: true } });
-  gsap.from('.contact-sub,.socials', { opacity: 0, y: 12, duration: .6, stagger: .1, ease: 'power2.out',
-    scrollTrigger: { trigger: '.contact-sub', start: 'top 90%', once: true } });
-} catch (err) {
-  console.warn("Scroll reveals failed: ", err);
-}
+// Hero title scramble on load
+(function () {
+  const lines = document.querySelectorAll('.hero-title .li');
+  lines.forEach((line, i) => {
+    const text = line.textContent;
+    setTimeout(() => {
+      scramble(line, text, { iterations: 4, speed: 30 });
+    }, 500 + i * 150);
+  });
+  
+  // Hover scramble (2 iterations, 20ms)
+  document.querySelector('.hero-title').addEventListener('mouseenter', () => {
+    lines.forEach((line, i) => {
+      const text = line.textContent;
+      setTimeout(() => {
+        scramble(line, text, { iterations: 2, speed: 20 });
+      }, i * 100);
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 2: 3D TILT + GLARE ON PROJECT CARDS
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  
+  document.querySelectorAll('.pf').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const dx = x - rect.width / 2;
+      const dy = y - rect.height / 2;
+      
+      const rotX = (dy / rect.height) * 12;
+      const rotY = -(dx / rect.width) * 12;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+      
+      // Update glare position
+      card.style.setProperty('--mouse-x', x + 'px');
+      card.style.setProperty('--mouse-y', y + 'px');
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+      card.style.transition = 'transform 0.5s ease';
+      setTimeout(() => card.style.transition = '', 500);
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 3: PAGE CURSOR SPOTLIGHT
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  
+  const spotlight = document.getElementById('spotlight');
+  document.addEventListener('mousemove', e => {
+    spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(204,255,0,0.03), transparent 80%)`;
+  }, { passive: true });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 4: CSS VARIABLE GLOW BORDER ON CARDS
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  
+  const targets = document.querySelectorAll('.pf, .sc, .award-item');
+  targets.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      el.style.setProperty('--mouse-x', x + 'px');
+      el.style.setProperty('--mouse-y', y + 'px');
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 5: STAT COUNTERS IN ABOUT
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const stats = document.querySelectorAll('.stat-num');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        let current = 0;
+        const increment = target / 30;
+        
+        const suffix = el.dataset.suffix || '';
+        const counter = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            el.textContent = target + suffix;
+            clearInterval(counter);
+            observer.unobserve(el);
+          } else {
+            el.textContent = Math.floor(current) + suffix;
+          }
+        }, 30);
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  stats.forEach(stat => observer.observe(stat));
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 6: (was timeline beam — removed with timeline section)
+═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 7: SWEEPING BORDER ON BUTTONS (@property animated)
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const style = document.createElement('style');
+  style.textContent = `
+    @property --ba {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
+    }
+    @keyframes border-spin {
+      to { --ba: 360deg; }
+    }
+    @supports (background: conic-gradient(red, blue)) {
+      .soc:hover, .hero-cta:hover, .pf-link:hover {
+        animation: border-spin 1.8s linear infinite;
+        background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                    conic-gradient(from var(--ba), transparent 0deg, var(--accent) 90deg, transparent 180deg) border-box !important;
+        border-color: transparent !important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 8: SECTION LABEL SCRAMBLE ON SCROLL-IN
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const labels = document.querySelectorAll('.sec-label');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const text = entry.target.textContent;
+        scramble(entry.target, text, { iterations: 2, speed: 25 });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  labels.forEach(label => observer.observe(label));
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 9: SCROLL PROGRESS BAR
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const bar = document.getElementById('scroll-bar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    bar.style.width = scrollPercent + '%';
+  }, { passive: true });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 10: STACK ITEM SHINE (CSS-based, already in styles)
+═══════════════════════════════════════════════════════════════ */
+// Shine effect is handled via CSS .stack-item::after
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECT FILTER CHIPS
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const cards = document.querySelectorAll('.pf');
+
+  const filterMap = {
+    'all': null,
+    'python': 'python',
+    'java': 'java',
+    'cpp': 'cpp',
+    'javascript': 'javascript',
+    'ffmpeg': 'ffmpeg',
+    'apis': 'apis',
+  };
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const filter = chip.dataset.filter;
+
+      cards.forEach(card => {
+        const tags = card.dataset.tags || '';
+        if (filter === 'all' || tags.includes(filterMap[filter])) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECT ACCORDION
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  document.querySelectorAll('.pf-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const card = header.closest('.pf');
+      const isOpen = card.dataset.open === '1';
+      document.querySelectorAll('.pf').forEach(c => c.dataset.open = '0');
+      card.dataset.open = isOpen ? '0' : '1';
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   JOURNEY — IntersectionObserver staggered reveal + photo fallback
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  // Photo fallback: mark container when image fails to load
+  document.querySelectorAll('.journey-photo img').forEach(img => {
+    img.onerror = () => {
+      img.setAttribute('data-missing', '');
+      img.closest('.journey-photo').setAttribute('data-missing', '');
+    };
+  });
+
+  const journeyNodes = document.querySelectorAll('.journey-node');
+  const journeyObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = [...journeyNodes].indexOf(e.target);
+        setTimeout(() => e.target.classList.add('in-view'), idx * 150);
+        journeyObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  journeyNodes.forEach(n => journeyObs.observe(n));
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOM CURSOR + GHOST TRAIL
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const cur = document.getElementById('cur');
+  const GHOST_COUNT = 7;
+  const ghosts = [];
+  const positions = Array.from({ length: 20 }, () => ({ x: 0, y: 0 }));
+  let bufHead = 0;
+  let mx = 0, my = 0;
+
+  for (let i = 0; i < GHOST_COUNT; i++) {
+    const g = document.createElement('div');
+    g.className = 'cur-ghost';
+    const t = (i + 1) / GHOST_COUNT;
+    g.style.opacity = String(0.15 - t * 0.11);
+    document.body.appendChild(g);
+    ghosts.push(g);
+  }
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    positions[bufHead] = { x: mx, y: my };
+    bufHead = (bufHead + 1) % positions.length;
+    cur.style.left = mx + 'px';
+    cur.style.top = my + 'px';
+  });
+
+  function animateGhosts() {
+    for (let i = 0; i < GHOST_COUNT; i++) {
+      const delay = (i + 1) * 2;
+      const idx = (bufHead - delay + positions.length) % positions.length;
+      const pos = positions[idx];
+      ghosts[i].style.left = pos.x + 'px';
+      ghosts[i].style.top = pos.y + 'px';
+    }
+    requestAnimationFrame(animateGhosts);
+  }
+  animateGhosts();
+
+  const hoverTargets = document.querySelectorAll('a, button, .pf-header');
+  hoverTargets.forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('grow'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   MAGNETIC BUTTONS
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const RANGE = 60;
+  const MAX_PULL = 8;
+
+  const targets = document.querySelectorAll('.soc, .pf-link, .nav-links a');
+
+  targets.forEach(el => {
+    el.style.transition = 'transform 0.3s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease';
+
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < RANGE) {
+        const pull = (1 - dist / RANGE) * MAX_PULL;
+        el.style.transform = `translate(${(dx / dist) * pull}px, ${(dy / dist) * pull}px)`;
+      }
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'translate(0, 0)';
+    });
+  });
+})();
 </script>
-
 </body>
 </html>
