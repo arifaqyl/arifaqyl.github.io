@@ -1817,41 +1817,49 @@ void main() {
   gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
 }`,
   'code-2': `from faster_whisper import WhisperModel
-import subprocess
 
-model = WhisperModel("large-v3", device="cuda", compute_type="float16")
-segments, _ = model.transcribe(audio_path, beam_size=5, language="ms")
+whisper_size = "small"
+try:
+    model = WhisperModel(whisper_size, device="cuda", compute_type="float16")
+except:
+    model = WhisperModel(whisper_size, device="cpu", compute_type="int8")
 
-silent = [
-    (s.start, s.end)
-    for s in segments
-    if s.no_speech_prob > 0.85
-]
+segments = []
+time_offset = 0.0
+for fi, vf in enumerate(video_files):
+    dur = get_duration(vf)
+    segs_raw, info = model.transcribe(vf, vad_filter=True, language="en")
+    file_segs = [
+        {"start": s.start + time_offset,
+         "end":   s.end   + time_offset,
+         "text":  s.text}
+        for s in segs_raw
+    ]
+    segments.extend(file_segs)
+    time_offset += dur`,
+  'code-3': `import subprocess
 
-# Build ffmpeg filter to cut silent ranges
-filter_parts = []
-for i, (start, end) in enumerate(silent):
-    filter_parts.append(
-        f"[0:v]trim=start={start}:end={end},setpts=PTS-STARTPTS[v{i}]"
-    )
-subprocess.run(["ffmpeg", "-i", src, "-filter_complex",
-                ";".join(filter_parts), output])`,
-  'code-3': `import librosa, numpy as np
+cmd = ['ffmpeg', '-i', video_path, '-vn',
+       '-af', 'silencedetect=n=-15dB:d=1', '-f', 'null', '-']
+result = subprocess.run(cmd, capture_output=True, text=True)
 
-y, sr = librosa.load(video_path, sr=None, mono=True)
-onset_env = librosa.onset.onset_strength(y=y, sr=sr)
+moments = []
+for line in result.stderr.split('\\n'):
+    if 'silence_end' in line:
+        t = float(line.split('silence_end: ')[1].split('|')[0])
+        moments.append(t)
 
-# Peak-pick high-energy moments
-peaks = librosa.util.peak_pick(
-    onset_env, pre_max=7, post_max=7,
-    pre_avg=7, post_avg=7, delta=0.5, wait=5
-)
-times = librosa.frames_to_time(peaks, sr=sr)
+# Group events within 30s window
+grouped = []
+if moments:
+    grouped.append(moments[0])
+    for t in moments[1:]:
+        if t - grouped[-1] > 30:
+            grouped.append(t)
 
-# Extract ±15s around each peak as highlight clip
-for t in times:
-    start = max(0, t - 15)
-    extract_clip(video_path, start, start + 30)`,
+# Measure peak loudness for each group, sort, cut top N
+ranked = [(t, measure_loudness(video_path, t)) for t in grouped]
+ranked.sort(key=lambda x: x[1], reverse=True)`,
   'code-4': `GitHub gh = new GitHubBuilder()
     .withOAuthToken(System.getenv("GH_TOKEN"))
     .build();
@@ -1869,39 +1877,45 @@ gh.getMyself()
       gh.getRepository(repo.getFullName())
         .setTopics(List.of(topic));
   });`,
-  'code-5': `import aiohttp
-from bs4 import BeautifulSoup
+  'code-5': `from playwright.sync_api import sync_playwright
 
-async def poll_vle(session: aiohttp.ClientSession) -> list[dict]:
-    async with session.get(VLE_BASE + "/assignments",
-                           headers={"Authorization": TOKEN}) as r:
-        html = await r.text()
+SESSION_FILE = "/root/student-bot/storageState.json"
 
-    soup = BeautifulSoup(html, "lxml")
-    return [
-        {"title": el.select_one(".title").text.strip(),
-         "due":   el.select_one(".due-date").text.strip()}
-        for el in soup.select(".assignment-row")
-        if el.select_one(".due-date")
-    ]`,
-  'code-6': `import requests, time
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    ctx = browser.new_context(storage_state=SESSION_FILE)
+    page = ctx.new_page()
 
-def fetch_fare(route: str, date: str) -> float | None:
-    r = requests.get(API_URL, params={"route": route,
-                                       "date": date},
-                     timeout=10)
-    r.raise_for_status()
-    prices = [f["price"] for f in r.json()["fares"]]
-    return min(prices) if prices else None
+    for code, name in COURSES.items():
+        page.goto(VLE_BASE + f"/mod/assign/index.php?id={COURSE_IDS[code]}")
+        rows = page.query_selector_all("tr.r0, tr.r1")
+        for row in rows:
+            title = row.query_selector(".instancename")
+            due   = row.query_selector(".c2")
+            if title and ASSIGNMENT_KEYWORDS.search(title.inner_text()):
+                add_if_new(conn, title.inner_text(), name,
+                           due.inner_text() if due else "See VLE")`,
+  'code-6': `from fast_flights import FlightData, get_flights
+import time
 
-while True:
-    price = fetch_fare(ROUTE, TARGET_DATE)
-    if price and price <= THRESHOLD:
-        requests.post(TG_URL, json={
-            "chat_id": CHAT_ID,
-            "text": f"{ROUTE} — RM{price:.0f}"
-        })
-    time.sleep(POLL_INTERVAL)`
+DREAM_PRICE = 800  # RM
+
+def scan_november(chat_id):
+    dates = [(datetime(2026, 11, 1) + timedelta(days=i)).strftime('%Y-%m-%d')
+             for i in range(30)]
+    for d in dates:
+        res = get_flights(
+            flight_data=[FlightData(date=d,
+                from_airport="KUL", to_airport="KMG")],
+            trip="one-way", fetch_mode="web"
+        )
+        for f in res.flights:
+            if f.stops == 0:
+                price = int(''.join(filter(str.isdigit, f.price)))
+                if price <= DREAM_PRICE:
+                    send_tg(chat_id,
+                        f"TARGET HIT! RM {price}\\n{f.name} | {d}")
+        time.sleep(8)  # stealth delay`
 };
 
 // Populate code blocks
