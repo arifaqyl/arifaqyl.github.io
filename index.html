@@ -976,24 +976,102 @@
     .stack-item:hover { background: var(--bg-raised); color: var(--fg); }
 
     /* ─── AWARDS ───────────────────────────────────────────────── */
+    /* ─── RECOGNITION PHOTO CARDS ─────────────────────────────── */
+    .award-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 760px) {
+      .award-photo-grid { grid-template-columns: 1fr; }
+    }
+    .aw-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .aw-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-3px);
+    }
+    .aw-card-img {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+    }
+    .aw-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(50%) brightness(0.8);
+      transform: scale(1.0);
+      transition: filter 0.5s ease, transform 0.5s ease;
+      display: block;
+    }
+    .aw-card:hover .aw-card-img img {
+      filter: grayscale(0%) brightness(0.95);
+      transform: scale(1.04);
+    }
+    .aw-card-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .aw-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .aw-card-year {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--fg-3);
+    }
+    .aw-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .aw-badge--win   { background: rgba(204,255,0,0.12); color: var(--accent); border: 1px solid rgba(204,255,0,0.25); }
+    .aw-badge--place { background: rgba(107,179,210,0.12); color: #6fb3d2; border: 1px solid rgba(107,179,210,0.25); }
+    .aw-badge--part  { background: rgba(156,156,157,0.10); color: var(--fg-3); border: 1px solid var(--border); }
+    .aw-card-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin: 0;
+      line-height: 1.35;
+    }
+    .aw-card-org {
+      font-size: 0.75rem;
+      color: var(--fg-3);
+      margin: 0;
+    }
+
+    /* plain table for no-photo entries */
     .awards-table {
       width: 100%;
       border-collapse: collapse;
     }
-
     .awards-table tr {
       border-bottom: 1px solid var(--border);
     }
-
     .awards-table tr:last-child {
       border-bottom: none;
     }
-
     .awards-table td {
       padding: 13px 0;
       vertical-align: top;
     }
-
     .awards-table .aw-year {
       font-family: var(--font-mono);
       font-size: 0.65rem;
@@ -1001,14 +1079,12 @@
       color: var(--accent);
       width: 60px;
     }
-
     .awards-table .aw-title {
       font-size: 0.88rem;
       color: var(--fg);
       font-weight: 500;
       padding-right: 24px;
     }
-
     .awards-table .aw-org {
       font-size: 0.78rem;
       color: var(--fg-3);
@@ -1747,13 +1823,69 @@
 <!-- ─── RECOGNITION ───────────────────────────────────────────── -->
 <section id="awards">
   <p class="sec-label">// recognition</p>
+
+  <!-- entries with photos -->
+  <div class="award-photo-grid">
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="stemboree.jpg" alt="SCOUT STEMBoree MRSM Se-Malaysia 2022 — Champion" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2022</span>
+          <span class="aw-badge aw-badge--win">Champion</span>
+        </div>
+        <p class="aw-card-title">SCOUT STEMBoree MRSM Se-Malaysia</p>
+        <p class="aw-card-org">MARA MRSM</p>
+      </div>
+    </div>
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="stemideation2nd.jpg" alt="iOS App Ideation & Prototyping MRSM 2023 — 2nd Place" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2023</span>
+          <span class="aw-badge aw-badge--place">2nd Place</span>
+        </div>
+        <p class="aw-card-title">iOS App Ideation &amp; Prototyping — Compostify</p>
+        <p class="aw-card-org">MARA MRSM</p>
+      </div>
+    </div>
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="sterfvolunteer.jpg" alt="STERF Science & Technology Volunteer 2023" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2023</span>
+          <span class="aw-badge aw-badge--part">Volunteer</span>
+        </div>
+        <p class="aw-card-title">STERF Science &amp; Technology Camp</p>
+        <p class="aw-card-org">MRSM Gerik</p>
+      </div>
+    </div>
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="stemtaiping.jpg" alt="STEM Digital Ideation Inter-MRSM 2022 — Participant" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2022</span>
+          <span class="aw-badge aw-badge--part">Participant</span>
+        </div>
+        <p class="aw-card-title">STEM Digital Ideation Inter-MRSM Se-Malaysia</p>
+        <p class="aw-card-org">MARA MRSM · Taiping</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- entries without photos -->
   <table class="awards-table">
     <tr><td class="aw-year">2026</td><td class="aw-title">FYP Innovation Showcase — Committee</td><td class="aw-org">UniKL MIIT</td></tr>
     <tr><td class="aw-year">2025</td><td class="aw-title">MUET Band 4.0</td><td class="aw-org">Malaysian University English Test</td></tr>
     <tr><td class="aw-year">2025</td><td class="aw-title">Aerodance Interclass — 1st Runner Up</td><td class="aw-org">KMKN</td></tr>
-    <tr><td class="aw-year">2023</td><td class="aw-title">iOS App Ideation — 2nd Place (Compostify)</td><td class="aw-org">MARA MRSM</td></tr>
     <tr><td class="aw-year">2023</td><td class="aw-title">GPA Improvement Award</td><td class="aw-org">MRSM Gerik</td></tr>
-    <tr><td class="aw-year">2022</td><td class="aw-title">SCOUT STEMBoree — Champion</td><td class="aw-org">MARA MRSM</td></tr>
   </table>
 </section>
 
