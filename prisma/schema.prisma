@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id           String              @id @default(cuid())
+  slug         String              @unique
+  title        String
+  summary      String
+  status       String
+  year         Int
+  visibility   String
+  featured     Boolean             @default(false)
+  repoUrl      String?
+  liveUrl      String?
+  category     String
+  accent       String?
+  sortOrder    Int                 @default(0)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  tabs         ProjectTab[]
+  metrics      ProjectMetric[]
+  media        ProjectMedia[]
+  technologies ProjectTechnology[]
+}
+
+model ProjectTab {
+  id         String   @id @default(cuid())
+  projectId  String
+  key        String
+  label      String
+  orderIndex Int
+  richContent Json
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, key])
+}
+
+model ProjectMetric {
+  id         String   @id @default(cuid())
+  projectId  String
+  label      String
+  value      String
+  suffix     String?
+  orderIndex Int
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ProjectMedia {
+  id         String   @id @default(cuid())
+  projectId  String
+  type       String
+  src        String
+  alt        String
+  width      Int?
+  height     Int?
+  orderIndex Int
+  isCover    Boolean  @default(false)
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Technology {
+  id        String              @id @default(cuid())
+  name      String
+  slug      String              @unique
+  category  String
+  projects  ProjectTechnology[]
+}
+
+model ProjectTechnology {
+  projectId    String
+  technologyId String
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, technologyId])
+}
+
+model TimelineEntry {
+  id           String    @id @default(cuid())
+  title        String
+  organization String
+  startDate    DateTime
+  endDate      DateTime?
+  description  String
+  mediaSrc     String?
+  orderIndex   Int       @default(0)
+}
+
+model Award {
+  id          String @id @default(cuid())
+  title       String
+  eventName   String
+  year        Int
+  description String
+  imageSrc    String?
+  orderIndex  Int    @default(0)
+}
+
+model SiteSection {
+  id          String @id @default(cuid())
+  key         String @unique
+  title       String?
+  subtitle    String?
+  body        String?
+  jsonPayload Json?
+}
+
+model NowUpdate {
+  id         String   @id @default(cuid())
+  title      String
+  body       String
+  tag        String?
+  isActive   Boolean  @default(true)
+  orderIndex Int      @default(0)
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+}
+
+model PageView {
+  id         String   @id @default(cuid())
+  path       String
+  referrer   String?
+  countryCode String?
+  deviceType String?
+  createdAt  DateTime @default(now())
+}
+
+model SiteSetting {
+  key       String @id
+  valueJson Json
+}
+

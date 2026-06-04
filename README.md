@@ -1,30 +1,69 @@
-# arifaqyl.github.io
+# arifaqyl.me
 
-Personal portfolio website for Arif Aqyl.
+Full-stack portfolio app for Arif Aqyl.
 
-Live site:
+This repo has been rebuilt from a single heavy GitHub Pages HTML site into a structured Next.js application with:
 
-- https://arifaqyl.me
+- Next.js App Router
+- TypeScript
+- Prisma
+- PostgreSQL-ready content model
+- owner-only admin scaffold
+- case-study project pages
+- contact submissions
+- metadata, sitemap, robots, and analytics hooks
 
 ## Stack
 
-- HTML
-- CSS
-- vanilla JavaScript
-- Three.js
-- GSAP
-- GitHub Pages
-- Cloudflare
+- Next.js
+- React
+- TypeScript
+- Prisma
+- PostgreSQL
+- NextAuth (GitHub login)
+- Vercel-ready deployment model
+
+## Routes
+
+- `/`
+- `/projects`
+- `/projects/[slug]`
+- `/now`
+- `/contact`
+- `/admin`
+
+## Local setup
+
+```bash
+npm install
+cp .env.example .env
+```
+
+Fill in:
+
+- `DATABASE_URL`
+- `NEXTAUTH_SECRET`
+- `NEXTAUTH_URL`
+- `GITHUB_ID`
+- `GITHUB_SECRET`
+- `ADMIN_GITHUB_LOGINS`
+- `NEXT_PUBLIC_SITE_URL`
+
+Then:
+
+```bash
+npm run prisma:generate
+npm run dev
+```
+
+Optional database seed:
+
+```bash
+npm run seed
+```
 
 ## Notes
 
-- no framework
-- single-site repo with direct deploy to GitHub Pages
-- custom visual design and motion work
-
-## Local
-
-```bash
-git clone https://github.com/arifaqyl/arifaqyl.github.io
-cd arifaqyl.github.io
-```
+- Public pages fall back to seeded in-memory content when the database is not configured.
+- Write actions such as contact submission persistence and admin CRUD require a real database.
+- Admin GitHub login is scaffolded and gated by allowlisted GitHub usernames.
