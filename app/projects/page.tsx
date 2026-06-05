@@ -1,6 +1,6 @@
-import { SiteShell } from "@/components/site-shell";
+import { ProjectExplainerShowcase } from "@/components/project-explainer-showcase";
 import { SectionHeading } from "@/components/section-heading";
-import { ProjectCard } from "@/components/project-card";
+import { SiteShell } from "@/components/site-shell";
 import { getProjects } from "@/lib/repository";
 
 export const metadata = {
@@ -16,16 +16,11 @@ export default async function ProjectsPage() {
       <section className="section">
         <SectionHeading
           eyebrow="project index"
-          title="A deeper portfolio, not just a repo wall."
-          description="These projects are organized as system stories: what problem existed, how the architecture worked, what tradeoffs showed up, and what the result actually was."
+          title="The project list is meant to be read like engineering notes."
+          description="Every project opens into the same explanation flow: what was broken, how I approached it, what the implementation looked like, and what outcome it produced."
         />
-        <div className="project-grid">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
+        <ProjectExplainerShowcase projects={projects} compact />
       </section>
     </SiteShell>
   );
 }
-

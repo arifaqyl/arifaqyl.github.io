@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { RichContent } from "@/components/rich-content";
 import { SiteShell } from "@/components/site-shell";
 import { ProjectTabs } from "@/components/project-tabs";
 import { getProjectBySlug, getRelatedProjects } from "@/lib/repository";
@@ -33,6 +33,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
   const related = await getRelatedProjects(slug);
+  const overviewBlocks = project.tabs.find((tab) => tab.key === "overview")?.richContent ?? [];
 
   return (
     <SiteShell>
@@ -42,15 +43,10 @@ export default async function ProjectDetailPage({ params }: Props) {
             <p className="eyebrow">{project.category}</p>
             <h1>{project.title}</h1>
             <p className="project-summary">{project.summary}</p>
-            {project.media?.[0] ? (
-              <Image
-                src={project.media[0].src}
-                alt={project.media[0].alt}
-                width={project.media[0].width ?? 1200}
-                height={project.media[0].height ?? 630}
-                style={{ borderRadius: 24, marginBottom: 24 }}
-              />
-            ) : null}
+            <div className="project-lead">
+              <p className="pf-block-label">Project walkthrough</p>
+              <RichContent blocks={overviewBlocks} />
+            </div>
             <ProjectTabs tabs={project.tabs} />
           </article>
           <aside className="meta-grid">

@@ -1,5 +1,5 @@
-import { SiteShell } from "@/components/site-shell";
 import { SectionHeading } from "@/components/section-heading";
+import { SiteShell } from "@/components/site-shell";
 import { getNowUpdates } from "@/lib/repository";
 
 export const metadata = {
@@ -15,7 +15,7 @@ export default async function NowPage() {
       <section className="section">
         <SectionHeading
           eyebrow="now"
-          title="What I’m focused on right now."
+          title="What I'm focused on right now."
           description="This page stays lighter than the main portfolio. It is more like a current direction log than a full resume."
         />
         <div className="admin-stack">
@@ -31,4 +31,3 @@ export default async function NowPage() {
     </SiteShell>
   );
 }
-

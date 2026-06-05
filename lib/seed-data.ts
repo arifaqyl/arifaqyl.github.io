@@ -7,7 +7,7 @@ export const siteSections: SiteSectionContent[] = [
     subtitle:
       "Software Engineering student at UniKL MIIT building automation, backend tools, AI-assisted systems, and production-shaped experiments.",
     body:
-      "This portfolio is now structured like a product surface instead of a static poster. The goal is simple: let people understand what I built, how I built it, and why it matters."
+      "This portfolio is structured to explain the engineering, not just decorate it. The goal is simple: let people understand what I built, how I built it, and why it matters."
   },
   {
     key: "about",
@@ -19,7 +19,7 @@ export const siteSections: SiteSectionContent[] = [
   },
   {
     key: "contact",
-    title: "Let’s build something real.",
+    title: "Let's build something real.",
     subtitle:
       "Open to internship opportunities in backend engineering, automation, and applied AI.",
     body:
@@ -127,7 +127,7 @@ export const projects: ProjectSeed[] = [
     liveUrl: "https://arifaqyl.me",
     repoUrl: "https://github.com/arifaqyl/arifaqyl.github.io",
     category: "web platform",
-    accent: "#CCFF00",
+    accent: "#ccff00",
     sortOrder: 1,
     technologies: [
       { name: "Next.js", slug: "nextjs", category: "frontend" },
@@ -140,25 +140,26 @@ export const projects: ProjectSeed[] = [
       { label: "Admin model", value: "single-owner", orderIndex: 2 },
       { label: "Goal", value: "case-study clarity", orderIndex: 3 }
     ],
-    media: [
-      {
-        type: "image",
-        src: "/media/og-image.jpg",
-        alt: "Open graph preview for arifaqyl.me",
-        width: 1200,
-        height: 630,
-        orderIndex: 1,
-        isCover: true
-      }
-    ],
+    media: [],
     tabs: [
       {
         key: "overview",
         label: "Overview",
         orderIndex: 1,
         richContent: [
-          { type: "paragraph", text: "This site exists to explain the work, not just show polished visuals. The rebuild turns the portfolio into a content system with real structure, admin-managed sections, and project depth." },
-          { type: "list", items: ["Server-rendered public pages", "SQL-backed project content", "Admin-managed homepage sections", "SEO-first metadata and structured data"] }
+          {
+            type: "paragraph",
+            text: "This site exists to explain the work, not just show polished visuals. The rebuild turns the portfolio into a content system with real structure, admin-managed sections, and project depth."
+          },
+          {
+            type: "list",
+            items: [
+              "Server-rendered public pages",
+              "SQL-backed project content",
+              "Admin-managed homepage sections",
+              "SEO-first metadata and structured data"
+            ]
+          }
         ]
       },
       {
@@ -166,8 +167,10 @@ export const projects: ProjectSeed[] = [
         label: "Problem",
         orderIndex: 2,
         richContent: [
-          { type: "paragraph", text: "The previous site looked good, but it was a large single HTML file with expensive effects, weak maintainability, and shallow project storytelling." },
-          { type: "quote", text: "A portfolio should help people understand the systems you built, not just the animations you shipped." }
+          {
+            type: "paragraph",
+            text: "The previous site had personality, but it was still a large single HTML file with expensive effects, shallow project storytelling, and too much visual energy spent on things that did not help people understand the engineering."
+          }
         ]
       },
       {
@@ -175,8 +178,16 @@ export const projects: ProjectSeed[] = [
         label: "Architecture",
         orderIndex: 3,
         richContent: [
-          { type: "paragraph", text: "The new architecture uses Next.js App Router, Prisma, PostgreSQL, route-based case studies, server-rendered metadata, and an owner-only admin surface." },
-          { type: "code", title: "Routing shape", snippet: "/\n/projects\n/projects/[slug]\n/now\n/contact\n/admin" }
+          {
+            type: "paragraph",
+            text: "The new architecture uses Next.js App Router, Prisma, PostgreSQL, route-based case studies, server-rendered metadata, and an owner-only admin surface."
+          },
+          {
+            type: "code",
+            title: "app/page.tsx",
+            snippet:
+              "const featuredProjects = await getFeaturedProjects();\n\n<section id=\"work\">\n  <ProjectExplainerShowcase projects={featuredProjects} />\n</section>"
+          }
         ]
       },
       {
@@ -184,7 +195,15 @@ export const projects: ProjectSeed[] = [
         label: "Build Process",
         orderIndex: 4,
         richContent: [
-          { type: "list", items: ["Migrated hardcoded content into structured seed data", "Replaced expensive always-on effects with progressive enhancement", "Built data-backed project tabs instead of giant accordions", "Made the site deployable as a real app instead of a static dump"] }
+          {
+            type: "list",
+            items: [
+              "Migrated hardcoded content into structured seed data",
+              "Removed unrelated image-heavy sections from the homepage",
+              "Restored the expandable work-card interaction that made the original site memorable",
+              "Made the site deployable as a real app instead of a static dump"
+            ]
+          }
         ]
       },
       {
@@ -192,7 +211,10 @@ export const projects: ProjectSeed[] = [
         label: "Challenges",
         orderIndex: 5,
         richContent: [
-          { type: "paragraph", text: "The hardest part was preserving the original personality while removing the parts that were costly, fragile, or overly decorative." }
+          {
+            type: "paragraph",
+            text: "The hardest part was preserving the original personality while removing the parts that were costly, fragile, or overly decorative."
+          }
         ]
       },
       {
@@ -200,7 +222,15 @@ export const projects: ProjectSeed[] = [
         label: "Results",
         orderIndex: 6,
         richContent: [
-          { type: "list", items: ["Cleaner performance profile", "Clearer recruiter-facing narrative", "Maintainable content model", "Future-ready admin and analytics scaffolding"] }
+          {
+            type: "list",
+            items: [
+              "Cleaner performance profile",
+              "Clearer recruiter-facing narrative",
+              "Maintainable content model",
+              "Future-ready admin and analytics scaffolding"
+            ]
+          }
         ]
       },
       {
@@ -208,7 +238,10 @@ export const projects: ProjectSeed[] = [
         label: "Stack / Links",
         orderIndex: 7,
         richContent: [
-          { type: "paragraph", text: "Next.js, React, TypeScript, Prisma, PostgreSQL, Vercel, Cloudflare." }
+          {
+            type: "paragraph",
+            text: "Next.js, React, TypeScript, Prisma, PostgreSQL, Vercel, Cloudflare."
+          }
         ]
       }
     ]
@@ -237,24 +270,17 @@ export const projects: ProjectSeed[] = [
       { label: "Mode presets", value: "3", orderIndex: 2 },
       { label: "Workflow", value: "overnight", orderIndex: 3 }
     ],
-    media: [
-      {
-        type: "image",
-        src: "/media/aerodance.jpg",
-        alt: "Representative media-oriented project cover",
-        width: 927,
-        height: 1086,
-        orderIndex: 1,
-        isCover: true
-      }
-    ],
+    media: [],
     tabs: [
       {
         key: "overview",
         label: "Overview",
         orderIndex: 1,
         richContent: [
-          { type: "paragraph", text: "This tool turns raw OBS or long-form creator footage into cleaner edits by automating the repetitive first pass." }
+          {
+            type: "paragraph",
+            text: "This tool turns raw OBS or long-form creator footage into cleaner edits by automating the repetitive first pass."
+          }
         ]
       },
       {
@@ -262,7 +288,10 @@ export const projects: ProjectSeed[] = [
         label: "Problem",
         orderIndex: 2,
         richContent: [
-          { type: "paragraph", text: "Manual editing eats hours on silence trimming, dead air cleanup, and repeated export steps." }
+          {
+            type: "paragraph",
+            text: "Manual editing eats hours on silence trimming, dead air cleanup, and repeated export steps."
+          }
         ]
       },
       {
@@ -270,7 +299,22 @@ export const projects: ProjectSeed[] = [
         label: "Architecture",
         orderIndex: 3,
         richContent: [
-          { type: "list", items: ["Audio transcription", "Segment scoring", "Topic grouping", "FFmpeg render pass", "Subtitle generation"] }
+          {
+            type: "list",
+            items: [
+              "Audio transcription",
+              "Segment scoring",
+              "Topic grouping",
+              "FFmpeg render pass",
+              "Subtitle generation"
+            ]
+          },
+          {
+            type: "code",
+            title: "vlog_editor.py",
+            snippet:
+              "from faster_whisper import WhisperModel\n\nmodel = WhisperModel(\"small\", device=\"cuda\", compute_type=\"float16\")\nsegments, _ = model.transcribe(video_path, word_timestamps=True)\nkeep_segments = score_segments(segments, silence_threshold=-35)\nrender_edit(video_path, keep_segments, output_path)"
+          }
         ]
       },
       {
@@ -278,7 +322,10 @@ export const projects: ProjectSeed[] = [
         label: "Build Process",
         orderIndex: 4,
         richContent: [
-          { type: "paragraph", text: "Built around practical creator pain: fast enough to use repeatedly, simple enough to run locally, and structured enough to improve over time." }
+          {
+            type: "paragraph",
+            text: "Built around practical creator pain: fast enough to use repeatedly, simple enough to run locally, and structured enough to improve over time."
+          }
         ]
       },
       {
@@ -286,7 +333,14 @@ export const projects: ProjectSeed[] = [
         label: "Challenges",
         orderIndex: 5,
         richContent: [
-          { type: "list", items: ["Balancing cut aggressiveness vs context", "Handling different genres", "Keeping render/transcription pipelines stable"] }
+          {
+            type: "list",
+            items: [
+              "Balancing cut aggressiveness vs context",
+              "Handling different genres",
+              "Keeping render/transcription pipelines stable"
+            ]
+          }
         ]
       },
       {
@@ -294,7 +348,10 @@ export const projects: ProjectSeed[] = [
         label: "Results",
         orderIndex: 6,
         richContent: [
-          { type: "paragraph", text: "What used to take creators a day of repetitive editing can be turned into an overnight automated pass." }
+          {
+            type: "paragraph",
+            text: "What used to take creators a day of repetitive editing can be turned into an overnight automated pass."
+          }
         ]
       },
       {
@@ -302,7 +359,10 @@ export const projects: ProjectSeed[] = [
         label: "Stack / Links",
         orderIndex: 7,
         richContent: [
-          { type: "paragraph", text: "Python, faster-whisper, FFmpeg, CUDA. Public repo available on GitHub." }
+          {
+            type: "paragraph",
+            text: "Python, faster-whisper, FFmpeg, CUDA. Public repo available on GitHub."
+          }
         ]
       }
     ]
@@ -330,25 +390,100 @@ export const projects: ProjectSeed[] = [
       { label: "Output goal", value: "90", suffix: " sec", orderIndex: 2 },
       { label: "Processed footage", value: "50", suffix: "+ hrs", orderIndex: 3 }
     ],
-    media: [
-      {
-        type: "image",
-        src: "/media/compostifymodel.jpg",
-        alt: "Representative visual for a technical builder project",
-        width: 940,
-        height: 564,
-        orderIndex: 1,
-        isCover: true
-      }
-    ],
+    media: [],
     tabs: [
-      { key: "overview", label: "Overview", orderIndex: 1, richContent: [{ type: "paragraph", text: "Clip Finder scans long recordings and pulls likely highlight moments quickly enough to be useful as a repeatable workflow." }] },
-      { key: "problem", label: "Problem", orderIndex: 2, richContent: [{ type: "paragraph", text: "Interesting moments are sparse and buried inside hours of footage, making manual search slow and inconsistent." }] },
-      { key: "architecture", label: "Architecture", orderIndex: 3, richContent: [{ type: "list", items: ["Audio energy heuristics", "Motion detection", "Grouping and ranking", "Automated clip output"] }] },
-      { key: "build", label: "Build Process", orderIndex: 4, richContent: [{ type: "paragraph", text: "The focus was not on fancy ML claims but on fast heuristic wins that creators would actually use." }] },
-      { key: "challenges", label: "Challenges", orderIndex: 5, richContent: [{ type: "list", items: ["False positives from noisy segments", "Genre-specific pacing", "Balancing speed and clip quality"] }] },
-      { key: "results", label: "Results", orderIndex: 6, richContent: [{ type: "paragraph", text: "The tool reduces the search phase dramatically and gives a useful first pass toward a final highlight reel." }] },
-      { key: "stack", label: "Stack / Links", orderIndex: 7, richContent: [{ type: "paragraph", text: "Python, NumPy, FFmpeg. Public repo available on GitHub." }] }
+      {
+        key: "overview",
+        label: "Overview",
+        orderIndex: 1,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Clip Finder scans long recordings and pulls likely highlight moments quickly enough to be useful as a repeatable workflow."
+          }
+        ]
+      },
+      {
+        key: "problem",
+        label: "Problem",
+        orderIndex: 2,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Interesting moments are sparse and buried inside hours of footage, making manual search slow and inconsistent."
+          }
+        ]
+      },
+      {
+        key: "architecture",
+        label: "Architecture",
+        orderIndex: 3,
+        richContent: [
+          {
+            type: "list",
+            items: [
+              "Audio energy heuristics",
+              "Motion detection",
+              "Grouping and ranking",
+              "Automated clip output"
+            ]
+          },
+          {
+            type: "code",
+            title: "clip_finder.py",
+            snippet:
+              "highlights = []\nfor window in windows(video_path, seconds=12):\n    energy = audio_energy(window)\n    motion = frame_delta(window)\n    score = (energy * 0.55) + (motion * 0.45)\n    if score >= threshold:\n        highlights.append(window)\n\nexport_ranked_clips(highlights[:top_k])"
+          }
+        ]
+      },
+      {
+        key: "build",
+        label: "Build Process",
+        orderIndex: 4,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "The focus was not on fancy ML claims but on fast heuristic wins that creators would actually use."
+          }
+        ]
+      },
+      {
+        key: "challenges",
+        label: "Challenges",
+        orderIndex: 5,
+        richContent: [
+          {
+            type: "list",
+            items: [
+              "False positives from noisy segments",
+              "Genre-specific pacing",
+              "Balancing speed and clip quality"
+            ]
+          }
+        ]
+      },
+      {
+        key: "results",
+        label: "Results",
+        orderIndex: 6,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "The tool reduces the search phase dramatically and gives a useful first pass toward a final highlight reel."
+          }
+        ]
+      },
+      {
+        key: "stack",
+        label: "Stack / Links",
+        orderIndex: 7,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Python, NumPy, FFmpeg. Public repo available on GitHub."
+          }
+        ]
+      }
     ]
   },
   {
@@ -375,13 +510,89 @@ export const projects: ProjectSeed[] = [
     ],
     media: [],
     tabs: [
-      { key: "overview", label: "Overview", orderIndex: 1, richContent: [{ type: "paragraph", text: "A small backend-minded utility for keeping repo metadata and public profile organization more systematic." }] },
-      { key: "problem", label: "Problem", orderIndex: 2, richContent: [{ type: "paragraph", text: "Public GitHub profiles get noisy quickly when repo naming, descriptions, and visibility cues drift over time." }] },
-      { key: "architecture", label: "Architecture", orderIndex: 3, richContent: [{ type: "paragraph", text: "Built as a standalone Java tool with Maven and GitHub API integration." }] },
-      { key: "build", label: "Build Process", orderIndex: 4, richContent: [{ type: "paragraph", text: "The point was operational cleanliness: less manual profile upkeep, more consistency." }] },
-      { key: "challenges", label: "Challenges", orderIndex: 5, richContent: [{ type: "paragraph", text: "API data quality and repo-by-repo rules make automation straightforward in concept but annoying in detail." }] },
-      { key: "results", label: "Results", orderIndex: 6, richContent: [{ type: "paragraph", text: "Useful for enforcing a cleaner public repo surface and metadata discipline." }] },
-      { key: "stack", label: "Stack / Links", orderIndex: 7, richContent: [{ type: "paragraph", text: "Java 17, Maven, GitHub REST API." }] }
+      {
+        key: "overview",
+        label: "Overview",
+        orderIndex: 1,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "A small backend-minded utility for keeping repo metadata and public profile organization more systematic."
+          }
+        ]
+      },
+      {
+        key: "problem",
+        label: "Problem",
+        orderIndex: 2,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Public GitHub profiles get noisy quickly when repo naming, descriptions, and visibility cues drift over time."
+          }
+        ]
+      },
+      {
+        key: "architecture",
+        label: "Architecture",
+        orderIndex: 3,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Built as a standalone Java tool with Maven and GitHub API integration."
+          },
+          {
+            type: "code",
+            title: "RepoSorter.java",
+            snippet:
+              "for (GHRepository repo : gitHub.getMyself().listRepositories()) {\n    if (shouldFeature(repo)) {\n        updateDescription(repo);\n        addTopics(repo, inferredTopics(repo));\n    }\n}"
+          }
+        ]
+      },
+      {
+        key: "build",
+        label: "Build Process",
+        orderIndex: 4,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "The point was operational cleanliness: less manual profile upkeep, more consistency."
+          }
+        ]
+      },
+      {
+        key: "challenges",
+        label: "Challenges",
+        orderIndex: 5,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "API data quality and repo-by-repo rules make automation straightforward in concept but annoying in detail."
+          }
+        ]
+      },
+      {
+        key: "results",
+        label: "Results",
+        orderIndex: 6,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Useful for enforcing a cleaner public repo surface and metadata discipline."
+          }
+        ]
+      },
+      {
+        key: "stack",
+        label: "Stack / Links",
+        orderIndex: 7,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Java 17, Maven, GitHub REST API."
+          }
+        ]
+      }
     ]
   },
   {
@@ -409,13 +620,99 @@ export const projects: ProjectSeed[] = [
     ],
     media: [],
     tabs: [
-      { key: "overview", label: "Overview", orderIndex: 1, richContent: [{ type: "paragraph", text: "A private ops-style bot stack designed to reduce deadline chaos by merging academic signals into one Telegram workflow." }] },
-      { key: "problem", label: "Problem", orderIndex: 2, richContent: [{ type: "paragraph", text: "University deadlines were split across Moodle, WhatsApp groups, and email, making misses too easy." }] },
-      { key: "architecture", label: "Architecture", orderIndex: 3, richContent: [{ type: "list", items: ["Playwright-based VLE scraper", "WAHA / WhatsApp bridge", "Telegram delivery layer", "Gemini-powered digest summarization", "SQLite state tracking"] }] },
-      { key: "build", label: "Build Process", orderIndex: 4, richContent: [{ type: "paragraph", text: "Built more like an internal tool than a demo project: long-running, practical, and focused on keeping the student workflow quieter." }] },
-      { key: "challenges", label: "Challenges", orderIndex: 5, richContent: [{ type: "list", items: ["Credential/session handling", "Mixed-quality input streams", "Daily reliability over flashy features"] }] },
-      { key: "results", label: "Results", orderIndex: 6, richContent: [{ type: "paragraph", text: "Created one consistent deadline and announcement surface instead of checking multiple systems repeatedly." }] },
-      { key: "stack", label: "Stack / Links", orderIndex: 7, richContent: [{ type: "paragraph", text: "Private project. Public case study only; no sensitive credentials or internal runtime details exposed." }] }
+      {
+        key: "overview",
+        label: "Overview",
+        orderIndex: 1,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "A private ops-style bot stack designed to reduce deadline chaos by merging academic signals into one Telegram workflow."
+          }
+        ]
+      },
+      {
+        key: "problem",
+        label: "Problem",
+        orderIndex: 2,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "University deadlines were split across Moodle, WhatsApp groups, and email, making misses too easy."
+          }
+        ]
+      },
+      {
+        key: "architecture",
+        label: "Architecture",
+        orderIndex: 3,
+        richContent: [
+          {
+            type: "list",
+            items: [
+              "Playwright-based VLE scraper",
+              "WAHA / WhatsApp bridge",
+              "Telegram delivery layer",
+              "Gemini-powered digest summarization",
+              "SQLite state tracking"
+            ]
+          },
+          {
+            type: "code",
+            title: "scraper.py",
+            snippet:
+              "with sync_playwright() as p:\n    browser = p.chromium.launch(headless=True)\n    page = browser.new_page(storage_state=\"session.json\")\n    page.goto(VLE_URL)\n    tasks = extract_deadlines(page)\n    save_tasks(tasks, db)\n    push_digest(tasks, telegram_client)"
+          }
+        ]
+      },
+      {
+        key: "build",
+        label: "Build Process",
+        orderIndex: 4,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Built more like an internal tool than a demo project: long-running, practical, and focused on keeping the student workflow quieter."
+          }
+        ]
+      },
+      {
+        key: "challenges",
+        label: "Challenges",
+        orderIndex: 5,
+        richContent: [
+          {
+            type: "list",
+            items: [
+              "Credential and session handling",
+              "Mixed-quality input streams",
+              "Daily reliability over flashy features"
+            ]
+          }
+        ]
+      },
+      {
+        key: "results",
+        label: "Results",
+        orderIndex: 6,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Created one consistent deadline and announcement surface instead of checking multiple systems repeatedly."
+          }
+        ]
+      },
+      {
+        key: "stack",
+        label: "Stack / Links",
+        orderIndex: 7,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Private project. Public case study only; no sensitive credentials or internal runtime details exposed."
+          }
+        ]
+      }
     ]
   },
   {
@@ -442,13 +739,89 @@ export const projects: ProjectSeed[] = [
     ],
     media: [],
     tabs: [
-      { key: "overview", label: "Overview", orderIndex: 1, richContent: [{ type: "paragraph", text: "A lightweight price-monitoring tool that turns repeated fare checking into automated alerts." }] },
-      { key: "problem", label: "Problem", orderIndex: 2, richContent: [{ type: "paragraph", text: "Manual fare checking is repetitive and easy to get wrong if you do not catch the drop in time." }] },
-      { key: "architecture", label: "Architecture", orderIndex: 3, richContent: [{ type: "list", items: ["Scheduled polling", "Threshold comparison", "Telegram notification"] }] },
-      { key: "build", label: "Build Process", orderIndex: 4, richContent: [{ type: "paragraph", text: "Built as a simple script with a clear job: monitor, compare, alert, repeat." }] },
-      { key: "challenges", label: "Challenges", orderIndex: 5, richContent: [{ type: "paragraph", text: "The main challenge is making the automation reliable enough to trust, not just technically functional." }] },
-      { key: "results", label: "Results", orderIndex: 6, richContent: [{ type: "paragraph", text: "Removes repetitive manual checking and makes price drops easier to act on immediately." }] },
-      { key: "stack", label: "Stack / Links", orderIndex: 7, richContent: [{ type: "paragraph", text: "Python, Requests, Telegram Bot API. Public repo available on GitHub." }] }
+      {
+        key: "overview",
+        label: "Overview",
+        orderIndex: 1,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "A lightweight price-monitoring tool that turns repeated fare checking into automated alerts."
+          }
+        ]
+      },
+      {
+        key: "problem",
+        label: "Problem",
+        orderIndex: 2,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Manual fare checking is repetitive and easy to get wrong if you do not catch the drop in time."
+          }
+        ]
+      },
+      {
+        key: "architecture",
+        label: "Architecture",
+        orderIndex: 3,
+        richContent: [
+          {
+            type: "list",
+            items: ["Scheduled polling", "Threshold comparison", "Telegram notification"]
+          },
+          {
+            type: "code",
+            title: "flight_sniper.py",
+            snippet:
+              "response = requests.get(url, timeout=20)\ncurrent_price = parse_price(response.json())\n\nif current_price <= target_price:\n    send_telegram_alert(route_name, current_price, booking_url)\nelse:\n    log_price(route_name, current_price)"
+          }
+        ]
+      },
+      {
+        key: "build",
+        label: "Build Process",
+        orderIndex: 4,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Built as a simple script with a clear job: monitor, compare, alert, repeat."
+          }
+        ]
+      },
+      {
+        key: "challenges",
+        label: "Challenges",
+        orderIndex: 5,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "The main challenge is making the automation reliable enough to trust, not just technically functional."
+          }
+        ]
+      },
+      {
+        key: "results",
+        label: "Results",
+        orderIndex: 6,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Removes repetitive manual checking and makes price drops easier to act on immediately."
+          }
+        ]
+      },
+      {
+        key: "stack",
+        label: "Stack / Links",
+        orderIndex: 7,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Python, Requests, Telegram Bot API. Public repo available on GitHub."
+          }
+        ]
+      }
     ]
   }
 ];
