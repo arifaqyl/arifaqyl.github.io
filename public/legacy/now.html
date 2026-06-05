@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Now — Arif Aqyl</title>
+  <meta name="description" content="What Arif Aqyl is currently focused on — projects, learning, and goals." />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --accent: #ff4d00;
+      --accent2: #ffcc00;
+      --text: #f0ede8;
+      --muted: #555;
+      --border: #1e1e1e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.4;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Main content */
+    .now-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 10rem 2rem 6rem;
+    }
+
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    .now-intro {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 2;
+      margin-bottom: 3rem;
+      max-width: 55ch;
+    }
+
+    .now-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .now-item {
+      padding: 1.5rem 1.8rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      line-height: 1.7;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: background 0.2s;
+    }
+    .now-item:last-child { border-bottom: none; }
+    .now-item:hover { background: #161616; }
+
+    .now-emoji {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    .now-content strong {
+      color: var(--text);
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.15rem;
+    }
+
+    .now-content span {
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .now-updated {
+      margin-top: 3rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+
+    .now-updated span { color: var(--accent); }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.8rem 1.8rem;
+      transition: all 0.2s;
+    }
+    .back-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .now-container { padding: 8rem 1.5rem 4rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">ARIF<span>.</span>AQYL</a>
+  <ul class="nav-links">
+    <li><a href="/#skills">Skills</a></li>
+    <li><a href="/#projects">Projects</a></li>
+    <li><a href="/#contact">Contact</a></li>
+    <li><a href="/now.html" style="color: var(--accent);">Now</a></li>
+    <li><a href="https://github.com/arifaqyl" target="_blank">GitHub ↗</a></li>
+  </ul>
+</nav>
+
+<main class="now-container">
+  <div class="section-label">// what I'm focused on</div>
+  <h1>Now</h1>
+  <p class="now-intro">
+    This is a snapshot of what I'm currently working on, learning, and building toward.
+    Inspired by the <a href="https://nownownow.com/about" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">/now movement</a>.
+  </p>
+
+  <ul class="now-list">
+    <li class="now-item">
+      <span class="now-emoji">🔨</span>
+      <div class="now-content">
+        <strong>Building GitHub Auto-Sorter</strong>
+        <span>A Java tool that reads any GitHub profile via the free API and auto-tags, sorts, and organizes repositories. Keeping my developer profile clean, automatically.</span>
+      </div>
+    </li>
+    <li class="now-item">
+      <span class="now-emoji">🧠</span>
+      <div class="now-content">
+        <strong>Learning Prompt Engineering & AI Integration</strong>
+        <span>Experimenting with AI APIs to automate content pipelines — thumbnails, social posts, and more. Bridging code and intelligence.</span>
+      </div>
+    </li>
+    <li class="now-item">
+      <span class="now-emoji">⚡</span>
+      <div class="now-content">
+        <strong>Strengthening C++ for High-Performance Systems</strong>
+        <span>Going deeper into systems-level programming. Performance matters when you're building things that need to scale.</span>
+      </div>
+    </li>
+    <li class="now-item">
+      <span class="now-emoji">📡</span>
+      <div class="now-content">
+        <strong>Growing Presence Through Content Creation</strong>
+        <span>Using OBS for recordings, building a content workflow, and sharing what I learn publicly. Building in public, not in silence.</span>
+      </div>
+    </li>
+    <li class="now-item">
+      <span class="now-emoji">🤝</span>
+      <div class="now-content">
+        <strong>Seeking Internships & Collaborations</strong>
+        <span>Open to real-world engineering roles, freelance projects, and interesting collaborations. If you're building something cool, let's talk.</span>
+      </div>
+    </li>
+  </ul>
+
+  <div class="now-updated">
+    Last updated: <span>April 2026</span>
+  </div>
+
+  <a href="/" class="back-link">← Back to Portfolio</a>
+</main>
+
+<footer>
+  <span>© 2026 Arif Aqyl — arifaqyl.me</span>
+  <span>Built with GitHub Education ✦ Hosted on GitHub Pages</span>
+</footer>
+
+</body>
+</html>

@@ -33,6 +33,20 @@ a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; }
 img { max-width: 100%; height: auto; display: block; }
 
+.legacy-frame-shell {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.legacy-frame {
+  width: 100%;
+  min-height: 100vh;
+  height: 100vh;
+  border: 0;
+  display: block;
+  background: #040506;
+}
+
 .site-bg::before {
   content: "";
   position: fixed;
