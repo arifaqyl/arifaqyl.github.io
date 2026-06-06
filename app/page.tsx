@@ -6,7 +6,7 @@ import { getFeaturedProjects, getNowUpdates, getSiteSection } from "@/lib/reposi
 
 export const metadata = {
   title: "Home",
-  description: "Arif Aqyl's portfolio with interactive project docs, current work, and contact paths."
+  description: "Arif Aqyl's portfolio with a project-docs homepage, case studies, current work, and contact paths."
 };
 
 export default async function HomePage() {
@@ -17,20 +17,21 @@ export default async function HomePage() {
     getFeaturedProjects(),
     getNowUpdates()
   ]);
+  const projectIndex = featuredProjects.slice(0, 4);
 
   return (
     <SiteShell>
       <section className="hero" id="hero">
         <article className="hero-card">
-          <p className="eyebrow">portfolio / project docs</p>
-          <h1>{hero?.title ?? "I build practical systems that explain themselves."}</h1>
+          <p className="eyebrow">project docs / portfolio index</p>
+          <h1>{hero?.title ?? "Read the work first, then decide what matters."}</h1>
           <p>
             {hero?.body ??
-              "This portfolio is built to explain the work, not just show polished visuals. The goal is simple: let people understand what I built, how I built it, and why it matters."}
+              "This homepage is designed like an index. Each project opens into a case study so people can skim the result, inspect the build, and jump into the details without hunting through a generic portfolio layout."}
           </p>
           <div className="hero-actions">
             <Link href="/projects" className="button-primary">
-              Browse projects
+              Open project index
             </Link>
             <Link href="/now" className="button-secondary">
               See now
@@ -42,15 +43,32 @@ export default async function HomePage() {
         </article>
 
         <div className="hero-side">
+          <article className="hero-card hero-index">
+            <p className="eyebrow">project map</p>
+            <h2>Featured work, arranged like documentation.</h2>
+            <div className="project-index-list">
+              {projectIndex.map((project) => (
+                <Link key={project.slug} href={`/projects/${project.slug}`} className="project-index-item">
+                  <div>
+                    <span className="project-index-label">{project.category}</span>
+                    <strong>{project.title}</strong>
+                  </div>
+                  <p>{project.summary}</p>
+                </Link>
+              ))}
+            </div>
+          </article>
+
           <article className="hero-card hero-note">
             <p className="eyebrow">how to read this</p>
-            <h2>Each project opens like engineering notes.</h2>
+            <h2>Start with the index, then open the case study.</h2>
             <p>
-              Open a card to inspect the problem, architecture, build process, and results. The
-              site is meant to read like documentation instead of a static gallery.
+              Open a card to inspect the problem, architecture, build process, results, and live
+              links. The site is meant to read like documentation instead of a static gallery.
             </p>
             <ul className="hero-list">
-              <li>filter the project list by category</li>
+              <li>scan the featured project index first</li>
+              <li>filter the full project list by category</li>
               <li>expand the case-study tabs for deeper context</li>
               <li>jump to the repo or the live system when available</li>
             </ul>
