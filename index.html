@@ -76,6 +76,14 @@
       width: 0%;
     }
 
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.95;
+    }
+
     /* ─── SCROLLBAR ────────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
@@ -802,6 +810,11 @@
       padding: 24px;
       display: grid;
       gap: 20px;
+      position: sticky;
+      top: 96px;
+      align-self: start;
+      max-height: calc(100vh - 140px);
+      overflow: auto;
     }
 
     .project-kicker {
@@ -1519,7 +1532,11 @@
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-stats { grid-template-columns: repeat(2, 1fr); }
       .project-shell { grid-template-columns: 1fr; gap: 28px; }
-      .project-panel { padding: 20px; }
+      .project-panel {
+        padding: 20px;
+        top: 76px;
+        max-height: calc(100vh - 100px);
+      }
       .project-index { order: 1; }
       .project-grid { grid-template-columns: 1fr; }
       .project-view-head { flex-direction: column; align-items: flex-start; }
@@ -1575,6 +1592,8 @@
 
 <!-- Scroll bar (Effect 9) -->
 <div id="scroll-bar"></div>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <!-- ─── NAV ──────────────────────────────────────────────────── -->
 <div id="nav-wrap">
@@ -1975,7 +1994,7 @@
     <div class="stack-item">HTML/CSS/JS</div>
     <div class="stack-item">ffmpeg</div>
     <div class="stack-item">SQLite</div>
-    <div class="stack-item">Three.js</div>
+    <div class="stack-item">Canvas2D</div>
     <div class="stack-item">Git/GitHub</div>
     <div class="stack-item">Telegram Bot API</div>
     <div class="stack-item">GitHub Actions</div>
@@ -2318,11 +2337,92 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ═══════════════════════════════════════════════════════════════
+   BACKGROUND WAVE (lightweight canvas)
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('bg-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+  if (!ctx) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w = 0;
+  let h = 0;
+  let dpr = 1;
+  let rafId = 0;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+
+    const baseY = h * 0.42;
+    const lines = 22;
+    const stepY = 18;
+    const stepX = 28;
+
+    for (let row = 0; row < lines; row++) {
+      const y0 = baseY + (row - lines / 2) * stepY;
+      ctx.beginPath();
+      for (let x = -40; x <= w + 40; x += stepX) {
+        const wave =
+          Math.sin(x * 0.015 + t * 0.0012 + row * 0.38) * 8 +
+          Math.cos(x * 0.008 - t * 0.0009 + row * 0.24) * 4;
+        const y = y0 + wave;
+        if (x === -40) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = `rgba(204, 255, 0, ${0.018 + row * 0.0012})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const grad = ctx.createRadialGradient(w * 0.5, h * 0.32, 0, w * 0.5, h * 0.32, Math.max(w, h) * 0.42);
+    grad.addColorStop(0, 'rgba(204,255,0,0.06)');
+    grad.addColorStop(1, 'rgba(204,255,0,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+
+    if (!reduceMotion) {
+      rafId = requestAnimationFrame(draw);
+    }
+  }
+
+  resize();
+  if (reduceMotion) {
+    draw(0);
+    return;
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(rafId);
+    else {
+      resize();
+      rafId = requestAnimationFrame(draw);
+    }
+  });
+  rafId = requestAnimationFrame(draw);
+})();
+
+/* ═══════════════════════════════════════════════════════════════
    TICKER (Bug Fix #2)
 ═══════════════════════════════════════════════════════════════ */
 (function () {
   const items = [
-    'Python','Java','C++','HTML/CSS/JS','ffmpeg','SQLite','Three.js',
+    'Python','Java','C++','HTML/CSS/JS','ffmpeg','SQLite','Canvas2D',
     'Git/GitHub','Telegram Bot API','GitHub Actions','Cloudflare DNS',
     'Numpy','Faster-Whisper','DigitalOcean','Gemini API','WAHA',
     'REST API','Maven','PM2'
@@ -2445,32 +2545,6 @@ function scramble(el, text, opts = {}) {
 /* ═══════════════════════════════════════════════════════════════
    EFFECT 6: (was timeline beam — removed with timeline section)
 ═══════════════════════════════════════════════════════════════ */
-
-/* ═══════════════════════════════════════════════════════════════
-   EFFECT 7: SWEEPING BORDER ON BUTTONS (@property animated)
-═══════════════════════════════════════════════════════════════ */
-(function () {
-  const style = document.createElement('style');
-  style.textContent = `
-    @property --ba {
-      syntax: '<angle>';
-      inherits: false;
-      initial-value: 0deg;
-    }
-    @keyframes border-spin {
-      to { --ba: 360deg; }
-    }
-    @supports (background: conic-gradient(red, blue)) {
-      .soc:hover, .hero-cta:hover, .pf-link:hover {
-        animation: border-spin 1.8s linear infinite;
-        background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
-                    conic-gradient(from var(--ba), transparent 0deg, var(--accent) 90deg, transparent 180deg) border-box !important;
-        border-color: transparent !important;
-      }
-    }
-  `;
-  document.head.appendChild(style);
-})();
 
 /* ═══════════════════════════════════════════════════════════════
    EFFECT 8: SECTION LABEL SCRAMBLE ON SCROLL-IN
@@ -2703,7 +2777,7 @@ gh.getMyself()
       summary: 'I kept the visual homepage I already liked, then added a project section that explains the work better. It still feels like mine, but it’s easier to understand fast.',
       what: 'Portfolio front door with the original visual identity and a project section.',
       how: 'The homepage keeps the same visual tone while the project area opens into richer details and links.',
-      stack: ['HTML', 'CSS', 'Vanilla JS', 'Three.js', 'GitHub Pages'],
+      stack: ['HTML', 'CSS', 'Vanilla JS', 'Canvas2D', 'GitHub Pages'],
       proof: [
         { label: 'Surface', value: 'GitHub Pages' },
         { label: 'Style', value: 'legacy visual + docs' },
@@ -2816,6 +2890,7 @@ gh.getMyself()
 </script>
 </body>
 </html>
+
 
 
 
