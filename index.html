@@ -413,6 +413,25 @@
       color: var(--accent);
     }
 
+    .work-proof-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pf--compact .pf-header {
+      padding: 18px 22px;
+    }
+
+    .pf--compact .pf-content {
+      padding: 18px 22px 22px;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .pf--compact .pf-footer {
+      margin-top: 4px;
+    }
+
     /* Project cards */
     .pf-grid { display: flex; flex-direction: column; gap: 2px; }
 
@@ -1647,27 +1666,17 @@
 
 <!-- ─── WORK ──────────────────────────────────────────────────── -->
 <section id="work">
-  <p class="sec-label">// selected work</p>
-
-  <div class="filter-row" id="filter-row">
-    <button class="filter-chip active" data-filter="all">All</button>
-    <button class="filter-chip" data-filter="python">Python</button>
-    <button class="filter-chip" data-filter="java">Java</button>
-    <button class="filter-chip" data-filter="cpp">C++</button>
-    <button class="filter-chip" data-filter="javascript">JavaScript</button>
-    <button class="filter-chip" data-filter="ffmpeg">ffmpeg</button>
-    <button class="filter-chip" data-filter="apis">APIs</button>
+  <p class="sec-label">// shipped work</p>
+  <div class="about-text" style="max-width: 760px; margin-bottom: 28px;">
+    <p><strong>Proof of shipping.</strong> These are the things that made it out of the idea phase and stayed running. The detail lives in the project index below.</p>
   </div>
 
-  <div class="pf-grid" id="pf-grid">
-
-    <!-- 1 -->
-    <article class="pf" data-tags="javascript html css threejs gsap" data-open="0">
-      <div class="pf-glare"></div>
+  <div class="work-proof-grid">
+    <article class="pf pf--compact" data-tags="javascript html css threejs gsap" data-open="0">
       <div class="pf-header">
         <div class="pf-left">
           <span class="pf-num">01</span>
-          <span class="pf-name">index.html — arifaqyl.me</span>
+          <span class="pf-name">arifaqyl.me</span>
         </div>
         <div class="pf-right">
           <div class="pf-tags">
@@ -1676,48 +1685,74 @@
             <span class="chip">gsap</span>
           </div>
           <span class="pf-badge live">live · 2025</span>
-          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
       </div>
       <div class="pf-body">
         <div class="pf-body-inner">
           <div class="pf-content">
             <div>
-              <p class="pf-block-label">Problem</p>
-              <p class="pf-block-text">Portfolio sites built from templates read as templates. Every element signals the tool that generated it, not the person behind the work.</p>
+              <p class="pf-block-label">Shipped</p>
+              <p class="pf-block-text">Old Manus-style homepage, project layer integrated, and live on the custom domain.</p>
             </div>
             <div>
-              <p class="pf-block-label">Solution</p>
-              <p class="pf-block-text">Hand-built in plain HTML, CSS, and JavaScript — no framework, no page builder. Three.js GPU wave grid, GSAP ScrollTrigger, Lenis smooth scroll. The code is readable and all of it ships.</p>
-            </div>
-            <div class="pf-code">
-              <div class="pf-code-header">vertex.glsl</div>
-              <pre id="code-1"></pre>
+              <p class="pf-block-label">Impact</p>
+              <p class="pf-block-text">The site keeps the original visual taste while explaining the work faster.</p>
             </div>
             <div class="pf-footer">
               <div class="pf-stack">
-                <span class="chip">html/css</span>
-                <span class="chip">three.js</span>
-                <span class="chip">gsap</span>
                 <span class="chip">github pages</span>
+                <span class="chip">portfolio</span>
               </div>
-              <a href="https://arifaqyl.me" target="_blank" rel="noopener" class="pf-link">
-                View live
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
+              <a href="https://arifaqyl.me" target="_blank" rel="noopener" class="pf-link">View live</a>
             </div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- 2 -->
-    <article class="pf" data-tags="python ffmpeg apis whisper cuda" data-open="0">
-      <div class="pf-glare"></div>
+    <article class="pf pf--compact" data-tags="python apis sqlite" data-open="0">
       <div class="pf-header">
         <div class="pf-left">
           <span class="pf-num">02</span>
-          <span class="pf-name">vlog_editor.py — Vlog Automation</span>
+          <span class="pf-name">Student Bot</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">waha</span>
+            <span class="chip">sqlite</span>
+          </div>
+          <span class="pf-badge private">live · 2026</span>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Shipped</p>
+              <p class="pf-block-text">24/7 VLE + WhatsApp capture, merged agenda, and live deadline summaries.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Impact</p>
+              <p class="pf-block-text">One dashboard now replaces three separate checks and catches reschedules/cancels properly.</p>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">telegram bot api</span>
+                <span class="chip">gemini api</span>
+              </div>
+              <a href="https://github.com/arifaqyl/whatsapp-assignment-dashboard" target="_blank" rel="noopener" class="pf-link">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pf pf--compact" data-tags="python ffmpeg apis whisper cuda" data-open="0">
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">03</span>
+          <span class="pf-name">Vlog Automation</span>
         </div>
         <div class="pf-right">
           <div class="pf-tags">
@@ -1726,268 +1761,60 @@
             <span class="chip">cuda</span>
           </div>
           <span class="pf-badge live">live · 2026</span>
-          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
       </div>
       <div class="pf-body">
         <div class="pf-body-inner">
           <div class="pf-content">
             <div>
-              <p class="pf-block-label">Problem</p>
-              <p class="pf-block-text">Three video creators spending full days editing vlogs manually — cutting silences, trimming dead air, syncing audio, exporting.</p>
+              <p class="pf-block-label">Shipped</p>
+              <p class="pf-block-text">Audio transcription, silence removal, and overnight export for long vlog footage.</p>
             </div>
             <div>
-              <p class="pf-block-label">Solution</p>
-              <p class="pf-block-text">Transcribes audio with faster-whisper, detects and removes dead air automatically, exports a clean cut. 40+ hours of footage processed. What used to take a day now runs overnight on GPU.</p>
-            </div>
-            <div class="pf-code">
-              <div class="pf-code-header">vlog_editor.py</div>
-              <pre id="code-2"></pre>
+              <p class="pf-block-label">Impact</p>
+              <p class="pf-block-text">What used to take a day now runs unattended on GPU.</p>
             </div>
             <div class="pf-footer">
               <div class="pf-stack">
-                <span class="chip">python</span>
                 <span class="chip">whisper ai</span>
                 <span class="chip">ffmpeg</span>
-                <span class="chip">cuda</span>
               </div>
-              <a href="https://github.com/arifaqyl/vlog-automation" target="_blank" rel="noopener" class="pf-link">
-                GitHub
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
+              <a href="https://github.com/arifaqyl/vlog-automation" target="_blank" rel="noopener" class="pf-link">GitHub</a>
             </div>
           </div>
         </div>
       </div>
     </article>
-
-    <!-- 3 -->
-    <article class="pf" data-tags="python ffmpeg cpp numpy" data-open="0">
-      <div class="pf-glare"></div>
-      <div class="pf-header">
-        <div class="pf-left">
-          <span class="pf-num">03</span>
-          <span class="pf-name">clip_finder.py — Clip Finder</span>
-        </div>
-        <div class="pf-right">
-          <div class="pf-tags">
-            <span class="chip">python</span>
-            <span class="chip">ffmpeg</span>
-            <span class="chip">numpy</span>
-          </div>
-          <span class="pf-badge live">live · 2026</span>
-          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-      </div>
-      <div class="pf-body">
-        <div class="pf-body-inner">
-          <div class="pf-content">
-            <div>
-              <p class="pf-block-label">Problem</p>
-              <p class="pf-block-text">Gaming sessions run 2–3 hours. Highlights are 90 seconds scattered somewhere in that recording.</p>
-            </div>
-            <div>
-              <p class="pf-block-label">Solution</p>
-              <p class="pf-block-text">Scans recordings using audio energy and motion detection, locates interesting moments, outputs a highlight reel in under 2 minutes. 50+ hours of footage processed.</p>
-            </div>
-            <div class="pf-code">
-              <div class="pf-code-header">clip_finder.py</div>
-              <pre id="code-3"></pre>
-            </div>
-            <div class="pf-footer">
-              <div class="pf-stack">
-                <span class="chip">python</span>
-                <span class="chip">ffmpeg</span>
-                <span class="chip">numpy</span>
-              </div>
-              <a href="https://github.com/arifaqyl/clip-finder" target="_blank" rel="noopener" class="pf-link">
-                GitHub
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 4 -->
-    <article class="pf" data-tags="java apis maven" data-open="0">
-      <div class="pf-glare"></div>
-      <div class="pf-header">
-        <div class="pf-left">
-          <span class="pf-num">04</span>
-          <span class="pf-name">github_sync.java — GitHub Auto-Sorter</span>
-        </div>
-        <div class="pf-right">
-          <div class="pf-tags">
-            <span class="chip">java 17</span>
-            <span class="chip">github api</span>
-            <span class="chip">maven</span>
-          </div>
-          <span class="pf-badge live">live · 2025</span>
-          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-      </div>
-      <div class="pf-body">
-        <div class="pf-body-inner">
-          <div class="pf-content">
-            <div>
-              <p class="pf-block-label">Problem</p>
-              <p class="pf-block-text">Cluttered public GitHub profile — unlabeled repos, no pinned projects, inconsistent naming.</p>
-            </div>
-            <div>
-              <p class="pf-block-label">Solution</p>
-              <p class="pf-block-text">Standalone Java backend using Maven and the GitHub REST API. Categorizes, labels, and optimizes public repo visibility based on real-time activity metrics — no manual profile management.</p>
-            </div>
-            <div class="pf-code">
-              <div class="pf-code-header">RepoSorter.java</div>
-              <pre id="code-4"></pre>
-            </div>
-            <div class="pf-footer">
-              <div class="pf-stack">
-                <span class="chip">java 17</span>
-                <span class="chip">github api</span>
-                <span class="chip">maven</span>
-              </div>
-              <a href="https://github.com/arifaqyl/github-auto-sorter" target="_blank" rel="noopener" class="pf-link">
-                GitHub
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 5 -->
-    <article class="pf" data-tags="python apis sqlite" data-open="0">
-      <div class="pf-glare"></div>
-      <div class="pf-header">
-        <div class="pf-left">
-          <span class="pf-num">05</span>
-          <span class="pf-name">student_bot.py — Student Bot</span>
-        </div>
-        <div class="pf-right">
-          <div class="pf-tags">
-            <span class="chip">python</span>
-            <span class="chip">telegram api</span>
-            <span class="chip">gemini</span>
-          </div>
-          <span class="pf-badge private">private · 2026</span>
-          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-      </div>
-      <div class="pf-body">
-        <div class="pf-body-inner">
-          <div class="pf-content">
-            <div>
-              <p class="pf-block-label">Problem</p>
-              <p class="pf-block-text">University deadlines scattered across Moodle VLE, WhatsApp groups, and email. Keeping track meant checking three platforms several times a day.</p>
-            </div>
-            <div>
-              <p class="pf-block-label">Solution</p>
-              <p class="pf-block-text">Python daemon stack running 24/7 on DigitalOcean via PM2: a VLE scraper, a WhatsApp-to-Telegram bridge (WAHA API + MacroDroid), and a Gemini-powered daily digest. Course deadlines, lecturer messages, and class announcements consolidated into one Telegram channel automatically.</p>
-            </div>
-            <div class="pf-code">
-              <div class="pf-code-header">scraper.py</div>
-              <pre id="code-5"></pre>
-            </div>
-            <div class="pf-footer">
-              <div class="pf-stack">
-                <span class="chip">python</span>
-                <span class="chip">telegram bot api</span>
-                <span class="chip">sqlite</span>
-                <span class="chip">gemini api</span>
-                <span class="chip">waha</span>
-                <span class="chip">digital ocean</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 6 -->
-    <article class="pf" data-tags="python apis" data-open="0">
-      <div class="pf-glare"></div>
-      <div class="pf-header">
-        <div class="pf-left">
-          <span class="pf-num">06</span>
-          <span class="pf-name">flight_sniper.py — Flight Sniper</span>
-        </div>
-        <div class="pf-right">
-          <div class="pf-tags">
-            <span class="chip">python</span>
-            <span class="chip">telegram api</span>
-            <span class="chip">requests</span>
-          </div>
-          <span class="pf-badge live">live · 2026</span>
-          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-      </div>
-      <div class="pf-body">
-        <div class="pf-body-inner">
-          <div class="pf-content">
-            <div>
-              <p class="pf-block-label">Problem</p>
-              <p class="pf-block-text">Flight prices fluctuate constantly. Manually checking for deals means either missing the drop or checking obsessively.</p>
-            </div>
-            <div>
-              <p class="pf-block-label">Solution</p>
-              <p class="pf-block-text">Scheduled Python script that monitors a target route, compares live prices against a threshold, and fires a Telegram alert the moment a qualifying fare appears. Runs unattended — no missed deals.</p>
-            </div>
-            <div class="pf-code">
-              <div class="pf-code-header">sniper.py</div>
-              <pre id="code-6"></pre>
-            </div>
-            <div class="pf-footer">
-              <div class="pf-stack">
-                <span class="chip">python</span>
-                <span class="chip">telegram bot api</span>
-                <span class="chip">requests</span>
-              </div>
-              <a href="https://github.com/arifaqyl/flight-sniper" target="_blank" rel="noopener" class="pf-link">
-                GitHub
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </article>
-
   </div>
-</section>
-
-<!-- ─── PROJECTS ─────────────────────────────────────────────── -->
+</section><!-- ─── PROJECTS ─────────────────────────────────────────────── -->
 <section id="projects">
   <p class="sec-label">// project index</p>
 
   <div class="project-shell">
     <div class="project-aside">
       <div class="about-text">
-        <p><strong>Public projects, separated by role.</strong> The work cards above stay as shipped case studies. This section is the index: click a project to open the summary, stack, proof, and one compact snippet.</p>
-        <p>That keeps the same visual language, but the page now behaves like a small docs viewer instead of repeating the same list twice.</p>
+        <p><strong>A small index of things I’ve actually built, broken, or kept running.</strong> Some are live, some are ongoing, all of them are real.</p>
+        <p>This section is the docs layer. Click a project to open the summary, stack, proof, and code note without repeating the same work cards above.</p>
       </div>
 
       <div class="project-badges">
-        <span class="project-badge accent">interactive index</span>
-        <span class="project-badge">live / ongoing / archived</span>
-        <span class="project-badge">docs-first</span>
+        <span class="project-badge accent">live, ongoing, and quietly messy</span>
+        <span class="project-badge">built for use, not just display</span>
+        <span class="project-badge">public proof, private experiments</span>
       </div>
 
       <div class="fact-table">
         <div class="fact-row">
           <span class="fact-key">Mode</span>
-          <span class="fact-val">file index on the left, detail viewer on the right</span>
+          <span class="fact-val">index on the left, detail viewer on the right</span>
         </div>
         <div class="fact-row">
           <span class="fact-key">Goal</span>
-          <span class="fact-val">make each repo easy to search, explain, and trust</span>
+          <span class="fact-val">make each repo easier to search, explain, and trust</span>
         </div>
         <div class="fact-row">
           <span class="fact-key">Motion</span>
-          <span class="fact-val">tiny JS only: click, swap, and keep the layout stable</span>
+          <span class="fact-val">tiny JS only: click, swap, and stay stable</span>
         </div>
       </div>
     </div>
@@ -2719,67 +2546,11 @@ function scramble(el, text, opts = {}) {
   });
 })();
 
-/* ═══════════════════════════════════════════════════════════════
-   EFFECT 2: 3D TILT + GLARE ON PROJECT CARDS
-═══════════════════════════════════════════════════════════════ */
-(function () {
-  if (window.matchMedia('(max-width: 760px)').matches) return;
-  
-  document.querySelectorAll('.pf').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const dx = x - rect.width / 2;
-      const dy = y - rect.height / 2;
-      
-      const rotX = (dy / rect.height) * 12;
-      const rotY = -(dx / rect.width) * 12;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
-      
-      // Update glare position
-      card.style.setProperty('--mouse-x', x + 'px');
-      card.style.setProperty('--mouse-y', y + 'px');
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-      card.style.transition = 'transform 0.5s ease';
-      setTimeout(() => card.style.transition = '', 500);
-    });
-  });
-})();
+/* EFFECT 2 disabled for performance */
 
-/* ═══════════════════════════════════════════════════════════════
-   EFFECT 3: PAGE CURSOR SPOTLIGHT
-═══════════════════════════════════════════════════════════════ */
-(function () {
-  if (window.matchMedia('(max-width: 760px)').matches) return;
-  
-  const spotlight = document.getElementById('spotlight');
-  document.addEventListener('mousemove', e => {
-    spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(204,255,0,0.03), transparent 80%)`;
-  }, { passive: true });
-})();
+/* EFFECT 3 disabled for performance */
 
-/* ═══════════════════════════════════════════════════════════════
-   EFFECT 4: CSS VARIABLE GLOW BORDER ON CARDS
-═══════════════════════════════════════════════════════════════ */
-(function () {
-  if (window.matchMedia('(max-width: 760px)').matches) return;
-  
-  const targets = document.querySelectorAll('.pf, .sc, .award-item');
-  targets.forEach(el => {
-    el.addEventListener('mousemove', e => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      el.style.setProperty('--mouse-x', x + 'px');
-      el.style.setProperty('--mouse-y', y + 'px');
-    });
-  });
-})();
+/* EFFECT 4 disabled for performance */
 
 /* ═══════════════════════════════════════════════════════════════
    EFFECT 5: STAT COUNTERS IN ABOUT
@@ -2952,56 +2723,7 @@ function scramble(el, text, opts = {}) {
   journeyNodes.forEach(n => journeyObs.observe(n));
 })();
 
-/* ═══════════════════════════════════════════════════════════════
-   CUSTOM CURSOR + GHOST TRAIL
-═══════════════════════════════════════════════════════════════ */
-(function () {
-  if (window.matchMedia('(max-width: 760px)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const cur = document.getElementById('cur');
-  const GHOST_COUNT = 7;
-  const ghosts = [];
-  const positions = Array.from({ length: 20 }, () => ({ x: 0, y: 0 }));
-  let bufHead = 0;
-  let mx = 0, my = 0;
-
-  for (let i = 0; i < GHOST_COUNT; i++) {
-    const g = document.createElement('div');
-    g.className = 'cur-ghost';
-    const t = (i + 1) / GHOST_COUNT;
-    g.style.opacity = String(0.15 - t * 0.11);
-    document.body.appendChild(g);
-    ghosts.push(g);
-  }
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-    positions[bufHead] = { x: mx, y: my };
-    bufHead = (bufHead + 1) % positions.length;
-    cur.style.left = mx + 'px';
-    cur.style.top = my + 'px';
-  });
-
-  function animateGhosts() {
-    for (let i = 0; i < GHOST_COUNT; i++) {
-      const delay = (i + 1) * 2;
-      const idx = (bufHead - delay + positions.length) % positions.length;
-      const pos = positions[idx];
-      ghosts[i].style.left = pos.x + 'px';
-      ghosts[i].style.top = pos.y + 'px';
-    }
-    requestAnimationFrame(animateGhosts);
-  }
-  animateGhosts();
-
-  const hoverTargets = document.querySelectorAll('a, button, .pf-header');
-  hoverTargets.forEach(el => {
-    el.addEventListener('mouseenter', () => cur.classList.add('grow'));
-    el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
-  });
-})();
+/* CUSTOM CURSOR trail disabled; keep cursor only if needed */
 
 
 /* ═══════════════════════════════════════════════════════════════
@@ -3011,12 +2733,12 @@ function scramble(el, text, opts = {}) {
   const projects = [
     {
       name: 'whatsapp-assignment-dashboard',
-      hook: 'VLE + WhatsApp agenda tracker that merges deadlines into one summary view.',
+      hook: 'One command that folds VLE deadlines and WhatsApp reminders into one agenda.',
       status: 'live',
       type: 'live system',
-      summary: 'One schedule surface for class deadlines, lecturer posts, and reminder traffic. The point is speed: one command opens one merged agenda instead of jumping across apps.',
-      what: 'Live workflow dashboard for students who need one readable agenda.',
-      how: 'Pulls VLE rows and WhatsApp evidence into one normalized queue, then sorts by due date and urgency.',
+      summary: 'I wanted one place to read what matters today without bouncing between apps. This turns mixed school updates into a single, ordered view.',
+      what: 'Live agenda for deadlines, reminders, and class updates.',
+      how: 'Pulls VLE rows and WhatsApp messages into one queue, then sorts by date and urgency.',
       stack: ['Python', 'WAHA', 'Telegram Bot API', 'SQLite', 'Gemini API'],
       proof: [
         { label: 'Live view', value: '/summary · /agenda' },
@@ -3029,7 +2751,7 @@ function scramble(el, text, opts = {}) {
     merged = normalize(vle_rows) + normalize(whatsapp_rows)
     merged.sort(key=lambda row: row["due"] or row["ts"])
     return merged`,
-      learn: 'The useful part is not parsing more noise. It is turning mixed signals into one readable agenda.',
+      learn: 'Useful dashboards are mostly about removing friction, not adding more data.',
       links: [
         { label: 'GitHub', href: 'https://github.com/arifaqyl/whatsapp-assignment-dashboard' },
         { label: 'Live site', href: 'https://arifaqyl.me' },
@@ -3037,12 +2759,12 @@ function scramble(el, text, opts = {}) {
     },
     {
       name: 'flight-fare-monitor',
-      hook: 'Route-based flight monitor with API support and fallback scraping.',
+      hook: 'A route-based flight watcher with API support and a fallback scraper.',
       status: 'ongoing',
       type: 'automation',
-      summary: 'A general flight watcher, not a single-route toy. It keeps route config separate from the engine so the same code can follow different travel targets without rewriting the app.',
-      what: 'Price watcher for flights with alerting when fares fall under threshold.',
-      how: 'Loads route config, queries flight providers, and sends an alert when a fare hits the target range.',
+      summary: 'This tracks fares for different routes without locking the app to one trip. The setup stays flexible, so I can switch destinations without rewriting the whole thing.',
+      what: 'Flight price monitor with alerting when fares hit a target.',
+      how: 'Loads route config, checks providers, and flags fares that cross the threshold.',
       stack: ['Python', 'Amadeus API', 'fast_flights', 'Telegram Bot API', 'Requests'],
       proof: [
         { label: 'Routes', value: 'FLIGHT_ROUTES_JSON' },
@@ -3056,19 +2778,19 @@ for route in routes:
     prices = fetch_flights(route, providers=["amadeus", "fast_flights"])
     if hits_threshold(prices):
         alert(route, prices)`,
-      learn: 'The important part is the separation between route config, provider choice, and alert logic.',
+      learn: 'The clean part is separating route data from the monitoring logic.',
       links: [
         { label: 'GitHub', href: 'https://github.com/arifaqyl/flight-fare-monitor' },
       ],
     },
     {
       name: 'market-research-assistant',
-      hook: 'General research assistant, expanded from the old prop-firm framing.',
+      hook: 'A general research tool that can follow the evidence, not just one niche.',
       status: 'ongoing',
       type: 'research tool',
-      summary: 'This is the general version: collect, clean, compare, and write down the evidence. It should work for whatever market or topic I point it at, not just one niche.',
-      what: 'Broad research helper for notes, evidence, and structured outputs.',
-      how: 'Normalizes the topic, gathers sources, and returns a short cited briefing instead of a scattered dump.',
+      summary: 'I wanted something that can gather sources, clean them up, and turn them into a short answer. It should work for any topic I point it at, not just one use case.',
+      what: 'Research helper for notes, evidence, and structured briefings.',
+      how: 'Collects sources, normalizes the input, and returns a concise summary with citations.',
       stack: ['Python', 'Web scraping', 'API ingestion', 'Prompts', 'Markdown'],
       proof: [
         { label: 'Scope', value: 'general research' },
@@ -3081,19 +2803,19 @@ for route in routes:
     topic = topic.strip().lower()
     evidence = collect_sources(topic)
     return summarize_with_citations(evidence)`,
-      learn: 'A general tool is easier to trust than a narrow one that only works when the label matches the prompt.',
+      learn: 'A general tool is more useful than a narrow one that only works when the label matches.',
       links: [
         { label: 'GitHub', href: 'https://github.com/arifaqyl/market-research-assistant' },
       ],
     },
     {
       name: 'github-profile-organizer',
-      hook: 'GitHub workflow utility that sorts and polishes repo presentation.',
+      hook: 'A workflow tool that keeps repos readable, searchable, and public-ready.',
       status: 'active',
       type: 'workflow tool',
-      summary: 'This is the repo hygiene piece: clean names, better metadata, and public-facing presentation that people can actually search and understand.',
-      what: 'Automation for repo cleanup, renaming, and presentation hygiene.',
-      how: 'Uses GitHub API auth from env vars to fetch repo metadata and apply formatting rules.',
+      summary: 'This is the cleanup layer for my GitHub. It fixes names, metadata, and presentation so the account looks intentional instead of random.',
+      what: 'Automation for repo cleanup, renaming, and public presentation.',
+      how: 'Uses GitHub API auth from env vars to fetch repo data and apply formatting rules.',
       stack: ['Java 17', 'GitHub API', 'Maven', 'env tokens'],
       proof: [
         { label: 'Auth', value: 'fine-grained token' },
@@ -3109,19 +2831,19 @@ for route in routes:
 gh.getMyself()
   .listRepositories()
   .toList();`,
-      learn: 'Small workflow tools matter when they make the rest of the portfolio look deliberate instead of accidental.',
+      learn: 'Small workflow tools matter when they make everything else look sharper.',
       links: [
         { label: 'GitHub', href: 'https://github.com/arifaqyl/github-profile-organizer' },
       ],
     },
     {
       name: 'arifaqyl.me',
-      hook: 'Personal portfolio with the original Manus-style layout and integrated project section.',
+      hook: 'My personal site, kept in the old Manus-style layout with a project docs layer.',
       status: 'live',
       type: 'portfolio / site',
-      summary: 'The site stays visual, but the project section now acts like documentation. That keeps the homepage recognizably mine while making it easier to explain what actually ships.',
-      what: 'Portfolio front door with the old visual identity and a project docs layer.',
-      how: 'The homepage keeps the handwritten feel while the project area swaps in richer explanations and links.',
+      summary: 'I kept the visual homepage I already liked, then added a project section that explains the work better. It still feels like mine, but it’s easier to understand fast.',
+      what: 'Portfolio front door with the original visual identity and a project section.',
+      how: 'The homepage keeps the same visual tone while the project area opens into richer details and links.',
       stack: ['HTML', 'CSS', 'Vanilla JS', 'Three.js', 'GitHub Pages'],
       proof: [
         { label: 'Surface', value: 'GitHub Pages' },
@@ -3135,7 +2857,7 @@ gh.getMyself()
   projects: '#projects',
   about: '#about'
 };`,
-      learn: 'The best portfolio page is the one that keeps the old taste but explains the work fast.',
+      learn: 'The best portfolio page keeps your taste, then explains the work quickly.',
       links: [
         { label: 'Live site', href: 'https://arifaqyl.me' },
         { label: 'GitHub', href: 'https://github.com/arifaqyl/arifaqyl.github.io' },
@@ -3231,41 +2953,12 @@ gh.getMyself()
 })();
 
 
-/* ═══════════════════════════════════════════════════════════════
-   MAGNETIC BUTTONS
-═══════════════════════════════════════════════════════════════ */
-(function () {
-  if (window.matchMedia('(max-width: 760px)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const RANGE = 60;
-  const MAX_PULL = 8;
-
-  const targets = document.querySelectorAll('.soc, .pf-link, .nav-links a');
-
-  targets.forEach(el => {
-    el.style.transition = 'transform 0.3s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease';
-
-    el.addEventListener('mousemove', e => {
-      const rect = el.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = e.clientX - cx;
-      const dy = e.clientY - cy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < RANGE) {
-        const pull = (1 - dist / RANGE) * MAX_PULL;
-        el.style.transform = `translate(${(dx / dist) * pull}px, ${(dy / dist) * pull}px)`;
-      }
-    });
-
-    el.addEventListener('mouseleave', () => {
-      el.style.transform = 'translate(0, 0)';
-    });
-  });
-})();
+/* MAGNETIC BUTTONS disabled for performance */
 </script>
 </body>
 </html>
+
+
+
 
 
