@@ -3,370 +3,2740 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arif Aqyl — Project Docs Index</title>
-  <meta name="description" content="Arif Aqyl's portfolio homepage built as a project-docs index with featured case studies, current work, and contact paths." />
-  <meta property="og:title" content="Arif Aqyl — Project Docs Index" />
-  <meta property="og:description" content="Featured project documentation, current work, and contact paths." />
+  <title>Arif Aqyl — Software Engineer</title>
+  <meta name="description" content="Software Engineering student at UniKL MIIT. I build practical tools — AI video editors, audio analysis pipelines, and automation scripts." />
+  <meta property="og:title" content="Arif Aqyl — Software Engineer" />
+  <meta property="og:description" content="Software Engineering student at UniKL MIIT building practical tools and automation scripts." />
+  <meta property="og:image" content="https://arifaqyl.me/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://arifaqyl.me/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="stylesheet" href="/app/globals.css" />
+  <meta name="twitter:title" content="Arif Aqyl — Software Engineer" />
+  <meta name="twitter:description" content="Software Engineering student at UniKL MIIT building practical tools and automation scripts." />
+  <meta name="twitter:image" content="https://arifaqyl.me/og-image.jpg" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#040506" />
+  <link rel="canonical" href="https://arifaqyl.me/" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23040506'/><text x='16' y='23' font-family='monospace' font-size='18' font-weight='bold' fill='%23CCFF00' text-anchor='middle'>a</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <style>
-    .project-doc {
-      padding: 0;
-      overflow: hidden;
+    /* ─── RESET & ROOT ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #040506;
+      --bg-card: #07080a;
+      --bg-raised: #111214;
+      --bg-overlay: #1b1c1e;
+      --border: #363739;
+      --border-hi: #454647;
+      --fg: #ffffff;
+      --fg-2: #9c9c9d;
+      --fg-3: #6a6b6c;
+      --accent: #CCFF00;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+      --sec-pad: clamp(80px, 10vw, 140px);
+      --mouse-x: 0px;
+      --mouse-y: 0px;
     }
-    .project-doc summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 24px;
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { background: none; border: none; cursor: none; font: inherit; color: inherit; }
+
+    /* ─── SCROLL BAR (Effect 9) ─────────────────────────────────── */
+    #scroll-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(204,255,0,0.5);
+      z-index: 10000;
+      width: 0%;
+    }
+
+    /* ─── SPOTLIGHT (Effect 3) ─────────────────────────────────── */
+    #spotlight {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(600px circle at 0px 0px, rgba(204,255,0,0.03), transparent 80%);
+    }
+
+    /* ─── CUSTOM CURSOR ────────────────────────────────────────── */
+    #cur {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--fg);
+      mix-blend-mode: difference;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease;
+      will-change: transform;
+    }
+    #cur.grow { width: 36px; height: 36px; }
+
+    .cur-ghost {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--fg);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+    }
+
+    /* ─── SCROLLBAR ────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* ─── NAV ──────────────────────────────────────────────────── */
+    #nav-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 16px 24px;
       display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: flex-start;
+      justify-content: center;
     }
-    .project-doc summary::-webkit-details-marker { display: none; }
-    .project-doc summary .summary-left { display: grid; gap: 10px; }
-    .project-doc summary .summary-right { display: grid; gap: 10px; justify-items: end; }
-    .project-doc .doc-body {
-      border-top: 1px solid var(--border);
-      padding: 0 24px 24px;
-      display: grid;
-      gap: 18px;
-    }
-    .project-doc[open] summary { padding-bottom: 18px; }
-    .project-doc-grid {
-      display: grid;
-      gap: 18px;
-    }
-    .doc-meta {
+
+    nav {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .doc-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 740px;
+      background: rgba(7,8,10,0.85);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 10px 20px;
+      transition: box-shadow 0.3s ease;
     }
-    .doc-kicker {
-      color: var(--accent);
+
+    nav.scrolled {
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--fg);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--fg); }
+
+    .nav-gh {
+      display: flex;
+      align-items: center;
+      color: var(--fg-2);
+      transition: color 0.2s ease;
+    }
+    .nav-gh:hover { color: var(--fg); }
+
+    /* ─── CANVAS / HERO ────────────────────────────────────────── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 clamp(24px, 6vw, 120px);
+      padding-top: 120px;
+    }
+
+    .hero-label {
       font-family: var(--font-mono);
       font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--fg-3);
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      margin-bottom: 28px;
+      opacity: 1;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
-    .doc-grid-2 {
+
+    .hero-avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      border: 1px solid rgba(204,255,0,0.25);
+      border-radius: 20px;
+      padding: 3px 10px;
+      background: rgba(204,255,0,0.05);
+    }
+    .hero-avail-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-ring 2s ease-out infinite;
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-size: clamp(3.6rem, 9vw, 10.5rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 0.93;
+      color: var(--fg);
+      max-width: 14ch;
+      opacity: 1;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .li { opacity: 1; transform: translateY(0); display: inline; }
+
+    .hero-terminal {
+      margin-top: 32px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      color: var(--fg-3);
+      opacity: 1;
+    }
+    .hero-terminal .cursor {
+      color: var(--accent);
+      animation: blink 0.5s step-end infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-bottom {
+      margin-top: 64px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-bottom > * { opacity: 1; }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      max-width: 44ch;
+      line-height: 1.65;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--fg);
+      background: var(--bg-raised);
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-cta:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(204,255,0,0.05);
+    }
+
+    /* ─── SECTION SHARED ───────────────────────────────────────── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: var(--sec-pad) clamp(24px, 6vw, 120px);
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    section > * { position: relative; z-index: 1; }
+
+    .sec-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+      margin-bottom: 48px;
+      user-select: none;
+    }
+
+    .sec-heading {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 48px;
+    }
+
+    /* ─── TICKER ───────────────────────────────────────────────── */
+    #ticker {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      background: var(--bg-card);
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: tick 900s linear infinite;
+      will-change: transform;
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 24px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+    }
+
+    .ticker-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border-hi);
+      flex-shrink: 0;
+    }
+
+    @keyframes tick {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── WORK ─────────────────────────────────────────────────── */
+    #work::before {
+      background: radial-gradient(84.6% 73.49% at 50% 0%, rgba(4,63,150,0.12), transparent);
+    }
+
+    /* Filter chips */
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .filter-chip {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-card);
+      color: var(--fg-3);
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .filter-chip:hover { color: var(--fg-2); border-color: var(--border-hi); }
+    .filter-chip.active {
+      background: rgba(204,255,0,0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Project cards */
+    .pf-grid { display: flex; flex-direction: column; gap: 2px; }
+
+    .pf {
+      background: var(--bg-card);
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px, rgb(7,8,10) 0px 0px 0px 1px inset;
+      transition: box-shadow 0.25s ease, opacity 0.2s ease, transform 0.5s ease;
+      opacity: 1;
+      pointer-events: auto;
+      position: relative;
+      transform-style: preserve-3d;
+      --mouse-x: 0px;
+      --mouse-y: 0px;
+    }
+
+    .pf::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 11px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      background: radial-gradient(200px circle at var(--mouse-x) var(--mouse-y), rgba(204,255,0,0.08), transparent);
+    }
+
+    .pf:hover::after { opacity: 1; }
+
+    .pf.hidden {
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .pf:hover, .pf[data-open="1"] {
+      box-shadow: rgba(0,0,0,0.4) 0px 4px 40px 8px,
+                  rgba(0,0,0,0.8) 0px 0px 0px 0.5px,
+                  rgba(255,255,255,0.3) 0px 0.5px 0px 0px inset;
+    }
+
+    .pf-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: 11px;
+      opacity: 0;
+      pointer-events: none;
+      background: radial-gradient(300px circle at 50% 50%, rgba(255,255,255,0.08), transparent);
+      transition: opacity 0.3s ease;
+    }
+
+    .pf:hover .pf-glare { opacity: 1; }
+
+    .pf-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      gap: 16px;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pf-left { display: flex; align-items: center; gap: 20px; flex: 1; min-width: 0; }
+
+    .pf-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--fg-3);
+      flex-shrink: 0;
+      width: 24px;
+    }
+
+    .pf-name {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pf-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--fg-3);
+      background: var(--bg-raised);
+      flex-shrink: 0;
+    }
+    .pf-badge.live { border-color: rgba(204,255,0,0.3); color: var(--accent); background: rgba(204,255,0,0.06); }
+    .pf-badge.private { border-color: var(--border-hi); color: var(--fg-3); }
+
+    .pf-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+
+    .pf-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--fg-3);
+      background: var(--bg-raised);
+    }
+
+    .pf-chevron {
+      color: var(--fg-3);
+      transition: transform 0.3s ease, color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .pf[data-open="1"] .pf-chevron { transform: rotate(180deg); color: var(--accent); }
+
+    .pf-body {
       display: grid;
-      gap: 18px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
     }
-    @media (max-width: 900px) {
-      .project-doc summary,
-      .project-doc .doc-body,
-      .hero-card,
-      .content-card { padding: 20px; }
-      .doc-grid-2 { grid-template-columns: 1fr; }
-      .project-doc summary { flex-direction: column; }
-      .project-doc summary .summary-right { justify-items: start; }
+    .pf[data-open="1"] .pf-body { grid-template-rows: 1fr; }
+
+    .pf-body-inner {
+      overflow: hidden;
+    }
+
+    .pf-content {
+      padding: 0 28px 28px 28px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .pf-block-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 8px;
+    }
+
+    .pf-block-text {
+      font-size: 0.88rem;
+      color: var(--fg-2);
+      line-height: 1.65;
+    }
+
+    .pf-code {
+      grid-column: 1 / -1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .pf-code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+    }
+
+    .pf-code pre {
+      margin: 0;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.65;
+      color: var(--fg-2);
+    }
+
+    /* Syntax highlighting */
+    .tok-kw    { color: #cc99cd; }
+    .tok-str   { color: #7ec699; }
+    .tok-cmt   { color: var(--fg-3); font-style: italic; }
+    .tok-num   { color: #f08d49; }
+    .tok-fn    { color: #6fb3d2; }
+
+    .pf-footer {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .pf-stack { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .pf-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(204,255,0,0.25);
+      border-radius: 6px;
+      padding: 6px 14px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .pf-link:hover { background: rgba(204,255,0,0.08); border-color: var(--accent); }
+
+    /* ─── ABOUT ────────────────────────────────────────────────── */
+    #about::before {
+      background: radial-gradient(86.88% 75.47% at 50% 0%, rgba(82,48,145,0.08), transparent);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: var(--fg-2);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--fg); font-weight: 500; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+    }
+
+    .fact-table {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px, rgb(7,8,10) 0px 0px 0px 1px inset;
+    }
+
+    .fact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .fact-row:last-child { border-bottom: none; }
+
+    .fact-key {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      min-width: 88px;
+      padding-top: 1px;
+    }
+
+    .fact-val {
+      font-size: 0.88rem;
+      color: var(--fg-2);
+      line-height: 1.5;
+    }
+    .fact-val.accent { color: var(--accent); }
+
+    /* ─── EDUCATION ────────────────────────────────────────────── */
+    .edu-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .edu-row:last-child { border-bottom: none; }
+
+    .edu-year {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+    }
+
+    .edu-inst {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .edu-deg {
+      font-size: 0.85rem;
+      color: var(--fg-2);
+    }
+
+    /* ─── JOURNEY ──────────────────────────────────────────────── */
+    .journey-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 0 16px;
+      margin-top: 48px;
+    }
+
+    .journey-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 48px;
+    }
+    .journey-connector span {
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), var(--accent), var(--border));
+      opacity: 0.5;
+    }
+
+    .journey-node {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .journey-node.in-view { opacity: 1; transform: translateY(0); }
+
+    .journey-photo {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-raised) 100%);
+      position: relative;
+    }
+    .journey-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(80%) brightness(0.85);
+      transform: scale(1);
+      transition: filter 0.5s ease, transform 0.5s ease;
+    }
+    .journey-photo img[data-missing] {
+      display: none;
+    }
+    .journey-photo::after {
+      content: attr(data-label);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .journey-photo[data-missing]::after { opacity: 1; }
+    .journey-node:hover .journey-photo img {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.03);
+    }
+
+    .journey-meta { display: flex; flex-direction: column; gap: 4px; }
+
+    .journey-year {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--fg-3);
+    }
+
+    .journey-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      margin: 4px 0;
+    }
+    .journey-dot--pulse {
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(204,255,0,0.4);
+      animation: dot-pulse 2s infinite;
+    }
+    @keyframes dot-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(204,255,0,0.4); }
+      70%  { box-shadow: 0 0 0 8px rgba(204,255,0,0); }
+      100% { box-shadow: 0 0 0 0 rgba(204,255,0,0); }
+    }
+
+    .journey-name { font-size: 0.95rem; font-weight: 600; color: var(--fg); margin: 0; }
+    .journey-node--current .journey-name { color: var(--accent); }
+    .journey-desc { font-size: 0.78rem; color: var(--fg-3); margin: 0; }
+
+    /* ─── APPROACH ─────────────────────────────────────────────── */
+    #approach::before {
+      background: radial-gradient(86.88% 75.47% at 50% 0%, rgba(82,48,145,0.12), transparent);
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+    }
+
+    .sc {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      transition: box-shadow 0.2s ease;
+      position: relative;
+      --mouse-x: 0px;
+      --mouse-y: 0px;
+    }
+
+    .sc::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      background: radial-gradient(200px circle at var(--mouse-x) var(--mouse-y), rgba(204,255,0,0.08), transparent);
+    }
+
+    .sc:hover::after { opacity: 1; }
+
+    .sc:hover {
+      box-shadow: rgba(255,255,255,0.05) 0px 1px 0px 0px inset,
+                  rgba(255,255,255,0.08) 0px 0px 0px 1px;
+    }
+
+    .sc-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(204,255,0,0.06);
+      border: 1px solid rgba(204,255,0,0.12);
+      margin-bottom: 16px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .sc-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .sc-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin-bottom: 12px;
+    }
+
+    .sc-text {
+      font-size: 0.88rem;
+      color: var(--fg-2);
+      line-height: 1.65;
+    }
+
+    /* ─── STACK ────────────────────────────────────────────────── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 2px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px, rgb(7,8,10) 0px 0px 0px 1px inset;
+    }
+
+    .stack-item {
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: var(--fg-2);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s ease, color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stack-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 75%;
+      height: 100%;
+      background: linear-gradient(105deg, transparent, rgba(255,255,255,0.06), transparent);
+      transition: left 0.6s ease;
+      pointer-events: none;
+    }
+
+    .stack-item:hover::after { left: 125%; }
+
+    .stack-item:hover { background: var(--bg-raised); color: var(--fg); }
+
+    /* ─── AWARDS ───────────────────────────────────────────────── */
+    /* ─── RECOGNITION PHOTO CARDS ─────────────────────────────── */
+    .award-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+      align-items: start;
+    }
+    @media (max-width: 760px) {
+      .award-photo-grid { grid-template-columns: 1fr; }
+    }
+    .aw-card--featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+    }
+    .aw-card--featured .aw-card-img {
+      aspect-ratio: auto;
+      height: 100%;
+      min-height: 220px;
+      border-radius: 0;
+    }
+    .aw-card--featured .aw-card-body {
+      padding: 24px 24px 24px;
+    }
+    @media (max-width: 760px) {
+      .aw-card--featured {
+        grid-template-columns: 1fr;
+      }
+      .aw-card--featured .aw-card-img {
+        aspect-ratio: 16 / 9;
+        height: auto;
+        min-height: unset;
+      }
+    }
+    .aw-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .aw-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-3px);
+    }
+    .aw-card-img {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+    }
+    .aw-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(50%) brightness(0.8);
+      transform: scale(1.0);
+      transition: filter 0.5s ease, transform 0.5s ease;
+      display: block;
+    }
+    .aw-card:hover .aw-card-img img {
+      filter: grayscale(0%) brightness(0.95);
+      transform: scale(1.04);
+    }
+    .aw-card-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .aw-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .aw-card-year {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--fg-3);
+    }
+    .aw-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .aw-badge--win   { background: rgba(204,255,0,0.12); color: var(--accent); border: 1px solid rgba(204,255,0,0.25); }
+    .aw-badge--place { background: rgba(107,179,210,0.12); color: #6fb3d2; border: 1px solid rgba(107,179,210,0.25); }
+    .aw-badge--part  { background: rgba(156,156,157,0.10); color: var(--fg-3); border: 1px solid var(--border); }
+    .aw-card-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin: 0;
+      line-height: 1.35;
+    }
+    .aw-card-org {
+      font-size: 0.75rem;
+      color: var(--fg-3);
+      margin: 0;
+    }
+    .aw-card-desc {
+      font-size: 0.78rem;
+      color: var(--fg-3);
+      line-height: 1.5;
+      margin: 2px 0 0;
+    }
+    /* plain table for no-photo entries */
+    .awards-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .awards-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .awards-table tr:last-child {
+      border-bottom: none;
+    }
+    .awards-table td {
+      padding: 13px 0;
+      vertical-align: top;
+    }
+    .awards-table .aw-year {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      width: 60px;
+    }
+    .awards-table .aw-title {
+      font-size: 0.88rem;
+      color: var(--fg);
+      font-weight: 500;
+      padding-right: 24px;
+    }
+    .awards-table .aw-org {
+      font-size: 0.78rem;
+      color: var(--fg-3);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* ─── CONTACT ──────────────────────────────────────────────── */
+    #contact::before {
+      background: radial-gradient(80% 70% at 50% 0%, rgba(204,255,0,0.04), transparent);
+    }
+
+    .contact-inner {
+      max-width: 560px;
+    }
+
+    .contact-heading {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .contact-sub {
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .soc-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .soc {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--fg-2);
+      background: var(--bg-card);
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .soc:hover {
+      border-color: var(--border-hi);
+      color: var(--fg);
+      background: var(--bg-raised);
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 28px clamp(24px, 6vw, 120px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--fg-3);
+    }
+
+    @keyframes pulse-ring {
+      0%   { transform: scale(1); opacity: 0.4; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-ring 2s ease-out infinite;
+    }
+
+    /* ─── FOCUS VISIBLE ───────────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    button:focus-visible, a:focus-visible { outline-offset: 4px; }
+
+    /* ─── REDUCED MOTION ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .ticker-track { animation: none; }
+      .journey-node { opacity: 1; transform: none; }
+    }
+
+    /* ─── MOBILE ───────────────────────────────────────────────── */
+    @media (max-width: 760px) {
+      body { cursor: auto; }
+      #cur, .cur-ghost { display: none; }
+      #spotlight { display: none; }
+
+      .nav-links { display: none; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .edu-row { grid-template-columns: 1fr; gap: 8px; }
+
+      .pf-content { grid-template-columns: 1fr; }
+
+      .pf-tags { display: none; }
+
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+      .pf-header { padding: 18px 20px; }
+      .pf-content { padding: 0 20px 20px; padding-top: 20px; }
+
+      .contact-heading { font-size: clamp(2rem, 8vw, 3rem); }
+
+      .journey-grid {
+        grid-template-columns: 1fr;
+        gap: 32px 0;
+      }
+      .journey-connector { display: none; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Arif Aqyl",
+    "url": "https://arifaqyl.me",
+    "email": "arifaqyl@gmail.com",
+    "jobTitle": "Software Engineering Student",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "UniKL MIIT"
+    },
+    "knowsAbout": ["Python", "Java", "C++", "FFmpeg", "Machine Learning", "Automation"],
+    "sameAs": [
+      "https://github.com/arifaqyl",
+      "https://linkedin.com/in/arifaqyl"
+    ]
+  }
+  </script>
 </head>
-<body class="site-bg">
-  <main class="shell-main" style="padding-top: 28px;">
-    <section class="hero">
-      <article class="hero-card">
-        <p class="eyebrow">project docs / portfolio index</p>
-        <h1>Read the work first, then decide what matters.</h1>
-        <p>
-          This homepage is built like a docs index. Open a project card, read the problem, inspect the stack,
-          and jump to the repo or legacy view when you need the deeper version.
-        </p>
-        <div class="hero-actions">
-          <a class="button-primary" href="#projects">Open project index</a>
-          <a class="button-secondary" href="/legacy/index.html">Open legacy view</a>
-          <a class="button-secondary" href="https://github.com/arifaqyl" target="_blank" rel="noreferrer">GitHub profile</a>
+<body>
+<noscript>
+  <style>
+    .li, .hero-bottom > * { opacity: 1 !important; transform: none !important; }
+    .journey-node { opacity: 1 !important; transform: none !important; }
+    #cur, .cur-ghost { display: none !important; }
+    #scroll-bar { display: none !important; }
+  </style>
+</noscript>
+
+<!-- Scroll bar (Effect 9) -->
+<div id="scroll-bar"></div>
+
+<!-- Spotlight (Effect 3) -->
+<div id="spotlight"></div>
+
+<!-- Custom cursor -->
+<div id="cur"></div>
+
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<div id="nav-wrap">
+  <nav id="main-nav" aria-label="Main navigation">
+    <span class="nav-logo">arif-aqyl</span>
+    <ul class="nav-links">
+      <li><a href="#work">work</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="now.html">now</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <a href="https://github.com/arifaqyl" target="_blank" rel="noopener" class="nav-gh" aria-label="GitHub">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+    </a>
+  </nav>
+</div>
+
+<!-- ─── THREE.JS CANVAS ───────────────────────────────────────── -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<main>
+
+<!-- ─── HERO ──────────────────────────────────────────────────── -->
+<section id="hero">
+  <p class="hero-label li">
+    // software engineer
+    <span class="hero-avail"><span class="hero-avail-dot"></span>open to internship</span>
+  </p>
+  <h1 class="hero-title">
+    <span class="li">Software</span><br>
+    <span class="li">built around</span><br>
+    <span class="li">the problem.</span>
+  </h1>
+  <div class="hero-terminal" id="hero-terminal">
+    <span id="typed-text"></span><span class="cursor" id="typed-cursor">|</span>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      I build practical tools outside of class — AI video editors, audio analysis pipelines, and automation scripts. Most of my work is open source on GitHub.
+    </p>
+    <a href="#work" class="hero-cta">
+      View work
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ─── TICKER ────────────────────────────────────────────────── -->
+<div id="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tt-track">
+    <!-- items injected by JS -->
+  </div>
+</div>
+
+<!-- ─── WORK ──────────────────────────────────────────────────── -->
+<section id="work">
+  <p class="sec-label">// work</p>
+
+  <div class="filter-row" id="filter-row">
+    <button class="filter-chip active" data-filter="all">All</button>
+    <button class="filter-chip" data-filter="python">Python</button>
+    <button class="filter-chip" data-filter="java">Java</button>
+    <button class="filter-chip" data-filter="cpp">C++</button>
+    <button class="filter-chip" data-filter="javascript">JavaScript</button>
+    <button class="filter-chip" data-filter="ffmpeg">ffmpeg</button>
+    <button class="filter-chip" data-filter="apis">APIs</button>
+  </div>
+
+  <div class="pf-grid" id="pf-grid">
+
+    <!-- 1 -->
+    <article class="pf" data-tags="javascript html css threejs gsap" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">01</span>
+          <span class="pf-name">index.html — arifaqyl.me</span>
         </div>
-      </article>
-
-      <div class="hero-side">
-        <article class="hero-card hero-index">
-          <p class="eyebrow">project map</p>
-          <h2>Featured work, arranged like documentation.</h2>
-          <div class="project-index-list">
-            <a class="project-index-item" href="#arifaqyl-me">
-              <div>
-                <span class="project-index-label">web platform</span>
-                <strong>arifaqyl.me</strong>
-              </div>
-              <p>Portfolio platform with project docs, case studies, and a structured backend layer.</p>
-            </a>
-            <a class="project-index-item" href="#student-bot">
-              <div>
-                <span class="project-index-label">automation</span>
-                <strong>whatsapp-assignment-dashboard</strong>
-              </div>
-              <p>VLE + WhatsApp tracker that turns noisy deadlines into one compact agenda.</p>
-            </a>
-            <a class="project-index-item" href="#flight-fare-monitor">
-              <div>
-                <span class="project-index-label">monitoring</span>
-                <strong>flight-fare-monitor</strong>
-              </div>
-              <p>General-purpose flight monitor with route config and API-backed data sources.</p>
-            </a>
-            <a class="project-index-item" href="#market-research-assistant">
-              <div>
-                <span class="project-index-label">research</span>
-                <strong>market-research-assistant</strong>
-              </div>
-              <p>Generalized research assistant for scanning sources and shaping faster decisions.</p>
-            </a>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">html/css</span>
+            <span class="chip">three.js</span>
+            <span class="chip">gsap</span>
           </div>
-        </article>
-
-        <article class="hero-card hero-note">
-          <p class="eyebrow">how to read this</p>
-          <h2>Start with the index, then open the case study.</h2>
-          <p>
-            Each project explains what it solves, how it is structured, what I built, and what the result looks like.
-            The old visual homepage still exists under the legacy route.
-          </p>
-          <ul class="hero-list">
-            <li>scan the featured project index first</li>
-            <li>open the card for deeper context</li>
-            <li>jump to GitHub when you want the source</li>
-            <li>use the legacy view for the old visual style</li>
-          </ul>
-        </article>
+          <span class="pf-badge live">live · 2025</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
       </div>
-    </section>
-
-    <section class="section" id="projects">
-      <div class="section-heading">
-        <p class="eyebrow">project lab</p>
-        <h2>Interactive project documentation</h2>
-        <p class="section-description">
-          These cards are meant to be read like engineering notes instead of portfolio wallpaper.
-        </p>
-      </div>
-
-      <div class="project-doc-grid">
-        <details class="hero-card project-doc" id="arifaqyl-me">
-          <summary>
-            <div class="summary-left">
-              <span class="doc-kicker">web platform</span>
-              <strong>arifaqyl.me</strong>
-              <p class="muted">Portfolio platform rebuilt around project explainers, admin routes, and a public landing page that reads like documentation.</p>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Portfolio sites built from templates read as templates. Every element signals the tool that generated it, not the person behind the work.</p>
             </div>
-            <div class="summary-right">
-              <div class="doc-meta">
-                <span class="chip">Next.js</span>
-                <span class="chip">Prisma</span>
-                <span class="chip">PostgreSQL</span>
-              </div>
-              <span class="status-pill">live</span>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Hand-built in plain HTML, CSS, and JavaScript — no framework, no page builder. Three.js GPU wave grid, GSAP ScrollTrigger, Lenis smooth scroll. The code is readable and all of it ships.</p>
             </div>
-          </summary>
-          <div class="doc-body">
-            <div class="doc-grid-2">
-              <div class="content-card">
-                <h3>Problem</h3>
-                <p class="muted">The original version looked good, but it hid the actual engineering. The new structure makes the site read like a project index with deeper case studies underneath.</p>
-              </div>
-              <div class="content-card">
-                <h3>Result</h3>
-                <p class="muted">The homepage now introduces the work, the stack, and the reason each project exists instead of just showing a visual wall.</p>
-              </div>
+            <div class="pf-code">
+              <div class="pf-code-header">vertex.glsl</div>
+              <pre id="code-1"></pre>
             </div>
-            <div class="doc-links">
-              <a class="button-primary" href="https://github.com/arifaqyl/arifaqyl.github.io" target="_blank" rel="noreferrer">GitHub repo</a>
-              <a class="button-secondary" href="/legacy/index.html">Legacy view</a>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">html/css</span>
+                <span class="chip">three.js</span>
+                <span class="chip">gsap</span>
+                <span class="chip">github pages</span>
+              </div>
+              <a href="https://arifaqyl.me" target="_blank" rel="noopener" class="pf-link">
+                View live
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
             </div>
           </div>
-        </details>
+        </div>
+      </div>
+    </article>
 
-        <details class="hero-card project-doc" id="student-bot">
-          <summary>
-            <div class="summary-left">
-              <span class="doc-kicker">automation</span>
-              <strong>whatsapp-assignment-dashboard</strong>
-              <p class="muted">Academic tracker that combines VLE deadlines and WhatsApp messages into one agenda with urgency and date grouping.</p>
+    <!-- 2 -->
+    <article class="pf" data-tags="python ffmpeg apis whisper cuda" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">02</span>
+          <span class="pf-name">vlog_editor.py — Vlog Automation</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">ffmpeg</span>
+            <span class="chip">cuda</span>
+          </div>
+          <span class="pf-badge live">live · 2026</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Three video creators spending full days editing vlogs manually — cutting silences, trimming dead air, syncing audio, exporting.</p>
             </div>
-            <div class="summary-right">
-              <div class="doc-meta">
-                <span class="chip">Python</span>
-                <span class="chip">WAHA</span>
-                <span class="chip">Telegram</span>
-              </div>
-              <span class="status-pill">public</span>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Transcribes audio with faster-whisper, detects and removes dead air automatically, exports a clean cut. 40+ hours of footage processed. What used to take a day now runs overnight on GPU.</p>
             </div>
-          </summary>
-          <div class="doc-body">
-            <div class="doc-grid-2">
-              <div class="content-card">
-                <h3>Problem</h3>
-                <p class="muted">Deadlines were split across VLE pages and WhatsApp noise, so it was easy to miss updates or forget reschedules.</p>
-              </div>
-              <div class="content-card">
-                <h3>Result</h3>
-                <p class="muted">The bot now merges both sources into one summary view and keeps cancel/reschedule behavior sane.</p>
-              </div>
+            <div class="pf-code">
+              <div class="pf-code-header">vlog_editor.py</div>
+              <pre id="code-2"></pre>
             </div>
-            <div class="doc-links">
-              <a class="button-primary" href="https://github.com/arifaqyl/whatsapp-assignment-dashboard" target="_blank" rel="noreferrer">GitHub repo</a>
-              <a class="button-secondary" href="https://arifaqyl.github.io" target="_blank" rel="noreferrer">Project app</a>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">python</span>
+                <span class="chip">whisper ai</span>
+                <span class="chip">ffmpeg</span>
+                <span class="chip">cuda</span>
+              </div>
+              <a href="https://github.com/arifaqyl/vlog-automation" target="_blank" rel="noopener" class="pf-link">
+                GitHub
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
             </div>
           </div>
-        </details>
+        </div>
+      </div>
+    </article>
 
-        <details class="hero-card project-doc" id="flight-fare-monitor">
-          <summary>
-            <div class="summary-left">
-              <span class="doc-kicker">monitoring</span>
-              <strong>flight-fare-monitor</strong>
-              <p class="muted">General-purpose flight tracker with route config, API support, and a cleaner public-facing name.</p>
+    <!-- 3 -->
+    <article class="pf" data-tags="python ffmpeg cpp numpy" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">03</span>
+          <span class="pf-name">clip_finder.py — Clip Finder</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">ffmpeg</span>
+            <span class="chip">numpy</span>
+          </div>
+          <span class="pf-badge live">live · 2026</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Gaming sessions run 2–3 hours. Highlights are 90 seconds scattered somewhere in that recording.</p>
             </div>
-            <div class="summary-right">
-              <div class="doc-meta">
-                <span class="chip">Python</span>
-                <span class="chip">Amadeus</span>
-                <span class="chip">API</span>
-              </div>
-              <span class="status-pill">ongoing</span>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Scans recordings using audio energy and motion detection, locates interesting moments, outputs a highlight reel in under 2 minutes. 50+ hours of footage processed.</p>
             </div>
-          </summary>
-          <div class="doc-body">
-            <div class="doc-grid-2">
-              <div class="content-card">
-                <h3>Problem</h3>
-                <p class="muted">The project was too location-specific before. It needed to be useful for any route, not just one sample city pair.</p>
-              </div>
-              <div class="content-card">
-                <h3>Result</h3>
-                <p class="muted">The monitor now reads route config and can use flight APIs so it stays general and reusable.</p>
-              </div>
+            <div class="pf-code">
+              <div class="pf-code-header">clip_finder.py</div>
+              <pre id="code-3"></pre>
             </div>
-            <div class="doc-links">
-              <a class="button-primary" href="https://github.com/arifaqyl/flight-fare-monitor" target="_blank" rel="noreferrer">GitHub repo</a>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">python</span>
+                <span class="chip">ffmpeg</span>
+                <span class="chip">numpy</span>
+              </div>
+              <a href="https://github.com/arifaqyl/clip-finder" target="_blank" rel="noopener" class="pf-link">
+                GitHub
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
             </div>
           </div>
-        </details>
+        </div>
+      </div>
+    </article>
 
-        <details class="hero-card project-doc" id="market-research-assistant">
-          <summary>
-            <div class="summary-left">
-              <span class="doc-kicker">research</span>
-              <strong>market-research-assistant</strong>
-              <p class="muted">General research assistant that was renamed and reframed away from narrow prop-firm-only positioning.</p>
+    <!-- 4 -->
+    <article class="pf" data-tags="java apis maven" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">04</span>
+          <span class="pf-name">github_sync.java — GitHub Auto-Sorter</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">java 17</span>
+            <span class="chip">github api</span>
+            <span class="chip">maven</span>
+          </div>
+          <span class="pf-badge live">live · 2025</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Cluttered public GitHub profile — unlabeled repos, no pinned projects, inconsistent naming.</p>
             </div>
-            <div class="summary-right">
-              <div class="doc-meta">
-                <span class="chip">Python</span>
-                <span class="chip">Research</span>
-                <span class="chip">Automation</span>
-              </div>
-              <span class="status-pill">ongoing</span>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Standalone Java backend using Maven and the GitHub REST API. Categorizes, labels, and optimizes public repo visibility based on real-time activity metrics — no manual profile management.</p>
             </div>
-          </summary>
-          <div class="doc-body">
-            <div class="doc-grid-2">
-              <div class="content-card">
-                <h3>Problem</h3>
-                <p class="muted">The old name was too narrow for what the tool actually does and it made the repo harder to search or reuse.</p>
-              </div>
-              <div class="content-card">
-                <h3>Result</h3>
-                <p class="muted">The project now presents itself as a general research assistant with a cleaner public identity.</p>
-              </div>
+            <div class="pf-code">
+              <div class="pf-code-header">RepoSorter.java</div>
+              <pre id="code-4"></pre>
             </div>
-            <div class="doc-links">
-              <a class="button-primary" href="https://github.com/arifaqyl/market-research-assistant" target="_blank" rel="noreferrer">GitHub repo</a>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">java 17</span>
+                <span class="chip">github api</span>
+                <span class="chip">maven</span>
+              </div>
+              <a href="https://github.com/arifaqyl/github-auto-sorter" target="_blank" rel="noopener" class="pf-link">
+                GitHub
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
             </div>
           </div>
-        </details>
+        </div>
       </div>
-    </section>
+    </article>
 
-    <section class="section" id="now">
-      <div class="section-heading">
-        <p class="eyebrow">now</p>
-        <h2>Current focus</h2>
-        <p class="section-description">Short, current, and easy to skim.</p>
-      </div>
-      <div class="content-grid">
-        <article class="content-card">
-          <h3>Portfolio</h3>
-          <p class="muted">Keeping the homepage readable as a project index while preserving the old visual identity under `/legacy/`.</p>
-        </article>
-        <article class="content-card">
-          <h3>Student Bot</h3>
-          <p class="muted">Treating WhatsApp + VLE as one agenda instead of separate tools and checking the live deployment carefully.</p>
-        </article>
-        <article class="content-card">
-          <h3>Public repo cleanup</h3>
-          <p class="muted">Renaming weak repo names, removing bad first impressions, and keeping portfolio evidence searchable.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="section-heading">
-        <p class="eyebrow">about</p>
-        <h2>Backend-minded builder with a bias for shipping.</h2>
-        <p class="section-description">I like projects that connect infrastructure, automation, data, and user experience into something useful.</p>
-      </div>
-      <div class="content-grid">
-        <article class="content-card">
-          <h3>What this site is</h3>
-          <p class="muted">A portfolio system with a public homepage, project docs, and case studies. The old visual site still exists, but the default page now explains the work directly.</p>
-        </article>
-        <article class="content-card">
-          <h3>Why the project section exists</h3>
-          <p class="muted">Each project should answer what it does, what problem it solves, and what the implementation looked like. That keeps the site useful instead of decorative.</p>
-        </article>
-        <article class="content-card">
-          <h3>How to use it</h3>
-          <p class="muted">Start on the index, open a project card, then jump to GitHub if you want the source. Use the legacy view only if you want the old visual page.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="section-heading">
-        <p class="eyebrow">contact</p>
-        <h2>Let's build something real.</h2>
-        <p class="section-description">Open to internships in backend engineering, automation, and applied AI.</p>
-      </div>
-      <div class="content-grid">
-        <article class="content-card">
-          <h3>What I respond to</h3>
-          <ul class="hero-list">
-            <li>backend engineering</li>
-            <li>automation and tooling</li>
-            <li>applied AI systems</li>
-            <li>projects with a clear portfolio story</li>
-          </ul>
-        </article>
-        <article class="content-card">
-          <h3>Reach out</h3>
-          <p class="muted">If you want to talk about internships, projects, or systems work, the contact page is the fastest way in.</p>
-          <div class="hero-actions">
-            <a class="button-primary" href="mailto:hello@arifaqyl.me">Email me</a>
-            <a class="button-secondary" href="/legacy/index.html">Open legacy homepage</a>
+    <!-- 5 -->
+    <article class="pf" data-tags="python apis sqlite" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">05</span>
+          <span class="pf-name">student_bot.py — Student Bot</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">telegram api</span>
+            <span class="chip">gemini</span>
           </div>
-        </article>
-        <article class="content-card">
-          <h3>GitHub</h3>
-          <p class="muted">If you want the source, the repos are organized and public-facing now. The profile page points to the current work first.</p>
-          <div class="hero-actions">
-            <a class="button-secondary" href="https://github.com/arifaqyl" target="_blank" rel="noreferrer">Profile</a>
-            <a class="button-secondary" href="https://github.com/arifaqyl?tab=repositories" target="_blank" rel="noreferrer">Repositories</a>
-          </div>
-        </article>
+          <span class="pf-badge private">private · 2026</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
       </div>
-    </section>
-  </main>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">University deadlines scattered across Moodle VLE, WhatsApp groups, and email. Keeping track meant checking three platforms several times a day.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Python daemon stack running 24/7 on DigitalOcean via PM2: a VLE scraper, a WhatsApp-to-Telegram bridge (WAHA API + MacroDroid), and a Gemini-powered daily digest. Course deadlines, lecturer messages, and class announcements consolidated into one Telegram channel automatically.</p>
+            </div>
+            <div class="pf-code">
+              <div class="pf-code-header">scraper.py</div>
+              <pre id="code-5"></pre>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">python</span>
+                <span class="chip">telegram bot api</span>
+                <span class="chip">sqlite</span>
+                <span class="chip">gemini api</span>
+                <span class="chip">waha</span>
+                <span class="chip">digital ocean</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6 -->
+    <article class="pf" data-tags="python apis" data-open="0">
+      <div class="pf-glare"></div>
+      <div class="pf-header">
+        <div class="pf-left">
+          <span class="pf-num">06</span>
+          <span class="pf-name">flight_sniper.py — Flight Sniper</span>
+        </div>
+        <div class="pf-right">
+          <div class="pf-tags">
+            <span class="chip">python</span>
+            <span class="chip">telegram api</span>
+            <span class="chip">requests</span>
+          </div>
+          <span class="pf-badge live">live · 2026</span>
+          <svg class="pf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-body-inner">
+          <div class="pf-content">
+            <div>
+              <p class="pf-block-label">Problem</p>
+              <p class="pf-block-text">Flight prices fluctuate constantly. Manually checking for deals means either missing the drop or checking obsessively.</p>
+            </div>
+            <div>
+              <p class="pf-block-label">Solution</p>
+              <p class="pf-block-text">Scheduled Python script that monitors a target route, compares live prices against a threshold, and fires a Telegram alert the moment a qualifying fare appears. Runs unattended — no missed deals.</p>
+            </div>
+            <div class="pf-code">
+              <div class="pf-code-header">sniper.py</div>
+              <pre id="code-6"></pre>
+            </div>
+            <div class="pf-footer">
+              <div class="pf-stack">
+                <span class="chip">python</span>
+                <span class="chip">telegram bot api</span>
+                <span class="chip">requests</span>
+              </div>
+              <a href="https://github.com/arifaqyl/flight-sniper" target="_blank" rel="noopener" class="pf-link">
+                GitHub
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─────────────────────────────────────────────── -->
+<section id="projects">
+  <p class="sec-label">// projects</p>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p><strong>Public projects, cleaned up.</strong> The idea is to keep the old site feel while making the current repos easier to search, easier to explain, and easier to trust.</p>
+      <p>I keep the visual identity, then add the project docs around it. That means people can still land on the same site, but now the repos and case studies are clearer.</p>
+      <p>Most of the useful work now points to a live repo, a short explanation, and a direct path to the source instead of a generic portfolio dump.</p>
+    </div>
+
+    <div class="fact-table">
+      <div class="fact-row">
+        <div class="fact-key">01</div>
+        <div class="fact-val">
+          <strong>whatsapp-assignment-dashboard</strong><br />
+          VLE + WhatsApp agenda tracker that merges deadlines into one summary view.
+          <div style="margin-top:10px;"><a href="https://github.com/arifaqyl/whatsapp-assignment-dashboard" target="_blank" rel="noopener" class="pf-link">GitHub</a></div>
+        </div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-key">02</div>
+        <div class="fact-val">
+          <strong>flight-fare-monitor</strong><br />
+          General flight monitor with route config and flight API support.
+          <div style="margin-top:10px;"><a href="https://github.com/arifaqyl/flight-fare-monitor" target="_blank" rel="noopener" class="pf-link">GitHub</a></div>
+        </div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-key">03</div>
+        <div class="fact-val">
+          <strong>market-research-assistant</strong><br />
+          Broader research assistant, renamed from the old narrow prop-firm framing.
+          <div style="margin-top:10px;"><a href="https://github.com/arifaqyl/market-research-assistant" target="_blank" rel="noopener" class="pf-link">GitHub</a></div>
+        </div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-key">04</div>
+        <div class="fact-val">
+          <strong>arifaqyl.me</strong><br />
+          Portfolio site with the original visual style plus the current project context.
+          <div style="margin-top:10px;"><a href="https://arifaqyl.me" target="_blank" rel="noopener" class="pf-link">Live site</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+<section id="about">
+  <p class="sec-label">// about</p>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Software Engineering student at UniKL MIIT (Class of 2028), based in Kuala Lumpur.</p>
+      <p>I build practical tools outside of class — AI video editors, audio analysis pipelines, and automation scripts. Most of my work is open source on GitHub.</p>
+      <p>Current stack: <strong>Python, Java, C++</strong>, FFmpeg, Whisper AI, GitHub Actions.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num" data-target="6" data-suffix="+">0</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-target="40" data-suffix="+">0</span>
+          <span class="stat-label">Hours Automated</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-target="3" data-suffix="">0</span>
+          <span class="stat-label">Languages</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-target="24" data-suffix="/7">0</span>
+          <span class="stat-label">Uptime</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="fact-table">
+        <div class="fact-row">
+          <span class="fact-key">Degree</span>
+          <span class="fact-val">B.IT (Hons) Software Engineering</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-key">University</span>
+          <span class="fact-val">UniKL MIIT · Class of 2028</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-key">Location</span>
+          <span class="fact-val">Kuala Lumpur, Malaysia</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-key">Available</span>
+          <span class="fact-val accent">Open to internship</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION ─────────────────────────────────────────────── -->
+<section id="education">
+  <p class="sec-label">// education</p>
+  <div class="edu-row">
+    <span class="edu-year">2025 – 2028</span>
+    <span class="edu-inst">UniKL MIIT</span>
+    <span class="edu-deg">B.IT (Hons) Software Engineering</span>
+  </div>
+  <div class="edu-row">
+    <span class="edu-year">2024 – 2025</span>
+    <span class="edu-inst">Kolej MARA Kuala Nerang</span>
+    <span class="edu-deg">Foundation in Engineering & Technology · CGPA 3.55</span>
+  </div>
+  <div class="edu-row">
+    <span class="edu-year">2022 – 2024</span>
+    <span class="edu-inst">MRSM Gerik</span>
+    <span class="edu-deg">Secondary (SPM) · 7As</span>
+  </div>
+</section>
+
+<!-- ─── JOURNEY ────────────────────────────────────────────────── -->
+<section id="journey">
+  <p class="sec-label">// journey</p>
+  <div class="journey-grid">
+    <div class="journey-node">
+      <div class="journey-photo" data-label="mrsm gerik · 2022–2024">
+        <img src="mrsm.jpg" alt="MRSM Gerik" loading="lazy" width="480" height="300">
+      </div>
+      <div class="journey-meta">
+        <span class="journey-year">2022 – 2024</span>
+        <span class="journey-dot"></span>
+        <h3 class="journey-name">MRSM Gerik</h3>
+        <p class="journey-desc">Secondary school · Perak</p>
+      </div>
+    </div>
+    <div class="journey-connector"><span></span></div>
+    <div class="journey-node">
+      <div class="journey-photo" data-label="kolej mara kn · 2024–2025">
+        <img src="kmkn.jpg" alt="Kolej MARA Kuala Nerang" loading="lazy" width="480" height="300">
+      </div>
+      <div class="journey-meta">
+        <span class="journey-year">2024 – 2025</span>
+        <span class="journey-dot"></span>
+        <h3 class="journey-name">Kolej MARA Kuala Nerang</h3>
+        <p class="journey-desc">Foundation in Engineering & Technology</p>
+      </div>
+    </div>
+    <div class="journey-connector"><span></span></div>
+    <div class="journey-node journey-node--current">
+      <div class="journey-photo" data-label="unikl miit · 2025–present">
+        <img src="unikl.jpg" alt="UniKL MIIT" loading="lazy" width="480" height="300">
+      </div>
+      <div class="journey-meta">
+        <span class="journey-year">2025 – 2028</span>
+        <span class="journey-dot journey-dot--pulse"></span>
+        <h3 class="journey-name">UniKL MIIT</h3>
+        <p class="journey-desc">B.IT (Hons) Software Engineering · Current</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── APPROACH ──────────────────────────────────────────────── -->
+<section id="approach">
+  <p class="sec-label">// capabilities</p>
+  <div class="approach-grid">
+    <div class="sc">
+      <div class="sc-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      </div>
+      <p class="sc-num">01</p>
+      <p class="sc-title">Python automation</p>
+      <p class="sc-text">ffmpeg pipelines, async scrapers, Telegram bots, scheduled daemons</p>
+    </div>
+    <div class="sc">
+      <div class="sc-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <p class="sc-num">02</p>
+      <p class="sc-title">Backend systems</p>
+      <p class="sc-text">REST API clients, SQLite data stores, Java/Maven builds, PM2 process management</p>
+    </div>
+    <div class="sc">
+      <div class="sc-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </div>
+      <p class="sc-num">03</p>
+      <p class="sc-title">Video processing</p>
+      <p class="sc-text">Whisper speech recognition, silent-segment detection, GPU-accelerated encoding</p>
+    </div>
+    <div class="sc">
+      <div class="sc-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <p class="sc-num">04</p>
+      <p class="sc-title">Web infrastructure</p>
+      <p class="sc-text">Static sites, GitHub Actions CI/CD, Cloudflare DNS, GitHub Pages</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STACK ──────────────────────────────────────────────────── -->
+<section id="stack">
+  <p class="sec-label">// stack</p>
+  <div class="stack-grid">
+    <div class="stack-item">Python</div>
+    <div class="stack-item">Java</div>
+    <div class="stack-item">C++</div>
+    <div class="stack-item">HTML/CSS/JS</div>
+    <div class="stack-item">ffmpeg</div>
+    <div class="stack-item">SQLite</div>
+    <div class="stack-item">Three.js</div>
+    <div class="stack-item">Git/GitHub</div>
+    <div class="stack-item">Telegram Bot API</div>
+    <div class="stack-item">GitHub Actions</div>
+    <div class="stack-item">Cloudflare DNS</div>
+    <div class="stack-item">Numpy</div>
+    <div class="stack-item">Faster-Whisper</div>
+    <div class="stack-item">DigitalOcean</div>
+    <div class="stack-item">Gemini API</div>
+    <div class="stack-item">WAHA</div>
+    <div class="stack-item">REST API</div>
+    <div class="stack-item">Maven</div>
+    <div class="stack-item">PM2</div>
+  </div>
+</section>
+
+<!-- ─── RECOGNITION ───────────────────────────────────────────── -->
+<section id="awards">
+  <p class="sec-label">// recognition</p>
+
+  <!-- entries with photos -->
+  <div class="award-photo-grid">
+
+    <!-- row 1 — competition wins -->
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="stemboree.jpg" alt="SCOUT STEMBoree MRSM Se-Malaysia 2022 — Champion" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2022</span>
+          <span class="aw-badge aw-badge--win">Champion</span>
+        </div>
+        <p class="aw-card-title">SCOUT STEMBoree MRSM Se-Malaysia</p>
+        <p class="aw-card-org">MARA MRSM</p>
+        <p class="aw-card-desc">Inter-MRSM scouts competition combining STEM challenges and fieldcraft. Placed champion overall among all MRSM schools nationally.</p>
+      </div>
+    </div>
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="stemideation2nd.jpg" alt="iOS App Ideation & Prototyping MRSM 2023 — 2nd Place" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2023</span>
+          <span class="aw-badge aw-badge--place">2nd Place</span>
+        </div>
+        <p class="aw-card-title">iOS App Ideation &amp; Prototyping</p>
+        <p class="aw-card-org">MARA MRSM</p>
+        <p class="aw-card-desc">Designed and pitched Compostify — a food waste management iOS app concept. Placed 2nd nationally among MRSM school teams.</p>
+      </div>
+    </div>
+
+    <!-- compostify — full-width featured card -->
+    <div class="aw-card aw-card--featured">
+      <div class="aw-card-img">
+        <img src="compostifymodel.jpg" alt="Compostify smart compost bin 3D model" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2023</span>
+          <span class="aw-badge aw-badge--part">The Project</span>
+        </div>
+        <p class="aw-card-title">Compostify — Smart Composting System</p>
+        <p class="aw-card-org">iOS App Ideation &amp; Prototyping · MARA MRSM</p>
+        <p class="aw-card-desc">Solar-powered smart compost bin paired with a mobile app. Drop food waste in a CompostBin, scan the QR code — the bin weighs it and credits your CompoWallet automatically. CompoWallet is a built-in eWallet (Touch 'n Go-style) for spending and transferring rewards. CompoMart is an in-app marketplace for buying compost soil from Shinsei. Built in collaboration with Shinsei, MAEKO, and Touch 'n Go.</p>
+      </div>
+    </div>
+
+    <!-- row 3 — runner-up + committee -->
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="aerodance.jpg" alt="Aerodance Interclass Competition 2025 — 1st Runner Up" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2025</span>
+          <span class="aw-badge aw-badge--place">1st Runner-Up</span>
+        </div>
+        <p class="aw-card-title">Aerodance Interclass Competition</p>
+        <p class="aw-card-org">Kolej MARA Kuala Nerang</p>
+        <p class="aw-card-desc">Interclass dance competition at KMKN. Performed with the team and placed 1st runner-up out of all competing classes.</p>
+      </div>
+    </div>
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="fypcommittee.jpg" alt="FYP Innovation Showcase UniKL MIIT 2026 — Committee" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2026</span>
+          <span class="aw-badge aw-badge--part">Committee</span>
+        </div>
+        <p class="aw-card-title">FYP Innovation Showcase</p>
+        <p class="aw-card-org">UniKL MIIT</p>
+        <p class="aw-card-desc">Organised and ran the annual FYP Innovation Showcase at UniKL MIIT — an inter-faculty event where final year students present their capstone projects.</p>
+      </div>
+    </div>
+
+    <!-- row 4 — participation + volunteer -->
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="sterfvolunteer.jpg" alt="STERF Science & Technology Volunteer 2023" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2023</span>
+          <span class="aw-badge aw-badge--part">Volunteer</span>
+        </div>
+        <p class="aw-card-title">STERF Science &amp; Technology Camp</p>
+        <p class="aw-card-org">MRSM Gerik</p>
+        <p class="aw-card-desc">Volunteered as a facilitator for a STEM enrichment camp held at MRSM Gerik for secondary school students.</p>
+      </div>
+    </div>
+    <div class="aw-card">
+      <div class="aw-card-img">
+        <img src="stemtaiping.jpg" alt="STEM Digital Ideation Inter-MRSM 2022 — Participant" loading="lazy">
+      </div>
+      <div class="aw-card-body">
+        <div class="aw-card-meta">
+          <span class="aw-card-year">2022</span>
+          <span class="aw-badge aw-badge--part">Participant</span>
+        </div>
+        <p class="aw-card-title">STEM Digital Ideation Inter-MRSM Se-Malaysia</p>
+        <p class="aw-card-org">MARA MRSM · Taiping</p>
+        <p class="aw-card-desc">National inter-MRSM digital ideation showcase held in Taiping. Represented MRSM Gerik.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- entries without photos -->
+  <table class="awards-table">
+    <tr><td class="aw-year">2025</td><td class="aw-title">MUET Band 4.0</td><td class="aw-org">Malaysian University English Test</td></tr>
+    <tr><td class="aw-year">2023</td><td class="aw-title">GPA Improvement Award</td><td class="aw-org">MRSM Gerik</td></tr>
+  </table>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="sec-label">// contact</p>
+    <h2 class="contact-heading">Get in touch.</h2>
+    <p class="contact-sub">
+      I'm open to internship roles in backend engineering or automation. Email is fastest.
+    </p>
+    <div class="soc-row">
+      <a href="mailto:arifaqyl@gmail.com" class="soc">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+        Email
+      </a>
+      <a href="https://github.com/arifaqyl" target="_blank" rel="noopener" class="soc">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/arifaqyl" target="_blank" rel="noopener" class="soc">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <span class="footer-copy">© 2026 arif aqyl</span>
+  <div class="footer-status">
+    <span class="status-dot"></span>
+    open to internship
+  </div>
+</footer>
+
+<!-- ─── LIBRARIES ─────────────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   CODE SNIPPETS (populate pre elements)
+═══════════════════════════════════════════════════════════════ */
+const snippets = {
+  'code-1': `// Wave grid vertex shader
+uniform float t;
+varying float vY;
+
+void main() {
+  vec3 p = position;
+  float d = length(p.xz) * 0.08;
+  p.y = sin(p.x * 0.35 + t) * cos(p.z * 0.35 + t) * 1.6
+      - sin(d - t * 1.2) * 2.2;
+  vY = p.y;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+}`,
+  'code-2': `from faster_whisper import WhisperModel
+
+whisper_size = "small"
+try:
+    model = WhisperModel(whisper_size, device="cuda", compute_type="float16")
+except:
+    model = WhisperModel(whisper_size, device="cpu", compute_type="int8")
+
+segments = []
+time_offset = 0.0
+for fi, vf in enumerate(video_files):
+    dur = get_duration(vf)
+    segs_raw, info = model.transcribe(vf, vad_filter=True, language="en")
+    file_segs = [
+        {"start": s.start + time_offset,
+         "end":   s.end   + time_offset,
+         "text":  s.text}
+        for s in segs_raw
+    ]
+    segments.extend(file_segs)
+    time_offset += dur`,
+  'code-3': `import subprocess
+
+cmd = ['ffmpeg', '-i', video_path, '-vn',
+       '-af', 'silencedetect=n=-15dB:d=1', '-f', 'null', '-']
+result = subprocess.run(cmd, capture_output=True, text=True)
+
+moments = []
+for line in result.stderr.split('\\n'):
+    if 'silence_end' in line:
+        t = float(line.split('silence_end: ')[1].split('|')[0])
+        moments.append(t)
+
+# Group events within 30s window
+grouped = []
+if moments:
+    grouped.append(moments[0])
+    for t in moments[1:]:
+        if t - grouped[-1] > 30:
+            grouped.append(t)
+
+# Measure peak loudness for each group, sort, cut top N
+ranked = [(t, measure_loudness(video_path, t)) for t in grouped]
+ranked.sort(key=lambda x: x[1], reverse=True)`,
+  'code-4': `GitHub gh = new GitHubBuilder()
+    .withOAuthToken(System.getenv("GH_TOKEN"))
+    .build();
+
+gh.getMyself()
+  .listRepositories()
+  .toList()
+  .stream()
+  .filter(r -> !r.isPrivate())
+  .sorted(Comparator.comparing(
+      GHRepository::getPushedAt).reversed())
+  .forEach(repo -> {
+      String topic = classify(repo.getName());
+      repo.listTopics();
+      gh.getRepository(repo.getFullName())
+        .setTopics(List.of(topic));
+  });`,
+  'code-5': `from playwright.sync_api import sync_playwright
+
+SESSION_FILE = "/root/student-bot/storageState.json"
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    ctx = browser.new_context(storage_state=SESSION_FILE)
+    page = ctx.new_page()
+
+    for code, name in COURSES.items():
+        page.goto(VLE_BASE + f"/mod/assign/index.php?id={COURSE_IDS[code]}")
+        rows = page.query_selector_all("tr.r0, tr.r1")
+        for row in rows:
+            title = row.query_selector(".instancename")
+            due   = row.query_selector(".c2")
+            if title and ASSIGNMENT_KEYWORDS.search(title.inner_text()):
+                add_if_new(conn, title.inner_text(), name,
+                           due.inner_text() if due else "See VLE")`,
+  'code-6': `from fast_flights import FlightData, get_flights
+import time
+
+DREAM_PRICE = 800  # RM
+
+def scan_november(chat_id):
+    dates = [(datetime(2026, 11, 1) + timedelta(days=i)).strftime('%Y-%m-%d')
+             for i in range(30)]
+    for d in dates:
+        res = get_flights(
+            flight_data=[FlightData(date=d,
+                from_airport="KUL", to_airport="KMG")],
+            trip="one-way", fetch_mode="web"
+        )
+        for f in res.flights:
+            if f.stops == 0:
+                price = int(''.join(filter(str.isdigit, f.price)))
+                if price <= DREAM_PRICE:
+                    send_tg(chat_id,
+                        f"TARGET HIT! RM {price}\\n{f.name} | {d}")
+        time.sleep(8)  # stealth delay`
+};
+
+// Populate code blocks
+Object.entries(snippets).forEach(([id, code]) => {
+  const el = document.getElementById(id);
+  if (el) el.textContent = code;
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   SYNTAX HIGHLIGHTING
+═══════════════════════════════════════════════════════════════ */
+function highlight(code, lang) {
+  let html = code;
+  
+  // Keywords
+  const kwPattern = /\b(def|import|from|async|await|class|return|if|for|while|try|except|as|is|in|and|or|not|void|public|private|static|new|this|super|extends|implements|interface|package|throws|synchronized|final|abstract|enum|const|let|const|var|function|const|async|await|yield|break|continue|switch|case|default|do|throw|try|catch|finally)\b/g;
+  html = html.replace(kwPattern, '<span class="tok-kw">$1</span>');
+  
+  // Strings
+  const strPattern = /(['"`])((?:\\.|(?!\1).)*?)\1/g;
+  html = html.replace(strPattern, '<span class="tok-str">$&</span>');
+  
+  // Comments
+  const cmtPattern = /(\/\/.*?$|\/\*[\s\S]*?\*\/|#.*?$)/gm;
+  html = html.replace(cmtPattern, '<span class="tok-cmt">$1</span>');
+  
+  // Numbers
+  const numPattern = /\b(\d+\.?\d*)\b/g;
+  html = html.replace(numPattern, '<span class="tok-num">$1</span>');
+  
+  // Function calls
+  const fnPattern = /\b([a-zA-Z_]\w*)\s*(?=\()/g;
+  html = html.replace(fnPattern, '<span class="tok-fn">$1</span>');
+  
+  return html;
+}
+
+// Apply highlighting to all code blocks
+document.querySelectorAll('.pf-code pre').forEach(pre => {
+  const code = pre.textContent;
+  const lang = pre.closest('.pf-code').querySelector('.pf-code-header').textContent.split('.').pop();
+  pre.innerHTML = highlight(code, lang);
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   THREE.JS WAVE GRID
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('bg-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x040506, 1);
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x040506, 0.035);
+
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+  camera.position.set(0, 14, 28);
+  camera.lookAt(0, 0, 0);
+
+  const W = 120, H = 120;
+  const geo = new THREE.PlaneGeometry(80, 80, W - 1, H - 1);
+  geo.rotateX(-Math.PI / 2);
+
+  const vertexShader = `
+    uniform float t;
+    varying float vY;
+    void main() {
+      vec3 p = position;
+      float d = length(p.xz) * 0.08;
+      p.y = sin(p.x * 0.35 + t) * cos(p.z * 0.35 + t) * 1.6
+          - sin(d - t * 1.2) * 2.2;
+      vY = p.y;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    varying float vY;
+    void main() {
+      float n = clamp((vY + 2.2) / 4.4, 0.0, 1.0);
+      vec3 lo = vec3(0.016, 0.02, 0.024);
+      vec3 hi = vec3(0.13, 0.14, 0.16);
+      gl_FragColor = vec4(mix(lo, hi, n), 1.0);
+    }
+  `;
+
+  const mat = new THREE.ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    uniforms: { t: { value: 0 } },
+    wireframe: true,
+  });
+
+  const mesh = new THREE.Mesh(geo, mat);
+  scene.add(mesh);
+
+  let t = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.005;
+    mat.uniforms.t.value = t;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   LENIS SMOOTH SCROLL
+═══════════════════════════════════════════════════════════════ */
+const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+
+/* ═══════════════════════════════════════════════════════════════
+   GSAP + ScrollTrigger
+═══════════════════════════════════════════════════════════════ */
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
+/* ─── Hero animation (Bug Fix #1) ─── */
+gsap.set('.li', { opacity: 0, y: 60 });
+gsap.set('.hero-bottom > *', { opacity: 0, y: 14 });
+gsap.timeline({ defaults: { ease: 'power3.out' } })
+  .to('.li', { y: 0, opacity: 1, duration: 1.1, stagger: 0.12 }, 0.15)
+  .to('.hero-bottom > *', { opacity: 1, y: 0, duration: 0.7 }, 0.75);
+
+/* ─── Nav scroll shadow ─── */
+const mainNav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  mainNav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* ═══════════════════════════════════════════════════════════════
+   TICKER (Bug Fix #2)
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const items = [
+    'Python','Java','C++','HTML/CSS/JS','ffmpeg','SQLite','Three.js',
+    'Git/GitHub','Telegram Bot API','GitHub Actions','Cloudflare DNS',
+    'Numpy','Faster-Whisper','DigitalOcean','Gemini API','WAHA',
+    'REST API','Maven','PM2'
+  ];
+  const track = document.getElementById('tt-track');
+  const doubled = [...items, ...items];
+  doubled.forEach(item => {
+    const span = document.createElement('span');
+    span.className = 'ticker-item';
+    span.innerHTML = `<span class="ticker-dot"></span>${item}`;
+    track.appendChild(span);
+  });
+  const half = items.length;
+  const BASE = 500;
+  track.style.animation = `tick ${Math.max(900, half * BASE)}s linear infinite`;
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   TERMINAL TYPING EFFECT
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const text = '> building systems that run themselves_';
+  const el = document.getElementById('typed-text');
+  const cursor = document.getElementById('typed-cursor');
+  let i = 0;
+  cursor.style.display = 'none';
+
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i++];
+      setTimeout(type, 45);
+    } else {
+      cursor.style.display = 'inline';
+    }
+  }
+
+  setTimeout(type, 1200);
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 1: HERO TITLE SCRAMBLE ON LOAD
+═══════════════════════════════════════════════════════════════ */
+function scramble(el, text, opts = {}) {
+  const iterations = opts.iterations || 4;
+  const speed = opts.speed || 30;
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+  
+  let currentIteration = 0;
+  
+  function randomizeText() {
+    let scrambled = '';
+    for (let i = 0; i < text.length; i++) {
+      if (Math.random() > currentIteration / iterations) {
+        scrambled += chars[Math.floor(Math.random() * chars.length)];
+      } else {
+        scrambled += text[i];
+      }
+    }
+    el.textContent = scrambled;
+    currentIteration++;
+    
+    if (currentIteration <= iterations) {
+      setTimeout(randomizeText, speed);
+    } else {
+      el.textContent = text;
+    }
+  }
+  
+  randomizeText();
+}
+
+// Hero title scramble on load
+(function () {
+  const lines = document.querySelectorAll('.hero-title .li');
+  lines.forEach((line, i) => {
+    const text = line.textContent;
+    setTimeout(() => {
+      scramble(line, text, { iterations: 4, speed: 30 });
+    }, 500 + i * 150);
+  });
+  
+  // Hover scramble (2 iterations, 20ms)
+  document.querySelector('.hero-title').addEventListener('mouseenter', () => {
+    lines.forEach((line, i) => {
+      const text = line.textContent;
+      setTimeout(() => {
+        scramble(line, text, { iterations: 2, speed: 20 });
+      }, i * 100);
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 2: 3D TILT + GLARE ON PROJECT CARDS
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  
+  document.querySelectorAll('.pf').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const dx = x - rect.width / 2;
+      const dy = y - rect.height / 2;
+      
+      const rotX = (dy / rect.height) * 12;
+      const rotY = -(dx / rect.width) * 12;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+      
+      // Update glare position
+      card.style.setProperty('--mouse-x', x + 'px');
+      card.style.setProperty('--mouse-y', y + 'px');
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+      card.style.transition = 'transform 0.5s ease';
+      setTimeout(() => card.style.transition = '', 500);
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 3: PAGE CURSOR SPOTLIGHT
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  
+  const spotlight = document.getElementById('spotlight');
+  document.addEventListener('mousemove', e => {
+    spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(204,255,0,0.03), transparent 80%)`;
+  }, { passive: true });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 4: CSS VARIABLE GLOW BORDER ON CARDS
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  
+  const targets = document.querySelectorAll('.pf, .sc, .award-item');
+  targets.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      el.style.setProperty('--mouse-x', x + 'px');
+      el.style.setProperty('--mouse-y', y + 'px');
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 5: STAT COUNTERS IN ABOUT
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const stats = document.querySelectorAll('.stat-num');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        let current = 0;
+        const increment = target / 30;
+        
+        const suffix = el.dataset.suffix || '';
+        const counter = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            el.textContent = target + suffix;
+            clearInterval(counter);
+            observer.unobserve(el);
+          } else {
+            el.textContent = Math.floor(current) + suffix;
+          }
+        }, 30);
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  stats.forEach(stat => observer.observe(stat));
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 6: (was timeline beam — removed with timeline section)
+═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 7: SWEEPING BORDER ON BUTTONS (@property animated)
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const style = document.createElement('style');
+  style.textContent = `
+    @property --ba {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
+    }
+    @keyframes border-spin {
+      to { --ba: 360deg; }
+    }
+    @supports (background: conic-gradient(red, blue)) {
+      .soc:hover, .hero-cta:hover, .pf-link:hover {
+        animation: border-spin 1.8s linear infinite;
+        background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                    conic-gradient(from var(--ba), transparent 0deg, var(--accent) 90deg, transparent 180deg) border-box !important;
+        border-color: transparent !important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 8: SECTION LABEL SCRAMBLE ON SCROLL-IN
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const labels = document.querySelectorAll('.sec-label');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const text = entry.target.textContent;
+        scramble(entry.target, text, { iterations: 2, speed: 25 });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  labels.forEach(label => observer.observe(label));
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 9: SCROLL PROGRESS BAR
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const bar = document.getElementById('scroll-bar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    bar.style.width = scrollPercent + '%';
+  }, { passive: true });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECT 10: STACK ITEM SHINE (CSS-based, already in styles)
+═══════════════════════════════════════════════════════════════ */
+// Shine effect is handled via CSS .stack-item::after
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECT FILTER CHIPS
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const cards = document.querySelectorAll('.pf');
+
+  const filterMap = {
+    'all': null,
+    'python': 'python',
+    'java': 'java',
+    'cpp': 'cpp',
+    'javascript': 'javascript',
+    'ffmpeg': 'ffmpeg',
+    'apis': 'apis',
+  };
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const filter = chip.dataset.filter;
+
+      cards.forEach(card => {
+        const tags = card.dataset.tags || '';
+        if (filter === 'all' || tags.includes(filterMap[filter])) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECT ACCORDION
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  document.querySelectorAll('.pf-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const card = header.closest('.pf');
+      const isOpen = card.dataset.open === '1';
+      document.querySelectorAll('.pf').forEach(c => c.dataset.open = '0');
+      card.dataset.open = isOpen ? '0' : '1';
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   JOURNEY — IntersectionObserver staggered reveal + photo fallback
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  // Photo fallback: mark container when image fails to load
+  document.querySelectorAll('.journey-photo img').forEach(img => {
+    img.onerror = () => {
+      img.setAttribute('data-missing', '');
+      img.closest('.journey-photo').setAttribute('data-missing', '');
+    };
+  });
+
+  const journeyNodes = document.querySelectorAll('.journey-node');
+  const journeyObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = [...journeyNodes].indexOf(e.target);
+        setTimeout(() => e.target.classList.add('in-view'), idx * 150);
+        journeyObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  journeyNodes.forEach(n => journeyObs.observe(n));
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOM CURSOR + GHOST TRAIL
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const cur = document.getElementById('cur');
+  const GHOST_COUNT = 7;
+  const ghosts = [];
+  const positions = Array.from({ length: 20 }, () => ({ x: 0, y: 0 }));
+  let bufHead = 0;
+  let mx = 0, my = 0;
+
+  for (let i = 0; i < GHOST_COUNT; i++) {
+    const g = document.createElement('div');
+    g.className = 'cur-ghost';
+    const t = (i + 1) / GHOST_COUNT;
+    g.style.opacity = String(0.15 - t * 0.11);
+    document.body.appendChild(g);
+    ghosts.push(g);
+  }
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    positions[bufHead] = { x: mx, y: my };
+    bufHead = (bufHead + 1) % positions.length;
+    cur.style.left = mx + 'px';
+    cur.style.top = my + 'px';
+  });
+
+  function animateGhosts() {
+    for (let i = 0; i < GHOST_COUNT; i++) {
+      const delay = (i + 1) * 2;
+      const idx = (bufHead - delay + positions.length) % positions.length;
+      const pos = positions[idx];
+      ghosts[i].style.left = pos.x + 'px';
+      ghosts[i].style.top = pos.y + 'px';
+    }
+    requestAnimationFrame(animateGhosts);
+  }
+  animateGhosts();
+
+  const hoverTargets = document.querySelectorAll('a, button, .pf-header');
+  hoverTargets.forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('grow'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   MAGNETIC BUTTONS
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const RANGE = 60;
+  const MAX_PULL = 8;
+
+  const targets = document.querySelectorAll('.soc, .pf-link, .nav-links a');
+
+  targets.forEach(el => {
+    el.style.transition = 'transform 0.3s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease';
+
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < RANGE) {
+        const pull = (1 - dist / RANGE) * MAX_PULL;
+        el.style.transform = `translate(${(dx / dist) * pull}px, ${(dy / dist) * pull}px)`;
+      }
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'translate(0, 0)';
+    });
+  });
+})();
+</script>
 </body>
 </html>

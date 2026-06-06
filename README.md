@@ -2,24 +2,18 @@
 
 Full-stack portfolio app for Arif Aqyl.
 
-This repo has been rebuilt from a single heavy GitHub Pages HTML site into a structured Next.js application with:
+This repo contains two related surfaces:
 
-- Next.js App Router
-- TypeScript
-- Prisma
-- PostgreSQL-ready content model
-- owner-only admin scaffold
-- case-study project pages
-- interactive project explainer cards on the homepage
-- contact submissions
-- metadata, sitemap, robots, and analytics hooks
+- the original Manus-style GitHub Pages homepage, kept as the public visual front door
+- a structured Next.js application with the same content model underneath
 
-The live root page now works as a project-first landing page:
+The public homepage keeps the original visual style and now includes a project section so the site is easier to read:
 
 - homepage intro
-- interactive project documentation
+- project notes / searchable repo links
 - current focus / now sections
 - contact and legacy-view links
+- the old visual sections are still intact
 
 ## Stack
 
@@ -75,4 +69,5 @@ npm run seed
 - Public pages fall back to seeded in-memory content when the database is not configured.
 - Write actions such as contact submission persistence and admin CRUD require a real database.
 - Admin GitHub login is scaffolded and gated by allowlisted GitHub usernames.
-- The old visual homepage still exists under `/legacy/index.html` if you want the previous full-screen version.
+- The old visual homepage is the public front door, with project notes integrated into it.
+- The richer Next.js app still exists in the repo for the droplet deployment and backend routes.
