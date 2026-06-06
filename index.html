@@ -725,6 +725,286 @@
     }
     .fact-val.accent { color: var(--accent); }
 
+    .project-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .project-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .project-note {
+      font-size: 1rem;
+      color: var(--fg-2);
+      line-height: 1.8;
+    }
+    .project-note strong { color: var(--fg); font-weight: 500; }
+
+    .project-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .project-badge {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--fg-3);
+    }
+    .project-badge.accent {
+      border-color: rgba(204,255,0,0.25);
+      color: var(--accent);
+      background: rgba(204,255,0,0.06);
+    }
+
+    .project-explorer {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: rgb(27,28,30) 0px 0px 0px 1px, rgb(7,8,10) 0px 0px 0px 1px inset;
+    }
+
+    .project-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    }
+
+    .project-tab {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-raised);
+      color: var(--fg-3);
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    }
+    .project-tab:hover { color: var(--fg); border-color: var(--border-hi); }
+    .project-tab.active {
+      color: var(--accent);
+      border-color: rgba(204,255,0,0.3);
+      background: rgba(204,255,0,0.06);
+    }
+
+    .project-panel {
+      padding: 24px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .project-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 10px;
+    }
+
+    .project-title {
+      font-size: clamp(1.6rem, 3.4vw, 2.35rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 12px;
+    }
+
+    .project-summary {
+      font-size: 0.98rem;
+      color: var(--fg-2);
+      line-height: 1.75;
+      max-width: 62ch;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .project-stat {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .project-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+
+    .project-stat-value {
+      font-size: 0.84rem;
+      color: var(--fg-2);
+      line-height: 1.55;
+    }
+
+    .project-code {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .project-code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .project-code pre {
+      margin: 0;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--fg-2);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .project-index {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project-item {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-card);
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+    .project-item:hover {
+      border-color: var(--border-hi);
+      background: var(--bg-raised);
+      transform: translateX(2px);
+    }
+    .project-item.active {
+      border-color: rgba(204,255,0,0.28);
+      background: rgba(204,255,0,0.05);
+    }
+
+    .project-item-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .project-item-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--fg);
+      line-height: 1.35;
+    }
+
+    .project-item-hook {
+      font-size: 0.82rem;
+      color: var(--fg-3);
+      line-height: 1.55;
+      margin: 0 0 12px;
+    }
+
+    .project-item-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .project-item-status {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .project-item-type {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+
+    .project-view-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .project-view-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(204,255,0,0.25);
+      background: rgba(204,255,0,0.06);
+      border-radius: 999px;
+      padding: 5px 10px;
+      white-space: nowrap;
+    }
+
+    .project-learn {
+      font-size: 0.88rem;
+      color: var(--fg-3);
+      line-height: 1.65;
+      padding-top: 2px;
+      border-top: 1px solid var(--border);
+    }
+
     /* ─── EDUCATION ────────────────────────────────────────────── */
     .edu-row {
       display: grid;
@@ -1242,6 +1522,11 @@
 
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-stats { grid-template-columns: repeat(2, 1fr); }
+      .project-shell { grid-template-columns: 1fr; gap: 28px; }
+      .project-panel { padding: 20px; }
+      .project-index { order: 1; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-view-head { flex-direction: column; align-items: flex-start; }
 
       .edu-row { grid-template-columns: 1fr; gap: 8px; }
 
@@ -1362,7 +1647,7 @@
 
 <!-- ─── WORK ──────────────────────────────────────────────────── -->
 <section id="work">
-  <p class="sec-label">// work</p>
+  <p class="sec-label">// selected work</p>
 
   <div class="filter-row" id="filter-row">
     <button class="filter-chip active" data-filter="all">All</button>
@@ -1676,47 +1961,61 @@
 
 <!-- ─── PROJECTS ─────────────────────────────────────────────── -->
 <section id="projects">
-  <p class="sec-label">// projects</p>
+  <p class="sec-label">// project index</p>
 
-  <div class="about-grid">
-    <div class="about-text">
-      <p><strong>Public projects, cleaned up.</strong> The idea is to keep the old site feel while making the current repos easier to search, easier to explain, and easier to trust.</p>
-      <p>I keep the visual identity, then add the project docs around it. That means people can still land on the same site, but now the repos and case studies are clearer.</p>
-      <p>Most of the useful work now points to a live repo, a short explanation, and a direct path to the source instead of a generic portfolio dump.</p>
+  <div class="project-shell">
+    <div class="project-aside">
+      <div class="about-text">
+        <p><strong>Public projects, separated by role.</strong> The work cards above stay as shipped case studies. This section is the index: click a project to open the summary, stack, proof, and one compact snippet.</p>
+        <p>That keeps the same visual language, but the page now behaves like a small docs viewer instead of repeating the same list twice.</p>
+      </div>
+
+      <div class="project-badges">
+        <span class="project-badge accent">interactive index</span>
+        <span class="project-badge">live / ongoing / archived</span>
+        <span class="project-badge">docs-first</span>
+      </div>
+
+      <div class="fact-table">
+        <div class="fact-row">
+          <span class="fact-key">Mode</span>
+          <span class="fact-val">file index on the left, detail viewer on the right</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-key">Goal</span>
+          <span class="fact-val">make each repo easy to search, explain, and trust</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-key">Motion</span>
+          <span class="fact-val">tiny JS only: click, swap, and keep the layout stable</span>
+        </div>
+      </div>
     </div>
 
-    <div class="fact-table">
-      <div class="fact-row">
-        <div class="fact-key">01</div>
-        <div class="fact-val">
-          <strong>whatsapp-assignment-dashboard</strong><br />
-          VLE + WhatsApp agenda tracker that merges deadlines into one summary view.
-          <div style="margin-top:10px;"><a href="https://github.com/arifaqyl/whatsapp-assignment-dashboard" target="_blank" rel="noopener" class="pf-link">GitHub</a></div>
+    <div class="project-explorer">
+      <div class="project-index" id="project-index" aria-label="Project index"></div>
+      <div class="project-panel" id="project-panel">
+        <div class="project-view-head">
+          <div>
+            <p class="project-kicker" id="project-kicker"></p>
+            <h3 class="project-title" id="project-title"></h3>
+            <p class="project-summary" id="project-summary"></p>
+          </div>
+          <div class="project-view-status" id="project-status"></div>
         </div>
-      </div>
-      <div class="fact-row">
-        <div class="fact-key">02</div>
-        <div class="fact-val">
-          <strong>flight-fare-monitor</strong><br />
-          General flight monitor with route config and flight API support.
-          <div style="margin-top:10px;"><a href="https://github.com/arifaqyl/flight-fare-monitor" target="_blank" rel="noopener" class="pf-link">GitHub</a></div>
+
+        <div class="project-grid" id="project-grid"></div>
+
+        <div class="project-code">
+          <div class="project-code-header">
+            <span id="project-code-name"></span>
+            <span id="project-code-note"></span>
+          </div>
+          <pre id="project-code"></pre>
         </div>
-      </div>
-      <div class="fact-row">
-        <div class="fact-key">03</div>
-        <div class="fact-val">
-          <strong>market-research-assistant</strong><br />
-          Broader research assistant, renamed from the old narrow prop-firm framing.
-          <div style="margin-top:10px;"><a href="https://github.com/arifaqyl/market-research-assistant" target="_blank" rel="noopener" class="pf-link">GitHub</a></div>
-        </div>
-      </div>
-      <div class="fact-row">
-        <div class="fact-key">04</div>
-        <div class="fact-val">
-          <strong>arifaqyl.me</strong><br />
-          Portfolio site with the original visual style plus the current project context.
-          <div style="margin-top:10px;"><a href="https://arifaqyl.me" target="_blank" rel="noopener" class="pf-link">Live site</a></div>
-        </div>
+
+        <p class="project-learn" id="project-learn"></p>
+        <div class="project-links" id="project-links"></div>
       </div>
     </div>
   </div>
@@ -2704,6 +3003,234 @@ function scramble(el, text, opts = {}) {
   });
 })();
 
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECT INDEX + DETAIL VIEWER
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  const projects = [
+    {
+      name: 'whatsapp-assignment-dashboard',
+      hook: 'VLE + WhatsApp agenda tracker that merges deadlines into one summary view.',
+      status: 'live',
+      type: 'live system',
+      summary: 'One schedule surface for class deadlines, lecturer posts, and reminder traffic. The point is speed: one command opens one merged agenda instead of jumping across apps.',
+      what: 'Live workflow dashboard for students who need one readable agenda.',
+      how: 'Pulls VLE rows and WhatsApp evidence into one normalized queue, then sorts by due date and urgency.',
+      stack: ['Python', 'WAHA', 'Telegram Bot API', 'SQLite', 'Gemini API'],
+      proof: [
+        { label: 'Live view', value: '/summary · /agenda' },
+        { label: 'Source', value: 'GitHub repo' },
+        { label: 'Hosting', value: 'DigitalOcean + PM2' },
+      ],
+      codeName: 'merge agenda',
+      codeNote: 'live summary flow',
+      code: `def build_agenda(vle_rows, whatsapp_rows):
+    merged = normalize(vle_rows) + normalize(whatsapp_rows)
+    merged.sort(key=lambda row: row["due"] or row["ts"])
+    return merged`,
+      learn: 'The useful part is not parsing more noise. It is turning mixed signals into one readable agenda.',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/arifaqyl/whatsapp-assignment-dashboard' },
+        { label: 'Live site', href: 'https://arifaqyl.me' },
+      ],
+    },
+    {
+      name: 'flight-fare-monitor',
+      hook: 'Route-based flight monitor with API support and fallback scraping.',
+      status: 'ongoing',
+      type: 'automation',
+      summary: 'A general flight watcher, not a single-route toy. It keeps route config separate from the engine so the same code can follow different travel targets without rewriting the app.',
+      what: 'Price watcher for flights with alerting when fares fall under threshold.',
+      how: 'Loads route config, queries flight providers, and sends an alert when a fare hits the target range.',
+      stack: ['Python', 'Amadeus API', 'fast_flights', 'Telegram Bot API', 'Requests'],
+      proof: [
+        { label: 'Routes', value: 'FLIGHT_ROUTES_JSON' },
+        { label: 'Providers', value: 'API + fallback' },
+        { label: 'Alerting', value: 'Telegram' },
+      ],
+      codeName: 'route loader',
+      codeNote: 'provider fallback',
+      code: `routes = load_routes("FLIGHT_ROUTES_JSON")
+for route in routes:
+    prices = fetch_flights(route, providers=["amadeus", "fast_flights"])
+    if hits_threshold(prices):
+        alert(route, prices)`,
+      learn: 'The important part is the separation between route config, provider choice, and alert logic.',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/arifaqyl/flight-fare-monitor' },
+      ],
+    },
+    {
+      name: 'market-research-assistant',
+      hook: 'General research assistant, expanded from the old prop-firm framing.',
+      status: 'ongoing',
+      type: 'research tool',
+      summary: 'This is the general version: collect, clean, compare, and write down the evidence. It should work for whatever market or topic I point it at, not just one niche.',
+      what: 'Broad research helper for notes, evidence, and structured outputs.',
+      how: 'Normalizes the topic, gathers sources, and returns a short cited briefing instead of a scattered dump.',
+      stack: ['Python', 'Web scraping', 'API ingestion', 'Prompts', 'Markdown'],
+      proof: [
+        { label: 'Scope', value: 'general research' },
+        { label: 'Output', value: 'briefs + notes' },
+        { label: 'Status', value: 'ongoing cleanup' },
+      ],
+      codeName: 'normalize notes',
+      codeNote: 'broad scope',
+      code: `def normalize_topic(topic):
+    topic = topic.strip().lower()
+    evidence = collect_sources(topic)
+    return summarize_with_citations(evidence)`,
+      learn: 'A general tool is easier to trust than a narrow one that only works when the label matches the prompt.',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/arifaqyl/market-research-assistant' },
+      ],
+    },
+    {
+      name: 'github-profile-organizer',
+      hook: 'GitHub workflow utility that sorts and polishes repo presentation.',
+      status: 'active',
+      type: 'workflow tool',
+      summary: 'This is the repo hygiene piece: clean names, better metadata, and public-facing presentation that people can actually search and understand.',
+      what: 'Automation for repo cleanup, renaming, and presentation hygiene.',
+      how: 'Uses GitHub API auth from env vars to fetch repo metadata and apply formatting rules.',
+      stack: ['Java 17', 'GitHub API', 'Maven', 'env tokens'],
+      proof: [
+        { label: 'Auth', value: 'fine-grained token' },
+        { label: 'Scope', value: 'repo metadata' },
+        { label: 'Goal', value: 'public polish' },
+      ],
+      codeName: 'metadata pass',
+      codeNote: 'api-driven cleanup',
+      code: `GitHub gh = new GitHubBuilder()
+    .withOAuthToken(System.getenv("GH_TOKEN"))
+    .build();
+
+gh.getMyself()
+  .listRepositories()
+  .toList();`,
+      learn: 'Small workflow tools matter when they make the rest of the portfolio look deliberate instead of accidental.',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/arifaqyl/github-profile-organizer' },
+      ],
+    },
+    {
+      name: 'arifaqyl.me',
+      hook: 'Personal portfolio with the original Manus-style layout and integrated project section.',
+      status: 'live',
+      type: 'portfolio / site',
+      summary: 'The site stays visual, but the project section now acts like documentation. That keeps the homepage recognizably mine while making it easier to explain what actually ships.',
+      what: 'Portfolio front door with the old visual identity and a project docs layer.',
+      how: 'The homepage keeps the handwritten feel while the project area swaps in richer explanations and links.',
+      stack: ['HTML', 'CSS', 'Vanilla JS', 'Three.js', 'GitHub Pages'],
+      proof: [
+        { label: 'Surface', value: 'GitHub Pages' },
+        { label: 'Style', value: 'legacy visual + docs' },
+        { label: 'Domain', value: 'custom .me' },
+      ],
+      codeName: 'section registry',
+      codeNote: 'homepage flow',
+      code: `const sections = {
+  work: '#work',
+  projects: '#projects',
+  about: '#about'
+};`,
+      learn: 'The best portfolio page is the one that keeps the old taste but explains the work fast.',
+      links: [
+        { label: 'Live site', href: 'https://arifaqyl.me' },
+        { label: 'GitHub', href: 'https://github.com/arifaqyl/arifaqyl.github.io' },
+      ],
+    },
+  ];
+
+  const indexEl = document.getElementById('project-index');
+  const kickerEl = document.getElementById('project-kicker');
+  const titleEl = document.getElementById('project-title');
+  const summaryEl = document.getElementById('project-summary');
+  const statusEl = document.getElementById('project-status');
+  const gridEl = document.getElementById('project-grid');
+  const codeNameEl = document.getElementById('project-code-name');
+  const codeNoteEl = document.getElementById('project-code-note');
+  const codeEl = document.getElementById('project-code');
+  const learnEl = document.getElementById('project-learn');
+  const linksEl = document.getElementById('project-links');
+  if (!indexEl || !kickerEl || !titleEl || !summaryEl || !statusEl || !gridEl || !codeNameEl || !codeNoteEl || !codeEl || !learnEl || !linksEl) return;
+
+  const buttons = [];
+
+  function renderProject(project, idx) {
+    kickerEl.textContent = `project ${String(idx + 1).padStart(2, '0')}`;
+    titleEl.textContent = project.name;
+    summaryEl.textContent = project.summary;
+    statusEl.textContent = `${project.status} · ${project.type}`;
+    codeNameEl.textContent = project.codeName;
+    codeNoteEl.textContent = project.codeNote;
+    codeEl.textContent = project.code;
+    learnEl.textContent = project.learn;
+
+    gridEl.innerHTML = '';
+    project.proof.forEach(item => {
+      const stat = document.createElement('div');
+      stat.className = 'project-stat';
+      stat.innerHTML = `
+        <span class="project-stat-label">${item.label}</span>
+        <span class="project-stat-value">${item.value}</span>
+      `;
+      gridEl.appendChild(stat);
+    });
+
+    linksEl.innerHTML = '';
+    project.links.forEach(link => {
+      const a = document.createElement('a');
+      a.href = link.href;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.className = 'pf-link';
+      a.textContent = link.label;
+      linksEl.appendChild(a);
+    });
+
+    buttons.forEach((button, buttonIndex) => {
+      button.classList.toggle('active', buttonIndex === idx);
+      button.setAttribute('aria-pressed', buttonIndex === idx ? 'true' : 'false');
+    });
+  }
+
+  projects.forEach((project, idx) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'project-item';
+    button.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
+    button.innerHTML = `
+      <div class="project-item-top">
+        <span class="project-item-name">${project.name}</span>
+        <span class="project-item-status">${project.status}</span>
+      </div>
+      <p class="project-item-hook">${project.hook}</p>
+      <div class="project-item-foot">
+        <span class="project-item-type">${project.type}</span>
+      </div>
+    `;
+    button.addEventListener('click', () => renderProject(project, idx));
+    button.addEventListener('keydown', e => {
+      if (!['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+      e.preventDefault();
+      let next = idx;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = Math.min(projects.length - 1, idx + 1);
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = Math.max(0, idx - 1);
+      if (e.key === 'Home') next = 0;
+      if (e.key === 'End') next = projects.length - 1;
+      buttons[next].focus();
+      renderProject(projects[next], next);
+    });
+    indexEl.appendChild(button);
+    buttons.push(button);
+  });
+
+  renderProject(projects[0], 0);
+})();
+
+
 /* ═══════════════════════════════════════════════════════════════
    MAGNETIC BUTTONS
 ═══════════════════════════════════════════════════════════════ */
@@ -2740,3 +3267,5 @@ function scramble(el, text, opts = {}) {
 </script>
 </body>
 </html>
+
+

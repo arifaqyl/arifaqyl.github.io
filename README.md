@@ -10,7 +10,8 @@ This repo contains two related surfaces:
 The public homepage keeps the original visual style and now includes a project section so the site is easier to read:
 
 - homepage intro
-- project notes / searchable repo links
+- shipped work cards
+- interactive project index / detail viewer
 - current focus / now sections
 - contact and legacy-view links
 - the old visual sections are still intact
@@ -69,5 +70,5 @@ npm run seed
 - Public pages fall back to seeded in-memory content when the database is not configured.
 - Write actions such as contact submission persistence and admin CRUD require a real database.
 - Admin GitHub login is scaffolded and gated by allowlisted GitHub usernames.
-- The old visual homepage is the public front door, with project notes integrated into it.
+- The old visual homepage is the public front door, with a project index/detail viewer integrated into it.
 - The richer Next.js app still exists in the repo for the droplet deployment and backend routes.
