@@ -10,8 +10,16 @@ This repo has been rebuilt from a single heavy GitHub Pages HTML site into a str
 - PostgreSQL-ready content model
 - owner-only admin scaffold
 - case-study project pages
+- interactive project explainer cards on the homepage
 - contact submissions
 - metadata, sitemap, robots, and analytics hooks
+
+The live root page now works as a project-first landing page:
+
+- homepage intro
+- interactive project documentation
+- current focus / now sections
+- contact and legacy-view links
 
 ## Stack
 
@@ -67,3 +75,4 @@ npm run seed
 - Public pages fall back to seeded in-memory content when the database is not configured.
 - Write actions such as contact submission persistence and admin CRUD require a real database.
 - Admin GitHub login is scaffolded and gated by allowlisted GitHub usernames.
+- The old visual homepage still exists under `/legacy/index.html` if you want the previous full-screen version.
