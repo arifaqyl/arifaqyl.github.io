@@ -4,10 +4,6 @@ import type { NextRequest } from "next/server";
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname === "/") {
-    return NextResponse.rewrite(new URL("/legacy/index.html", request.url));
-  }
-
   if (pathname === "/now") {
     return NextResponse.rewrite(new URL("/legacy/now.html", request.url));
   }
