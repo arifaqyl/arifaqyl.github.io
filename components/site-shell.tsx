@@ -1,42 +1,71 @@
+"use client";
+
 import Link from "next/link";
 import { clsx } from "clsx";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { useLocale } from "@/components/locale";
 
 const navItems = [
-  { href: "/", label: "home" },
-  { href: "/projects", label: "projects" },
-  { href: "/now", label: "now" },
-  { href: "/contact", label: "contact" },
-  { href: "/admin", label: "admin" }
+  { href: "/", key: "nav.home" },
+  { href: "/#live", key: "nav.live" },
+  { href: "/projects", key: "nav.projects" },
+  { href: "/now", key: "nav.now" },
+  { href: "/contact", key: "nav.contact" }
 ];
 
-export function SiteShell({
+function LocaleToggle() {
+  const { toggle, t } = useLocale();
+  return (
+    <button
+      type="button"
+      className="locale-toggle"
+      onClick={toggle}
+      aria-label={t("locale.toggle-to")}
+    >
+      {t("locale.label")}
+    </button>
+  );
+}
+
+function Chrome({
   children,
   className
 }: {
   children: React.ReactNode;
   className?: string;
 }) {
+  const { t } = useLocale();
   return (
     <div className="site-bg">
+      <a href="#main" className="skip-link">
+        {t("a11y.skip")}
+      </a>
+      <ScrollProgress />
       <header className="shell-header">
-        <nav className="shell-nav">
-          <Link href="/" className="brand">
+        <nav className="shell-nav" aria-label="Primary">
+          <Link href="/" className="brand" aria-label="Arif Aqyl — home">
             arif aqyl
           </Link>
           <div className="nav-links">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
+            <Link href="https://github.com/arifaqyl" target="_blank" rel="noreferrer">
+              {t("nav.github")}
+            </Link>
+            <LocaleToggle />
           </div>
         </nav>
       </header>
-      <main className={clsx("shell-main", className)}>{children}</main>
+      <main id="main" className={clsx("shell-main", className)} tabIndex={-1}>
+        {children}
+      </main>
       <footer className="shell-footer">
         <div>
-          <p>Built to explain the work, not just decorate it.</p>
-          <p className="muted">Next.js + Prisma + PostgreSQL-ready portfolio system.</p>
+          <p>{t("footer.tagline")}</p>
+          <p className="muted">{t("footer.stack")}</p>
         </div>
         <div className="footer-links">
           <Link href="https://github.com/arifaqyl" target="_blank" rel="noreferrer">
@@ -52,3 +81,12 @@ export function SiteShell({
   );
 }
 
+export function SiteShell({
+  children,
+  className
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <Chrome className={className}>{children}</Chrome>;
+}

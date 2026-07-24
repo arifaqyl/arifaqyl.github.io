@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LiveAppsShowcase } from "@/components/live-apps-showcase";
 import { ProjectExplainerShowcase } from "@/components/project-explainer-showcase";
 import { SectionHeading } from "@/components/section-heading";
 import { SiteShell } from "@/components/site-shell";
@@ -6,7 +7,8 @@ import { getFeaturedProjects, getNowUpdates, getSiteSection } from "@/lib/reposi
 
 export const metadata = {
   title: "Home",
-  description: "Arif Aqyl's portfolio with a project-docs homepage, case studies, current work, and contact paths."
+  description:
+    "Arif Aqyl builds practical tools around information people need to trust — kedai payments, transit disruptions, and developer tooling."
 };
 
 export default async function HomePage() {
@@ -17,37 +19,46 @@ export default async function HomePage() {
     getFeaturedProjects(),
     getNowUpdates()
   ]);
-  const projectIndex = featuredProjects.slice(0, 4);
+  const spotlight = featuredProjects.filter(
+    (project) => !["sah-bukti", "trafficmy"].includes(project.slug)
+  ).slice(0, 4);
 
   return (
     <SiteShell>
       <section className="hero" id="hero">
-        <article className="hero-card">
-          <p className="eyebrow">project docs / portfolio index</p>
-          <h1>{hero?.title ?? "Read the work first, then decide what matters."}</h1>
-          <p>
+        <article className="hero-card hero-main">
+          <div className="hero-kicker">
+            <span className="hero-kicker-dot" />
+            open to internship · kl based
+          </div>
+          <p className="eyebrow">software engineer</p>
+          <h1>{hero?.title ?? "I build software for the messy moment between \u201csomeone said so\u201d and \u201cwe know.\u201d"}</h1>
+          <p className="hero-terminal">
+            <span>&gt;</span> {hero?.subtitle ?? "kedai operations, transit information, and developer tools"}
+          </p>
+          <p className="muted">
             {hero?.body ??
-              "This homepage is designed like an index. Each project opens into a case study so people can skim the result, inspect the build, and jump into the details without hunting through a generic portfolio layout."}
+              "Three shipped systems live up front — Sah.Bukti, TrafficMY, and Threadterm — each built around a real workflow where proof and trust matter."}
           </p>
           <div className="hero-actions">
-            <Link href="/projects" className="button-primary">
+            <Link href="#live" className="button-primary">
+              View live apps
+            </Link>
+            <Link href="/projects" className="button-secondary">
               Open project index
             </Link>
-            <Link href="/now" className="button-secondary">
-              See now
-            </Link>
-            <Link href="/legacy/index.html" className="button-secondary">
-              Open legacy view
+            <Link href="https://github.com/arifaqyl" className="button-secondary" target="_blank" rel="noreferrer">
+              GitHub
             </Link>
           </div>
         </article>
 
         <div className="hero-side">
           <article className="hero-card hero-index">
-            <p className="eyebrow">project map</p>
-            <h2>Featured work, arranged like documentation.</h2>
+            <p className="eyebrow">featured index</p>
+            <h2>Case studies, not decoration.</h2>
             <div className="project-index-list">
-              {projectIndex.map((project) => (
+              {spotlight.map((project) => (
                 <Link key={project.slug} href={`/projects/${project.slug}`} className="project-index-item">
                   <div>
                     <span className="project-index-label">{project.category}</span>
@@ -59,39 +70,41 @@ export default async function HomePage() {
             </div>
           </article>
 
-          <article className="hero-card hero-note">
-            <p className="eyebrow">how to read this</p>
-            <h2>Start with the index, then open the case study.</h2>
-            <p>
-              Open a card to inspect the problem, architecture, build process, results, and live
-              links. The site is meant to read like documentation instead of a static gallery.
-            </p>
-            <ul className="hero-list">
-              <li>scan the featured project index first</li>
-              <li>filter the full project list by category</li>
-              <li>expand the case-study tabs for deeper context</li>
-              <li>jump to the repo or the live system when available</li>
-            </ul>
-          </article>
-
           <div className="stats-strip">
             <article className="stat-card">
               <strong>{featuredProjects.length}</strong>
-              <span>featured projects on the front page</span>
+              <span>documented projects</span>
+            </article>
+            <article className="stat-card">
+              <strong>2</strong>
+              <span>live production apps</span>
             </article>
             <article className="stat-card">
               <strong>{nowUpdates.length}</strong>
-              <span>current focus items</span>
+              <span>active focus areas</span>
+            </article>
+            <article className="stat-card">
+              <strong>24/7</strong>
+              <span>droplet-backed uptime lane</span>
             </article>
           </div>
         </div>
+      </section>
+
+      <section className="section" id="live">
+        <SectionHeading
+          eyebrow="live apps"
+          title="Production systems with their own lane"
+          description="Live products stay visible up front — Sah.Bukti and TrafficMY are shipped systems, not portfolio filler."
+        />
+        <LiveAppsShowcase />
       </section>
 
       <section className="section" id="work">
         <SectionHeading
           eyebrow="project lab"
           title="Interactive project documentation"
-          description="Open a card, read the problem, inspect the architecture, and jump into the full case study when you want the deeper version."
+          description="Open a card, read the problem, inspect the architecture, and jump into the full case study when you want depth."
         />
         <ProjectExplainerShowcase projects={featuredProjects} />
       </section>
@@ -99,7 +112,7 @@ export default async function HomePage() {
       <section className="section" id="now">
         <SectionHeading
           eyebrow="now"
-          title="What I’m focused on now"
+          title="What I'm focused on now"
           description="A quick read on what is active without making people hunt through the repo list."
         />
         <div className="content-grid">
@@ -116,30 +129,32 @@ export default async function HomePage() {
       <section className="section" id="about">
         <SectionHeading
           eyebrow="about"
-          title={about?.title ?? "Backend-minded builder with a bias for shipping."}
-          description={about?.subtitle ?? "I like projects that connect infrastructure, automation, data, and user experience into something useful."}
+          title={about?.title ?? "I build small systems around information people need to trust."}
+          description={
+            about?.subtitle ??
+            "Malaysian full-stack engineer. Whether a WhatsApp payment was actually made, whether a train disruption is corroborated, or whether a developer can use Threads without a browser — the work starts with an awkward real workflow and stays close to its constraints."
+          }
         />
         <div className="content-grid">
           <article className="content-card">
             <h3>What this site is</h3>
             <p className="muted">
-              A portfolio system that combines a public homepage, interactive project docs, and
-              route-level case studies. The old visual identity still exists in the legacy copy,
-              but the landing page now explains the work directly.
+              A portfolio that reads like documentation: live apps up front, expandable project cards,
+              and route-level case studies underneath — not a gallery of screenshots.
             </p>
           </article>
           <article className="content-card">
-            <h3>Why the project section exists</h3>
+            <h3>How I like to build</h3>
             <p className="muted">
-              Each project is meant to answer what it does, what problem it solves, and what the
-              implementation looked like. That keeps the site useful instead of just decorative.
+              Start from friction, ship the smallest useful system, then harden it with tests, deploy paths,
+              and a public story that explains the engineering honestly.
             </p>
           </article>
           <article className="content-card">
-            <h3>How to use it</h3>
+            <h3>What you&rsquo;ll find here</h3>
             <p className="muted">
-              Start on the homepage, open a project card, then move into the full case study if you
-              want the deeper breakdown. The repo and live links are there when they matter.
+              Kedai operations, public transit information, and developer tooling —
+              with live demos and repos where the proof actually matters.
             </p>
           </article>
         </div>
@@ -149,23 +164,25 @@ export default async function HomePage() {
         <SectionHeading
           eyebrow="contact"
           title={contact?.title ?? "Let's build something real."}
-          description={contact?.subtitle ?? "Open to internship opportunities in backend engineering, automation, and applied AI."}
+          description={
+            contact?.subtitle ??
+            "Open to internship opportunities in backend engineering, automation, and applied AI."
+          }
         />
-        <div className="content-grid">
+        <div className="content-grid two-up">
           <article className="content-card">
             <h3>What I respond to</h3>
             <ul className="hero-list">
-              <li>backend engineering</li>
-              <li>automation and tooling</li>
-              <li>applied AI systems</li>
-              <li>projects with real users or a clear portfolio story</li>
+              <li>backend engineering for real workflows</li>
+              <li>kedai and small-business operations tooling</li>
+              <li>public information and transit systems</li>
+              <li>developer tooling and CLI/TUI work</li>
             </ul>
           </article>
           <article className="content-card">
             <h3>Reach out</h3>
             <p className="muted">
-              If you want to talk about internships, projects, or systems work, the contact page is
-              the fastest way in.
+              Internships, collaborations, or systems work — the contact page is the fastest way in.
             </p>
             <div className="hero-actions">
               <Link href="/contact" className="button-primary">
@@ -173,18 +190,6 @@ export default async function HomePage() {
               </Link>
               <Link href="mailto:hello@arifaqyl.me" className="button-secondary">
                 Email me
-              </Link>
-            </div>
-          </article>
-          <article className="content-card">
-            <h3>Legacy view</h3>
-            <p className="muted">
-              The old full-screen homepage still exists if you want the original visual identity.
-              The new root page keeps the same energy but adds the project documentation layer.
-            </p>
-            <div className="hero-actions">
-              <Link href="/legacy/index.html" className="button-secondary">
-                Open legacy homepage
               </Link>
             </div>
           </article>
