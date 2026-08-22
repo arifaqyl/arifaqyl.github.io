@@ -1,74 +1,168 @@
+<div align="center">
+
 # arifaqyl.me
 
-Full-stack portfolio app for Arif Aqyl.
+**Portfolio + live product lane for shipped systems, not slide decks.**
 
-This repo contains two related surfaces:
+[![Website](https://img.shields.io/badge/site-arifaqyl.me-ccff00?style=for-the-badge&labelColor=040506)](https://arifaqyl.me)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-ccff00?style=for-the-badge&labelColor=040506)](LICENSE)
 
-- the original Manus-style GitHub Pages homepage, kept as the public visual front door
-- a structured Next.js application with the same content model underneath
+[Live site](https://arifaqyl.me) · [Sah.Bukti](https://arifaqyl.me/sahbukti/) · [TrafficMY](https://arifaqyl.me/traffic/) · [GitHub profile](https://github.com/arifaqyl)
 
-The public homepage keeps the original visual style and now includes a project section so the site is easier to read:
+</div>
 
-- homepage intro
-- shipped work cards
-- interactive project index / detail viewer
-- current focus / now sections
-- contact and legacy-view links
-- the old visual sections are still intact
+---
+
+## What this is
+
+A dual-surface portfolio for **Arif Aqyl**:
+
+| Surface | Role |
+|---------|------|
+| **Manus-style homepage** | Dark visual front door on GitHub Pages — wave canvas, expandable project cards, live app lane |
+| **Next.js app** | Full-stack case-study system on the droplet — Prisma, admin, SEO routes, project depth |
+
+The goal is simple: make the work **easy to scan, easy to trust, and easy to open**.
+
+---
+
+## Live products
+
+| Product | What it does | Link |
+|---------|--------------|------|
+| **Sah.Bukti** | WhatsApp micro-seller ops — review-gated ledger, receipts, exports | [Open app](https://arifaqyl.me/sahbukti/) |
+| **TrafficMY** | Malaysian transport disruption board — GTFS, official alerts, social ingest | [Open dashboard](https://arifaqyl.me/traffic/) |
+
+Both run on the same DigitalOcean droplet behind nginx path routing.
+
+---
+
+## Featured repos in this portfolio
+
+| Project | Type | Repo |
+|---------|------|------|
+| Sah.Bukti | live product | [sah-bukti](https://github.com/arifaqyl/sah-bukti) |
+| TrafficMY / AduanMY | live data product | [aduanmy](https://github.com/arifaqyl/aduanmy) |
+| Vlog Automation | media automation | [vlog-automation](https://github.com/arifaqyl/vlog-automation) |
+| Clip Finder | highlight extraction | [clip-finder](https://github.com/arifaqyl/clip-finder) |
+| Student Bot | private ops stack | private |
+
+---
+
+## Architecture
+
+```mermaid
+flowchart LR
+  subgraph public [Public surfaces]
+    GH[GitHub Pages index.html]
+    NX[Next.js app]
+  end
+
+  subgraph droplet [DigitalOcean]
+    NG[nginx]
+    PM[PM2 portfolio]
+    SB[Sah.Bukti :8000]
+    TM[TrafficMY :8002]
+    PG[(PostgreSQL)]
+  end
+
+  GH --> User
+  NX --> NG
+  NG --> PM
+  NG --> SB
+  NG --> TM
+  PM --> PG
+```
+
+---
 
 ## Stack
 
-- Next.js
-- React
+**Visual homepage**
+- HTML / CSS / vanilla JS
+- Canvas2D wave background
+- Expandable project index + detail viewer
+
+**App layer**
+- Next.js App Router
 - TypeScript
-- Prisma
-- PostgreSQL
-- NextAuth (GitHub login)
-- Vercel-ready deployment model
+- Prisma + PostgreSQL
+- NextAuth (owner admin)
+- PM2 + nginx on DigitalOcean
 
-## Routes
+---
 
-- `/`
-- `/projects`
-- `/projects/[slug]`
-- `/now`
-- `/contact`
-- `/admin`
-
-## Local setup
+## Local development
 
 ```bash
+git clone https://github.com/arifaqyl/arifaqyl.github.io.git
+cd arifaqyl.github.io
 npm install
 cp .env.example .env
 ```
 
-Fill in:
+Set in `.env`:
 
-- `DATABASE_URL`
-- `NEXTAUTH_SECRET`
-- `NEXTAUTH_URL`
-- `GITHUB_ID`
-- `GITHUB_SECRET`
-- `ADMIN_GITHUB_LOGINS`
-- `NEXT_PUBLIC_SITE_URL`
+```env
+DATABASE_URL=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+GITHUB_ID=
+GITHUB_SECRET=
+ADMIN_GITHUB_LOGINS=
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
 
-Then:
+Run:
 
 ```bash
 npm run prisma:generate
 npm run dev
 ```
 
-Optional database seed:
+Optional seed:
 
 ```bash
 npm run seed
 ```
 
-## Notes
+Deploy helpers:
 
-- Public pages fall back to seeded in-memory content when the database is not configured.
-- Write actions such as contact submission persistence and admin CRUD require a real database.
-- Admin GitHub login is scaffolded and gated by allowlisted GitHub usernames.
-- The old visual homepage is the public front door, with a project index/detail viewer integrated into it.
-- The richer Next.js app still exists in the repo for the droplet deployment and backend routes.
+```bash
+python scripts/deploy_do.py   # sync + build + PM2 restart on droplet
+```
+
+---
+
+## Routes
+
+| Route | Purpose |
+|-------|---------|
+| `/` | Homepage with live apps + project docs |
+| `/projects` | Full project index |
+| `/projects/[slug]` | Case study depth |
+| `/now` | Current focus |
+| `/contact` | Contact form |
+| `/admin` | Owner-only CMS |
+| `/legacy/index.html` | Original full-screen visual homepage |
+
+---
+
+## Design principles
+
+1. **Shipped proof first** — live apps get their own lane, not buried in a generic grid
+2. **Read like documentation** — problem → architecture → build → result
+3. **Manus energy, less bloat** — dark palette, mono labels, accent green, no heavy motion stack
+4. **Repo quality matters** — README, license, security policy, and structured project data
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+<div align="center">
+<sub>Built by <a href="https://github.com/arifaqyl">Arif Aqyl</a> · Software Engineering @ UniKL MIIT</sub>
+</div>

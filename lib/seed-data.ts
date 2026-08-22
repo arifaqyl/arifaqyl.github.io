@@ -3,11 +3,11 @@ import { ProjectSeed, SiteSectionContent } from "@/lib/types";
 export const siteSections: SiteSectionContent[] = [
   {
     key: "hero",
-    title: "I build practical systems that solve annoying, real-world problems.",
+    title: "Software built around the problem.",
     subtitle:
-      "Software Engineering student at UniKL MIIT building automation, backend tools, AI-assisted systems, and production-shaped experiments.",
+      "Shipping live apps, automation systems, and data products — mostly open source, all built to solve real friction.",
     body:
-      "This portfolio is structured to explain the engineering, not just decorate it. The goal is simple: let people understand what I built, how I built it, and why it matters."
+      "This portfolio is structured like product documentation: live lane first, expandable project cards, and case-study depth when you want the engineering story."
   },
   {
     key: "about",
@@ -29,12 +29,28 @@ export const siteSections: SiteSectionContent[] = [
 
 export const nowUpdates = [
   {
+    title: "Shipping TrafficMY as a live Malaysian transport signal board",
+    body:
+      "National-scale ingest with GTFS bus telemetry, official MyRapid alerts, Reddit/X threads, and a public dashboard deployed on DigitalOcean.",
+    tag: "live",
+    isActive: true,
+    orderIndex: 1
+  },
+  {
+    title: "Keeping Sah.Bukti as its own live micro-seller product lane",
+    body:
+      "WhatsApp-first order capture, review-gated ledger updates, PDF receipts, and a public demo that stays sanitized from private owner flows.",
+    tag: "live",
+    isActive: true,
+    orderIndex: 2
+  },
+  {
     title: "Rebuilding my portfolio into a full-stack case-study system",
     body:
       "Moving from a single heavy HTML page to a structured app with database-backed content, project case studies, and admin-managed sections.",
     tag: "active",
     isActive: true,
-    orderIndex: 1
+    orderIndex: 3
   },
   {
     title: "Pushing AI trading research toward something operationally serious",
@@ -42,7 +58,7 @@ export const nowUpdates = [
       "Working on paper-validated analyzers, evidence-backed market context, and execution/risk structure instead of hype-only predictions.",
     tag: "research",
     isActive: true,
-    orderIndex: 2
+    orderIndex: 4
   },
   {
     title: "Refining automation tools that save time in repetitive media workflows",
@@ -50,7 +66,7 @@ export const nowUpdates = [
       "Improving video automation and clip-extraction tools so they behave more like real products instead of one-off scripts.",
     tag: "shipping",
     isActive: true,
-    orderIndex: 3
+    orderIndex: 5
   }
 ];
 
@@ -116,6 +132,191 @@ export const awards = [
 
 export const projects: ProjectSeed[] = [
   {
+    slug: "sah-bukti",
+    title: "Sah.Bukti",
+    summary:
+      "Malaysia-first WhatsApp business agent for micro-sellers with review-gated ledger updates, PDF receipts, and month-end exports.",
+    status: "live",
+    year: 2026,
+    visibility: "public",
+    featured: true,
+    liveUrl: "https://arifaqyl.me/sahbukti/",
+    repoUrl: "https://github.com/arifaqyl/sah-bukti",
+    category: "product",
+    accent: "#fbbf24",
+    sortOrder: 1,
+    technologies: [
+      { name: "FastAPI", slug: "fastapi", category: "backend" },
+      { name: "SQLite", slug: "sqlite", category: "database" },
+      { name: "React", slug: "react", category: "frontend" },
+      { name: "WAHA", slug: "waha", category: "integration" }
+    ],
+    metrics: [
+      { label: "Trust model", value: "review-gated", orderIndex: 1 },
+      { label: "Deployment", value: "DigitalOcean", orderIndex: 2 },
+      { label: "Demo safety", value: "sanitized", orderIndex: 3 }
+    ],
+    media: [],
+    tabs: [
+      {
+        key: "overview",
+        label: "Overview",
+        orderIndex: 1,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Sah.Bukti turns messy WhatsApp order text into structured invoices, payment proofs, and export-ready records for small Malaysian sellers."
+          },
+          {
+            type: "list",
+            items: [
+              "WhatsApp capture and owner commands",
+              "Review queue before ledger mutation",
+              "PDF receipts and accountant export",
+              "Public demo separated from private owner flows"
+            ]
+          }
+        ]
+      },
+      {
+        key: "problem",
+        label: "Problem",
+        orderIndex: 2,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Micro-sellers often run orders, payments, and bookkeeping inside chat threads with no clean audit trail."
+          }
+        ]
+      },
+      {
+        key: "architecture",
+        label: "Architecture",
+        orderIndex: 3,
+        richContent: [
+          {
+            type: "list",
+            items: [
+              "FastAPI backend with SQLite ledger",
+              "WAHA WhatsApp bridge",
+              "React frontend served from the same app",
+              "Approval gate as the only ledger mutation path"
+            ]
+          }
+        ]
+      },
+      {
+        key: "results",
+        label: "Results",
+        orderIndex: 4,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Live on DigitalOcean with a public demo lane that keeps private WhatsApp and owner-only flows off the public site."
+          }
+        ]
+      },
+      {
+        key: "stack",
+        label: "Stack / Links",
+        orderIndex: 5,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "FastAPI, SQLite, React, WAHA, fpdf2. Live demo on the droplet; public repo on GitHub."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    slug: "trafficmy",
+    title: "TrafficMY",
+    summary:
+      "Malaysian transport disruption board combining official MyRapid alerts, GTFS bus telemetry, Reddit/X signals, and RSS news into one live map.",
+    status: "live",
+    year: 2026,
+    visibility: "public",
+    featured: true,
+    liveUrl: "https://arifaqyl.me/traffic/",
+    repoUrl: "https://github.com/arifaqyl/aduanmy",
+    category: "data product",
+    accent: "#38bdf8",
+    sortOrder: 2,
+    technologies: [
+      { name: "FastAPI", slug: "fastapi", category: "backend" },
+      { name: "Playwright", slug: "playwright", category: "scraping" },
+      { name: "GTFS-RT", slug: "gtfs-rt", category: "data" },
+      { name: "SQLite", slug: "sqlite", category: "database" }
+    ],
+    metrics: [
+      { label: "Coverage", value: "national", orderIndex: 1 },
+      { label: "Refresh", value: "30m + 5m GTFS", orderIndex: 2 },
+      { label: "Retention", value: "90", suffix: " days", orderIndex: 3 }
+    ],
+    media: [],
+    tabs: [
+      {
+        key: "overview",
+        label: "Overview",
+        orderIndex: 1,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "TrafficMY is the public product surface for AduanMY: a live Malaysian transport signal board instead of a research dump."
+          },
+          {
+            type: "list",
+            items: [
+              "Official MyRapid bus and rail alerts",
+              "GTFS static catalog plus realtime anomaly detection",
+              "Social and RSS lanes for crowd-reported disruption",
+              "Negeri filters and bus/rail mode views"
+            ]
+          }
+        ]
+      },
+      {
+        key: "architecture",
+        label: "Architecture",
+        orderIndex: 2,
+        richContent: [
+          {
+            type: "list",
+            items: [
+              "Parallel collector ingest with upsert retention",
+              "Split scheduler: GTFS every 5 minutes, full refresh every 30 minutes",
+              "Health endpoint auto-degrades when ingest goes stale",
+              "Docker deployment with Playwright browser image"
+            ]
+          }
+        ]
+      },
+      {
+        key: "results",
+        label: "Results",
+        orderIndex: 3,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "129 automated tests, production Docker stack, and a public dashboard deployed behind nginx on the same droplet as my other live apps."
+          }
+        ]
+      },
+      {
+        key: "stack",
+        label: "Stack / Links",
+        orderIndex: 4,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Python, FastAPI, Playwright, GTFS-RT, SQLite. Public repo: aduanmy on GitHub."
+          }
+        ]
+      }
+    ]
+  },
+  {
     slug: "arifaqyl-me",
     title: "arifaqyl.me",
     summary:
@@ -128,7 +329,7 @@ export const projects: ProjectSeed[] = [
     repoUrl: "https://github.com/arifaqyl/arifaqyl.github.io",
     category: "web platform",
     accent: "#ccff00",
-    sortOrder: 1,
+    sortOrder: 3,
     technologies: [
       { name: "Next.js", slug: "nextjs", category: "frontend" },
       { name: "TypeScript", slug: "typescript", category: "language" },
@@ -258,7 +459,7 @@ export const projects: ProjectSeed[] = [
     repoUrl: "https://github.com/arifaqyl/vlog-automation",
     category: "automation",
     accent: "#93c5fd",
-    sortOrder: 2,
+    sortOrder: 4,
     technologies: [
       { name: "Python", slug: "python", category: "language" },
       { name: "FFmpeg", slug: "ffmpeg", category: "media" },
@@ -379,7 +580,7 @@ export const projects: ProjectSeed[] = [
     repoUrl: "https://github.com/arifaqyl/clip-finder",
     category: "automation",
     accent: "#f9a8d4",
-    sortOrder: 3,
+    sortOrder: 5,
     technologies: [
       { name: "Python", slug: "python", category: "language" },
       { name: "NumPy", slug: "numpy", category: "data" },
@@ -498,7 +699,7 @@ export const projects: ProjectSeed[] = [
     repoUrl: "https://github.com/arifaqyl/github-auto-sorter",
     category: "backend",
     accent: "#fcd34d",
-    sortOrder: 4,
+    sortOrder: 6,
     technologies: [
       { name: "Java", slug: "java", category: "language" },
       { name: "Maven", slug: "maven", category: "tooling" },
@@ -606,7 +807,7 @@ export const projects: ProjectSeed[] = [
     featured: true,
     category: "automation",
     accent: "#86efac",
-    sortOrder: 5,
+    sortOrder: 7,
     technologies: [
       { name: "Python", slug: "python", category: "language" },
       { name: "SQLite", slug: "sqlite", category: "database" },
@@ -727,7 +928,7 @@ export const projects: ProjectSeed[] = [
     repoUrl: "https://github.com/arifaqyl/flight-sniper",
     category: "automation",
     accent: "#c4b5fd",
-    sortOrder: 6,
+    sortOrder: 8,
     technologies: [
       { name: "Python", slug: "python", category: "language" },
       { name: "Requests", slug: "requests", category: "api" },
@@ -819,6 +1020,54 @@ export const projects: ProjectSeed[] = [
           {
             type: "paragraph",
             text: "Python, Requests, Telegram Bot API. Public repo available on GitHub."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    slug: "shopee-autopilot",
+    title: "Shopee Autopilot",
+    summary:
+      "Automated Shopee Malaysia digital product pipeline covering cover generation, listing upload, webchat replies, and nightly performance summaries.",
+    status: "live",
+    year: 2026,
+    visibility: "public",
+    featured: false,
+    category: "automation",
+    accent: "#fb923c",
+    sortOrder: 9,
+    technologies: [
+      { name: "Python", slug: "python", category: "language" },
+      { name: "Playwright", slug: "playwright", category: "automation" },
+      { name: "SQLite", slug: "sqlite", category: "database" },
+      { name: "PIL", slug: "pil", category: "media" }
+    ],
+    metrics: [
+      { label: "Products", value: "8", orderIndex: 1 },
+      { label: "Mode", value: "daily ops", orderIndex: 2 }
+    ],
+    media: [],
+    tabs: [
+      {
+        key: "overview",
+        label: "Overview",
+        orderIndex: 1,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "An operator-style automation stack for running a digital product shop on Shopee with minimal manual intervention after setup."
+          }
+        ]
+      },
+      {
+        key: "stack",
+        label: "Stack / Links",
+        orderIndex: 2,
+        richContent: [
+          {
+            type: "paragraph",
+            text: "Python, Playwright, SQLite, PIL, PowerShell scheduling."
           }
         ]
       }

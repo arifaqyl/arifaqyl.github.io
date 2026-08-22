@@ -1,38 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Now — Arif Aqyl</title>
-  <meta name="description" content="What Arif Aqyl is working on right now." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://arifaqyl.me/now.html" />
-  <meta property="og:title" content="Now — Arif Aqyl" />
-  <meta property="og:description" content="What Arif Aqyl is working on right now." />
-  <meta property="og:url" content="https://arifaqyl.me/now.html" />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#040506" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23040506'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='18' fill='%23CCFF00'>a</text></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <meta name="description" content="What Arif Aqyl is currently focused on — projects, learning, and goals." />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
-
     :root {
-      --bg:        #040506;
-      --bg-card:   #07080a;
-      --bg-raised: #111214;
-      --accent:    #CCFF00;
-      --border:    #363739;
-      --border-hi: #454647;
-      --fg:        #ffffff;
-      --fg-2:      #9c9c9d;
-      --fg-3:      #6a6b6c;
-      --font-sans: 'Inter', system-ui, sans-serif;
-      --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
-      --sec-pad:   80px;
-      --max-w:     720px;
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --accent: #ff4d00;
+      --accent2: #ffcc00;
+      --text: #f0ede8;
+      --muted: #555;
+      --border: #1e1e1e;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,348 +22,247 @@
 
     body {
       background: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-sans);
-      line-height: 1.6;
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.4;
+    }
 
-    /* NAV */
+    /* Nav */
     nav {
       position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
+      top: 0; left: 0; right: 0;
+      padding: 1.5rem 3rem;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 28px;
-      background: rgba(4,5,6,0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      padding: 10px 24px;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
     }
+
     .nav-logo {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-      font-weight: 400;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      text-decoration: none;
     }
-    nav ul {
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Main content */
+    .now-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 10rem 2rem 6rem;
+    }
+
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    .now-intro {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 2;
+      margin-bottom: 3rem;
+      max-width: 55ch;
+    }
+
+    .now-list {
       list-style: none;
       display: flex;
-      gap: 20px;
-    }
-    nav ul li a {
-      font-size: 0.78rem;
-      color: var(--fg-3);
-      transition: color 0.2s;
-      letter-spacing: 0.02em;
-    }
-    nav ul li a:hover,
-    nav ul li a.active { color: var(--fg); }
-
-    /* MAIN */
-    main {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 140px 24px 80px;
-    }
-
-    /* PAGE HEADER */
-    .page-header {
-      margin-bottom: 56px;
-    }
-    .page-label {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      text-transform: lowercase;
-      margin-bottom: 16px;
-    }
-    .page-title {
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--fg);
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 12px;
-    }
-    .page-subtitle {
-      font-size: 0.88rem;
-      color: var(--fg-3);
-      line-height: 1.6;
-    }
-    .page-date {
-      display: inline-block;
-      margin-top: 12px;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      color: var(--fg-3);
+      flex-direction: column;
+      gap: 0;
       border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 3px 8px;
     }
 
-    /* SECTION */
-    .now-section {
-      margin-bottom: 48px;
-    }
-    .now-section-label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      color: var(--fg-3);
-      text-transform: lowercase;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* NOW ITEMS */
     .now-item {
+      padding: 1.5rem 1.8rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      line-height: 1.7;
       display: flex;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(54,55,57,0.5);
+      align-items: flex-start;
+      gap: 1rem;
+      transition: background 0.2s;
     }
     .now-item:last-child { border-bottom: none; }
+    .now-item:hover { background: #161616; }
 
-    .now-dot {
+    .now-emoji {
+      font-size: 1.3rem;
       flex-shrink: 0;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--border-hi);
-      margin-top: 8px;
-    }
-    .now-dot--active {
-      background: var(--accent);
-      box-shadow: 0 0 0 0 rgba(204,255,0,0.4);
-      animation: dot-pulse 2s infinite;
+      line-height: 1.5;
     }
 
-    @keyframes dot-pulse {
-      0%   { box-shadow: 0 0 0 0   rgba(204,255,0,0.4); }
-      70%  { box-shadow: 0 0 0 7px rgba(204,255,0,0); }
-      100% { box-shadow: 0 0 0 0   rgba(204,255,0,0); }
+    .now-content strong {
+      color: var(--text);
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.15rem;
     }
 
-    .now-content { flex: 1; }
-    .now-title {
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--fg);
-      margin-bottom: 4px;
-    }
-    .now-desc {
-      font-size: 0.82rem;
-      color: var(--fg-2);
-      line-height: 1.55;
-    }
-    .now-tag {
-      display: inline-block;
-      margin-top: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      color: var(--fg-3);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 2px 6px;
-    }
-    .now-tag--accent {
-      color: var(--accent);
-      border-color: rgba(204,255,0,0.2);
-      background: rgba(204,255,0,0.05);
+    .now-content span {
+      color: var(--muted);
+      font-size: 0.72rem;
     }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 40px 24px;
+    .now-updated {
+      margin-top: 3rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
       border-top: 1px solid var(--border);
-      margin-top: 40px;
+      padding-top: 1.5rem;
     }
-    .footer-inner {
+
+    .now-updated span { color: var(--accent); }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.8rem 1.8rem;
+      transition: all 0.2s;
+    }
+    .back-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 3rem;
+      border-top: 1px solid var(--border);
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.75rem;
-      color: var(--fg-3);
-      font-family: var(--font-mono);
-    }
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 0 rgba(204,255,0,0.4);
-      animation: dot-pulse 2.5s infinite;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
     }
 
-    /* FOCUS VISIBLE */
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 3px;
-    }
-
-    /* SCROLL BAR */
-    #scroll-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 2px;
-      background: var(--accent);
-      box-shadow: 0 0 8px rgba(204,255,0,0.5);
-      z-index: 999;
-      width: 0%;
-      transition: width 0.1s linear;
-    }
-
-    @media (max-width: 600px) {
-      main { padding-top: 120px; }
-      .page-title { font-size: 1.5rem; }
-      nav { gap: 16px; padding: 8px 18px; }
-      nav ul { gap: 14px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .now-container { padding: 8rem 1.5rem 4rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-<div id="scroll-bar"></div>
-
-<nav aria-label="Main navigation">
-  <a href="index.html" class="nav-logo">arif aqyl</a>
-  <ul>
-    <li><a href="index.html">work</a></li>
-    <li><a href="index.html#about">about</a></li>
-    <li><a href="now.html" class="active">now</a></li>
-    <li><a href="mailto:hello@arifaqyl.me">contact</a></li>
+<nav>
+  <a href="/" class="nav-logo">ARIF<span>.</span>AQYL</a>
+  <ul class="nav-links">
+    <li><a href="/#live">Live</a></li>
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/now.html" style="color: var(--accent);">Now</a></li>
+    <li><a href="https://github.com/arifaqyl" target="_blank">GitHub ↗</a></li>
   </ul>
 </nav>
 
-<main>
-  <header class="page-header">
-    <p class="page-label">// now</p>
-    <h1 class="page-title">What I am doing now.</h1>
-    <p class="page-subtitle">A snapshot of current work, not a highlight reel.</p>
-    <span class="page-date">updated May 2026</span>
-  </header>
+<main class="now-container">
+  <div class="section-label">// what I'm focused on</div>
+  <h1>Now</h1>
+  <p class="now-intro">
+    This is a snapshot of what I'm currently working on, learning, and building toward.
+    Inspired by the <a href="https://nownownow.com/about" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">/now movement</a>.
+  </p>
 
-  <!-- BUILDING -->
-  <section class="now-section" aria-label="Currently building">
-    <p class="now-section-label">// building</p>
-
-    <div class="now-item">
-      <div class="now-dot now-dot--active"></div>
+  <ul class="now-list">
+    <li class="now-item">
+      <span class="now-emoji">🔨</span>
       <div class="now-content">
-        <p class="now-title">Student Bot</p>
-        <p class="now-desc">24/7 Telegram daemon running on DigitalOcean. Scrapes UniKL VLE for deadlines, bridges WhatsApp class announcements to Telegram, sends a Gemini-powered daily digest each morning.</p>
-        <span class="now-tag now-tag--accent">active · live</span>
-        <span class="now-tag">Python · Gemini API · WAHA</span>
+        <strong>Building GitHub Auto-Sorter</strong>
+        <span>A Java tool that reads any GitHub profile via the free API and auto-tags, sorts, and organizes repositories. Keeping my developer profile clean, automatically.</span>
       </div>
-    </div>
-
-    <div class="now-item">
-      <div class="now-dot now-dot--active"></div>
+    </li>
+    <li class="now-item">
+      <span class="now-emoji">🧠</span>
       <div class="now-content">
-        <p class="now-title">SEB Sales Bot</p>
-        <p class="now-desc">Automated Telegram storefront for a utility tool. Customer sends /buy, receives a DuitNow QR via ToyyibPay, file is delivered automatically on payment confirmation via webhook.</p>
-        <span class="now-tag now-tag--accent">active · live</span>
-        <span class="now-tag">Python · ToyyibPay · Flask</span>
+        <strong>Learning Prompt Engineering & AI Integration</strong>
+        <span>Experimenting with AI APIs to automate content pipelines — thumbnails, social posts, and more. Bridging code and intelligence.</span>
       </div>
-    </div>
-
-    <div class="now-item">
-      <div class="now-dot"></div>
+    </li>
+    <li class="now-item">
+      <span class="now-emoji">⚡</span>
       <div class="now-content">
-        <p class="now-title">Portfolio — arifaqyl.me</p>
-        <p class="now-desc">Ongoing. Single-file site: Three.js GPU wave grid, GSAP ScrollTrigger, 10 custom effects. No framework, no build step.</p>
-        <span class="now-tag">HTML · Three.js · GSAP</span>
+        <strong>Strengthening C++ for High-Performance Systems</strong>
+        <span>Going deeper into systems-level programming. Performance matters when you're building things that need to scale.</span>
       </div>
-    </div>
-  </section>
-
-  <!-- STUDYING -->
-  <section class="now-section" aria-label="Currently studying">
-    <p class="now-section-label">// studying</p>
-
-    <div class="now-item">
-      <div class="now-dot now-dot--active"></div>
+    </li>
+    <li class="now-item">
+      <span class="now-emoji">📡</span>
       <div class="now-content">
-        <p class="now-title">Year 1 — UniKL MIIT</p>
-        <p class="now-desc">Bachelor of IT (Hons) Software Engineering, intake October 2025. Current modules: Database Systems, OOP, Computer Organization, Probability &amp; Statistics, OOSAD.</p>
-        <span class="now-tag now-tag--accent">semester 1</span>
-        <span class="now-tag">class of 2028</span>
+        <strong>Growing Presence Through Content Creation</strong>
+        <span>Using OBS for recordings, building a content workflow, and sharing what I learn publicly. Building in public, not in silence.</span>
       </div>
-    </div>
-
-    <div class="now-item">
-      <div class="now-dot"></div>
+    </li>
+    <li class="now-item">
+      <span class="now-emoji">🤝</span>
       <div class="now-content">
-        <p class="now-title">Java — deeper OOP patterns</p>
-        <p class="now-desc">Working through inheritance, interfaces, and design patterns as part of coursework. Applying it in the GitHub Auto-Sorter codebase.</p>
-        <span class="now-tag">Java 17 · Maven</span>
+        <strong>Seeking Internships & Collaborations</strong>
+        <span>Open to real-world engineering roles, freelance projects, and interesting collaborations. If you're building something cool, let's talk.</span>
       </div>
-    </div>
-  </section>
+    </li>
+  </ul>
 
-  <!-- LOOKING FOR -->
-  <section class="now-section" aria-label="Looking for">
-    <p class="now-section-label">// looking for</p>
+  <div class="now-updated">
+    Last updated: <span>April 2026</span>
+  </div>
 
-    <div class="now-item">
-      <div class="now-dot now-dot--active"></div>
-      <div class="now-content">
-        <p class="now-title">Internship — backend or automation</p>
-        <p class="now-desc">Open to internship in backend engineering, automation, or tooling. KL-based or remote. Available from late 2026.</p>
-        <span class="now-tag now-tag--accent">open</span>
-        <span class="now-tag">KL + remote</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- NOT DOING -->
-  <section class="now-section" aria-label="Not currently doing">
-    <p class="now-section-label">// not right now</p>
-
-    <div class="now-item">
-      <div class="now-dot"></div>
-      <div class="now-content">
-        <p class="now-desc">Taking on freelance work. Adding new projects until current ones are stable. Anything unrelated to software or university.</p>
-      </div>
-    </div>
-  </section>
+  <a href="/" class="back-link">← Back to Portfolio</a>
 </main>
 
 <footer>
-  <div class="footer-inner">
-    <span class="status-dot" aria-hidden="true"></span>
-    <span>updated May 2026 &nbsp;·&nbsp; <a href="https://nownownow.com/about" target="_blank" rel="noopener">what is a now page?</a></span>
-  </div>
+  <span>© 2026 Arif Aqyl — arifaqyl.me</span>
+  <span>Built with GitHub Education ✦ Hosted on GitHub Pages</span>
 </footer>
 
-<script>
-  // Scroll progress bar
-  const bar = document.getElementById('scroll-bar');
-  window.addEventListener('scroll', () => {
-    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-    bar.style.width = pct + '%';
-  }, { passive: true });
-</script>
 </body>
 </html>
