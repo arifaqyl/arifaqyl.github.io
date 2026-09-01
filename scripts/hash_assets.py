@@ -21,7 +21,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 HTML = ROOT / "index.html"
-ASSETS = ["trafficmy.png", "sahbukti.png"]
+ASSETS = ["trafficmy.webp", "sahbukti.webp"]
 HASHED = re.compile(r"^(?P<stem>[a-z0-9_-]+)\.(?P<hash>[0-9a-f]{8})\.(?P<ext>png|jpg|webp)$")
 
 
