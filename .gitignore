@@ -11,3 +11,5 @@ prisma/dev.db-journal
 coverage/
 dist/
 
+__pycache__/
+tsconfig.tsbuildinfo

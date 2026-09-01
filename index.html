@@ -12,7 +12,9 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c0a07'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' fill='%23f2a33c' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap" rel="stylesheet">
 <title>Arif Aqyl — Live software for Malaysia</title>
 <style>
 :root{
@@ -20,12 +22,12 @@
   --paper:#f4eee1;--dim:#a29784;
   --gold:#f2a33c;--chili:#ff5233;--jade:#3dbb8a;--pink:#ff6fa5;
   --line:rgba(244,238,225,.11);--line-2:rgba(244,238,225,.05);
-  --display:"Archivo","Helvetica Neue",Arial,sans-serif;--sans:"Archivo","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;--sans:"Switzer","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;
   --max:900px;--wide:1180px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--ink);color:var(--paper);font-family:var(--sans);line-height:1.6;font-size:17px;overflow-x:hidden;-webkit-font-smoothing:antialiased;background-image:radial-gradient(1100px 500px at 80% -10%,rgba(242,163,60,.07),transparent 60%),radial-gradient(900px 480px at -10% 30%,rgba(255,82,51,.05),transparent 55%),radial-gradient(800px 520px at 90% 85%,rgba(61,187,138,.04),transparent 60%)}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);line-height:1.62;font-size:16.5px;overflow-x:hidden;-webkit-font-smoothing:antialiased;background-image:radial-gradient(1100px 500px at 80% -10%,rgba(242,163,60,.07),transparent 60%),radial-gradient(900px 480px at -10% 30%,rgba(255,82,51,.05),transparent 55%),radial-gradient(800px 520px at 90% 85%,rgba(61,187,138,.04),transparent 60%)}
 body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
@@ -37,7 +39,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
 .wrap-wide{max-width:var(--wide);margin:0 auto;padding:0 28px}
 .label{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
-.h2{font-family:var(--display);font-weight:560;font-stretch:106%;line-height:1.02;letter-spacing:-.02em;font-size:clamp(32px,4.8vw,54px)}
+.h2{font-family:var(--display);font-weight:640;font-variation-settings:"opsz" 54,"wdth" 100;line-height:1.02;letter-spacing:-.02em;font-size:clamp(32px,4.8vw,54px)}
 .lede{font-size:clamp(17px,2vw,20px);line-height:1.6;color:var(--dim);max-width:62ch}
 .lede b,.about b{color:var(--paper);font-weight:500}
 .accent{color:var(--gold)}
@@ -72,7 +74,7 @@ nav.on{border-color:var(--line)}
 .hero-eyebrow{display:flex;align-items:center;gap:11px;margin-bottom:30px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--jade);flex:none;box-shadow:0 0 0 0 rgba(61,187,138,.5);animation:pulse 2.4s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,187,138,.5)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
-.h1{font-family:var(--display);font-weight:620;font-stretch:108%;line-height:.98;letter-spacing:-.025em;font-size:clamp(44px,8vw,104px)}
+.h1{font-family:var(--display);font-weight:700;font-variation-settings:"opsz" 96,"wdth" 100;line-height:.98;letter-spacing:-.025em;font-size:clamp(44px,8vw,104px)}
 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em}
 .wi{display:inline-block;transform:translateY(112%);transition:transform .9s cubic-bezier(.19,1,.22,1)}
 .js .h1.go .wi,.js .go .wi{transform:none}
@@ -107,6 +109,31 @@ section{padding:clamp(84px,11vh,132px) 0;border-top:1px solid var(--line-2);posi
 .sec-top{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
 .idx{font-family:var(--mono);font-size:12px;color:var(--gold)}
 .sec-head .label{letter-spacing:.12em}
+/* live case studies */
+.case{display:grid;grid-template-columns:1.02fr .98fr;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--ink-2)}
+.case+.case{margin-top:26px}
+.case-shot{position:relative;background:#000;overflow:hidden;border-right:1px solid var(--line);min-height:340px}
+.case-shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.case:hover .case-shot img{transform:scale(1.03)}
+.case-body{padding:32px 32px 30px;display:flex;flex-direction:column;min-width:0}
+.case-top{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.case h3{font-family:var(--display);font-weight:660;font-variation-settings:"opsz" 30,"wdth" 100;font-size:clamp(24px,3vw,30px);letter-spacing:-.018em;line-height:1.05}
+.case h3 em{font-style:normal;color:var(--gold)}
+.case-url{font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--dim);white-space:nowrap}
+.case-sub{color:var(--dim);font-size:14.5px;line-height:1.55;margin:10px 0 22px}
+.case-blk{margin-bottom:18px}
+.case-blk .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.case-blk p{font-size:14.5px;line-height:1.62;color:var(--paper);opacity:.86}
+.case-facts{margin-top:auto;padding-top:18px;border-top:1px solid var(--line-2);font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.9}
+.case-facts b{color:var(--paper);font-weight:500}
+.case-meter{letter-spacing:.24em;color:var(--gold);font-size:12px}
+.case-meter i{color:rgba(244,238,225,.16);font-style:normal}
+.case-act{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+@media(max-width:900px){
+  .case{grid-template-columns:1fr}
+  .case-shot{border-right:0;border-bottom:1px solid var(--line);min-height:0;aspect-ratio:16/10}
+  .case-body{padding:26px 22px 26px}
+}
 .cards-2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 @media(max-width:860px){.cards-2{grid-template-columns:1fr}}
 .lc{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--ink-2);transition:border-color .35s,box-shadow .35s;will-change:transform}
@@ -124,7 +151,7 @@ section{padding:clamp(84px,11vh,132px) 0;border-top:1px solid var(--line-2);posi
 .lcb{padding:26px 26px 28px}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
 .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;padding:5px 10px;border:1px solid var(--line);border-radius:3px;color:var(--dim)}
-.lcb h3{font-family:var(--display);font-weight:620;font-stretch:105%;font-size:26px;letter-spacing:-.01em;margin-bottom:9px}
+.lcb h3{font-family:var(--display);font-weight:660;font-variation-settings:"opsz" 28,"wdth" 100;font-size:26px;letter-spacing:-.01em;margin-bottom:9px}
 .lcb h3 em{font-style:normal;color:var(--ca)}
 .lcb p{color:var(--dim);font-size:15.5px;max-width:50ch}
 .sig{margin-top:19px;padding-top:18px;border-top:1px solid var(--line-2);font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:1.8}
@@ -183,7 +210,7 @@ section{padding:clamp(84px,11vh,132px) 0;border-top:1px solid var(--line-2);posi
 .edu-thumb{width:74px;height:56px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
 .edu-thumb img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform .6s,filter .4s}
 .edu-row:hover .edu-thumb img{transform:scale(1.12);filter:saturate(1)}
-.edu-row .inst{font-family:var(--display);font-size:19px;font-weight:600;font-stretch:105%}
+.edu-row .inst{font-family:var(--display);font-size:19px;font-weight:640;font-variation-settings:"opsz" 20,"wdth" 100}
 .edu-row .deg{color:var(--dim);font-size:14px;margin-top:3px}
 @media(max-width:640px){.edu-row{grid-template-columns:1fr;gap:8px}.edu-row .y{padding-top:0}.edu-thumb{display:none}}
 .aw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -208,7 +235,7 @@ section{padding:clamp(84px,11vh,132px) 0;border-top:1px solid var(--line-2);posi
 .aw-table .y{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
 .aw-table .o{color:var(--dim);font-size:13px}
 #contact{padding:clamp(96px,13vh,150px) 0 80px}
-.contact-h{font-family:var(--display);font-size:clamp(26px,8vw,72px);font-weight:600;font-stretch:105%;letter-spacing:-.025em;line-height:1.04;margin:18px 0 22px}
+.contact-h{font-family:var(--display);font-size:clamp(26px,8vw,72px);font-weight:680;font-variation-settings:"opsz" 72,"wdth" 100;letter-spacing:-.025em;line-height:1.04;margin:18px 0 22px}
 .contact-h a{background:linear-gradient(var(--gold),var(--gold)) left bottom/0 2px no-repeat;transition:background-size .5s cubic-bezier(.65,0,.35,1);padding-bottom:4px;overflow-wrap:anywhere}
 .contact-h a:hover{background-size:100% 2px}
 .contact-sub{color:var(--dim);max-width:54ch;margin-bottom:36px}
@@ -275,10 +302,10 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
       <a href="https://github.com/arifaqyl" target="_blank" rel="noopener" class="btn btn-ghost" data-mag>GitHub</a>
     </div>
     <div class="stats" data-rv style="--i:3">
-      <div class="stat"><div class="num" data-n="2">2</div><div class="lbl">apps live</div></div>
-      <div class="stat"><div class="num" data-n="11">11</div><div class="lbl">public repos</div></div>
-      <div class="stat"><div class="num" data-n="246">246</div><div class="lbl">tests passing</div></div>
-      <div class="stat"><div class="num" data-n="15" data-suf="m">15m</div><div class="lbl">refresh cycle</div></div>
+      <div class="stat"><div class="num" data-stat="apps_live" data-n="2">2</div><div class="lbl">apps live</div></div>
+      <div class="stat"><div class="num" data-stat="public_repos" data-n="11">11</div><div class="lbl">public repos</div></div>
+      <div class="stat"><div class="num" data-stat="tests_passing" data-n="246">246</div><div class="lbl">tests passing</div></div>
+      <div class="stat"><div class="num" data-stat="refresh_minutes" data-n="15" data-suf="m">15m</div><div class="lbl">refresh cycle</div></div>
     </div>
   </div>
   <div class="scrolldn" aria-hidden="true"><span>scroll</span><i></i></div>
@@ -286,8 +313,8 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
 
 <div class="tick" aria-hidden="true">
   <div class="tk">
-    <div class="tkside"><b>TrafficMY live</b><i>✦</i><b>15 min refresh</b><i class="j">✦</i><b>Sah.Bukti live</b><i class="c">✦</i><b>review-gated ledger</b><i class="p">✦</i><b>246 tests green</b><i>✦</i><b>FastAPI</b><i class="j">✦</i><b>Python automation</b><i class="c">✦</i><b>GTFS rail data</b><i>✦</i><b>WhatsApp ops</b><i class="p">✦</i><b>Raspberry Pi homelab</b><i class="j">✦</i><b>Cloudflare Tunnel</b><i>✦</i><b>open source</b><i class="c">✦</i><b>Kuala Lumpur MYT</b><i class="j">✦</i></div>
-    <div class="tkside"><b>TrafficMY live</b><i>✦</i><b>15 min refresh</b><i class="j">✦</i><b>Sah.Bukti live</b><i class="c">✦</i><b>review-gated ledger</b><i class="p">✦</i><b>246 tests green</b><i>✦</i><b>FastAPI</b><i class="j">✦</i><b>Python automation</b><i class="c">✦</i><b>GTFS rail data</b><i>✦</i><b>WhatsApp ops</b><i class="p">✦</i><b>Raspberry Pi homelab</b><i class="j">✦</i><b>Cloudflare Tunnel</b><i>✦</i><b>open source</b><i class="c">✦</i><b>Kuala Lumpur MYT</b><i class="j">✦</i></div>
+    <div class="tkside"><b>TrafficMY live</b><i>✦</i><b>15 min refresh</b><i class="j">✦</i><b>Sah.Bukti live</b><i class="c">✦</i><b>review-gated ledger</b><i class="p">✦</i><b><span data-stat="tests_passing">246</span> tests green</b><i>✦</i><b>FastAPI</b><i class="j">✦</i><b>Python automation</b><i class="c">✦</i><b>GTFS rail data</b><i>✦</i><b>WhatsApp ops</b><i class="p">✦</i><b>Raspberry Pi homelab</b><i class="j">✦</i><b>Cloudflare Tunnel</b><i>✦</i><b>open source</b><i class="c">✦</i><b>Kuala Lumpur MYT</b><i class="j">✦</i></div>
+    <div class="tkside"><b>TrafficMY live</b><i>✦</i><b>15 min refresh</b><i class="j">✦</i><b>Sah.Bukti live</b><i class="c">✦</i><b>review-gated ledger</b><i class="p">✦</i><b><span data-stat="tests_passing">246</span> tests green</b><i>✦</i><b>FastAPI</b><i class="j">✦</i><b>Python automation</b><i class="c">✦</i><b>GTFS rail data</b><i>✦</i><b>WhatsApp ops</b><i class="p">✦</i><b>Raspberry Pi homelab</b><i class="j">✦</i><b>Cloudflare Tunnel</b><i>✦</i><b>open source</b><i class="c">✦</i><b>Kuala Lumpur MYT</b><i class="j">✦</i></div>
   </div>
 </div>
 
@@ -295,47 +322,79 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
   <div class="wrap-wide">
     <div class="sec-head">
       <div class="sec-top" data-rv><span class="idx">01</span><p class="label">// live apps</p></div>
-      <h2 class="h2 split" data-split>Live in production.</h2>
-      <p class="lede" data-rv style="margin-top:16px">Two products serving real users on <span class="mono accent">arifaqyl.me</span> right now, deployed on my own infrastructure. The screenshots are the actual apps.</p>
+      <h2 class="h2 split" data-split>Running in production.</h2>
+      <p class="lede" data-rv style="margin-top:16px">Both are on my own hardware at <span class="mono accent">arifaqyl.me</span>, reachable right now. The constraint each one had to solve is more interesting than its feature list, so that is what I have written down.</p>
     </div>
-    <div class="cards-2">
-      <article class="lc tilt" data-accent="gold" data-rv style="--i:0">
-        <a href="https://arifaqyl.me/traffic/" target="_blank" rel="noopener" class="shot">
-          <img src="trafficmy.png" alt="TrafficMY live dashboard" loading="lazy">
-          <span class="urlchip">arifaqyl.me/traffic</span>
-          <span class="ledchip"><i></i>LIVE</span>
-        </a>
-        <i class="glare" aria-hidden="true"></i>
-        <div class="lcb">
-          <div class="tags"><span class="tag">data product</span><span class="tag">fastapi</span><span class="tag">gtfs</span><span class="tag">pwa</span></div>
+
+    <article class="case" data-rv style="--i:0">
+      <a class="case-shot" href="https://arifaqyl.me/traffic/" target="_blank" rel="noopener">
+        <img src="trafficmy.png" alt="TrafficMY map showing official Klang Valley rail routes" loading="lazy">
+        <span class="urlchip">arifaqyl.me/traffic</span>
+        <span class="ledchip"><i></i>LIVE</span>
+      </a>
+      <div class="case-body">
+        <div class="case-top">
           <h3>Traffic<em>MY</em></h3>
-          <p>Malaysia-first transport pulse. Ingests official MyRapid alerts, GTFS rail data, and live social signals, then surfaces real disruptions across all 13 negeri.</p>
-          <div class="sig">refresh <b>15 min</b> · <b>246</b> tests · coverage <b>national</b><br>stack <b>FastAPI · SQLite · Playwright · Docker</b></div>
-          <div class="act">
-            <a href="https://arifaqyl.me/traffic/" target="_blank" rel="noopener" class="btn btn-sm" data-mag>Open live</a>
-            <a href="https://github.com/arifaqyl/aduanmy" target="_blank" rel="noopener" class="btn btn-sm btn-ghost" data-mag>GitHub</a>
-          </div>
+          <span class="case-url">arifaqyl.me/traffic &#8599;</span>
         </div>
-      </article>
-      <article class="lc tilt" data-accent="chili" data-rv style="--i:1">
-        <a href="https://arifaqyl.me/sahbukti/" target="_blank" rel="noopener" class="shot">
-          <img src="sahbukti.png" alt="Sah.Bukti live dashboard" loading="lazy">
-          <span class="urlchip">arifaqyl.me/sahbukti</span>
-          <span class="ledchip"><i></i>LIVE</span>
-        </a>
-        <i class="glare" aria-hidden="true"></i>
-        <div class="lcb">
-          <div class="tags"><span class="tag">product</span><span class="tag">whatsapp</span><span class="tag">fastapi</span><span class="tag">react</span></div>
+        <p class="case-sub">Rider-reported transit disruption for Malaysian rail and bus.</p>
+
+        <div class="case-blk">
+          <div class="k">The constraint</div>
+          <p>Malaysia publishes no realtime feed for LRT, MRT or Monorail. I probed every GTFS endpoint on data.gov.my: vehicle positions only, no trip updates, no service alerts, and the rail feed returns 404. There is nothing authoritative to read.</p>
+        </div>
+
+        <div class="case-blk">
+          <div class="k">So it does not pretend to know</div>
+          <p>Every line shows how much evidence sits behind it, and whether today is unusual for that line against its own 14&nbsp;day baseline. A quiet line is labelled as no data captured, never as normal service.</p>
+        </div>
+
+        <div class="case-facts">
+          <span class="case-meter">&#9608;&#9608;&#9608;&#9608;</span> official notice &nbsp;·&nbsp; <span class="case-meter">&#9608;&#9608;<i>&#9617;&#9617;</i></span> a few riders &nbsp;·&nbsp; <span class="case-meter">&#9608;<i>&#9617;&#9617;&#9617;</i></span> one, unverified<br>
+          <b><span data-stat="projects.trafficmy.tests">333</span></b> tests · <b>17</b> lines tracked · <b>8</b> official GTFS routes<br>
+          FastAPI · SQLite · Playwright · Raspberry&nbsp;Pi · Cloudflare Tunnel
+        </div>
+        <div class="case-act">
+          <a href="https://arifaqyl.me/traffic/" target="_blank" rel="noopener" class="btn btn-sm" data-mag>Open live</a>
+          <a href="https://github.com/arifaqyl/aduanmy" target="_blank" rel="noopener" class="btn btn-sm btn-ghost" data-mag>GitHub</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="case" data-rv style="--i:1">
+      <a class="case-shot" href="https://arifaqyl.me/sahbukti/" target="_blank" rel="noopener">
+        <img src="sahbukti.png" alt="Sah.Bukti landing page showing the owner review queue" loading="lazy">
+        <span class="urlchip">arifaqyl.me/sahbukti</span>
+        <span class="ledchip"><i></i>LIVE</span>
+      </a>
+      <div class="case-body">
+        <div class="case-top">
           <h3>Sah.<em>Bukti</em></h3>
-          <p>WhatsApp-first collections control plane for Malaysian micro-sellers. Order text becomes an invoice, payment becomes a review-gated ledger entry, month-end becomes an export.</p>
-          <div class="sig">trust <b>review-gated</b> · runtime <b>homelab Pi 4</b><br>stack <b>FastAPI · React · SQLite · WAHA</b></div>
-          <div class="act">
-            <a href="https://arifaqyl.me/sahbukti/" target="_blank" rel="noopener" class="btn btn-sm" data-mag>Open live</a>
-            <a href="https://github.com/arifaqyl/sah-bukti" target="_blank" rel="noopener" class="btn btn-sm btn-ghost" data-mag>GitHub</a>
-          </div>
+          <span class="case-url">arifaqyl.me/sahbukti &#8599;</span>
         </div>
-      </article>
-    </div>
+        <p class="case-sub">WhatsApp order messages become reviewable invoices and a locked ledger.</p>
+
+        <div class="case-blk">
+          <div class="k">The constraint</div>
+          <p>The product's entire claim is proof before payment. Auditing my own code, I found receipt images auto-approving and writing straight to the ledger with no owner review. The one thing it promised never to do, it did by default.</p>
+        </div>
+
+        <div class="case-blk">
+          <div class="k">What I changed</div>
+          <p>Removed the auto-approve path so every proof queues for review, added regression tests for the exact bypass, gated demo writes behind an env flag, and moved uploaded payment proofs off the public path behind an ownership check.</p>
+        </div>
+
+        <div class="case-facts">
+          <b><span data-stat="projects.sahbukti.tests">70</span></b> tests · review-gated ledger · owner approval required<br>
+          FastAPI · React · SQLite · WAHA · Raspberry&nbsp;Pi<br>
+          <span style="opacity:.72">Portfolio build, not a production tool. Demo data only.</span>
+        </div>
+        <div class="case-act">
+          <a href="https://arifaqyl.me/sahbukti/" target="_blank" rel="noopener" class="btn btn-sm" data-mag>Open live</a>
+          <a href="https://github.com/arifaqyl/sah-bukti" target="_blank" rel="noopener" class="btn btn-sm btn-ghost" data-mag>GitHub</a>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -458,19 +517,20 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
     <div class="sec-head">
       <div class="sec-top" data-rv><span class="idx">05</span><p class="label">// recognition</p></div>
       <h2 class="h2 split" data-split>Awards &amp; journey.</h2>
+      <p class="lede" data-rv style="margin-top:16px">Secondary to the shipped work, but it is where the building started.</p>
     </div>
     <div class="aw-grid">
-      <article class="aw" data-rv style="--i:0"><img src="stemboree.jpg" alt="STEMBoree 2022" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2022</span><span class="badge">Champion</span></div><h3>SCOUT STEMBoree MRSM</h3><p class="aw-org">MARA MRSM · national</p><p class="aw-desc">Inter-MRSM scouts competition. Placed champion overall among all MRSM schools nationally.</p></div></article>
-      <article class="aw" data-rv style="--i:1"><img src="stemideation2nd.jpg" alt="iOS App Ideation 2023" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2023</span><span class="badge red">2nd Place</span></div><h3>iOS App Ideation &amp; Prototyping</h3><p class="aw-org">MARA MRSM · national</p><p class="aw-desc">Designed and pitched Compostify, a food-waste management iOS app concept. 2nd nationally.</p></div></article>
+      <article class="aw" data-rv style="--i:0"><img src="stemideation2nd.jpg" alt="iOS App Ideation 2023" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2023</span><span class="badge red">2nd Place</span></div><h3>iOS App Ideation &amp; Prototyping</h3><p class="aw-org">MARA MRSM · national</p><p class="aw-desc">Designed and pitched Compostify, a food-waste management iOS app concept. 2nd nationally.</p></div></article>
+      <article class="aw" data-rv style="--i:1"><img src="stemboree.jpg" alt="STEMBoree 2022" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2022</span><span class="badge">Champion</span></div><h3>SCOUT STEMBoree MRSM</h3><p class="aw-org">MARA MRSM · national</p><p class="aw-desc">Inter-MRSM scouts competition. Placed champion overall among all MRSM schools nationally.</p></div></article>
       <article class="aw" data-rv style="--i:2"><img src="compostifymodel.jpg" alt="Compostify smart compost bin model" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2023</span><span class="badge soft">Featured build</span></div><h3>Compostify</h3><p class="aw-org">iOS concept · 3D model</p><p class="aw-desc">Smart compost bin concept pairing the app pitch with a physical 3D model of the device.</p></div></article>
-      <article class="aw" data-rv style="--i:0"><img src="aerodance.jpg" alt="Aerodance 2025" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2025</span><span class="badge red">1st Runner-Up</span></div><h3>Aerodance Interclass</h3><p class="aw-org">Kolej MARA Kuala Nerang</p><p class="aw-desc">Interclass dance competition at KMKN. Performed with the team and placed 1st runner-up.</p></div></article>
-      <article class="aw" data-rv style="--i:1"><img src="fypcommittee.jpg" alt="FYP Showcase 2026" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2026</span><span class="badge soft">Committee</span></div><h3>FYP Innovation Showcase</h3><p class="aw-org">UniKL MIIT</p><p class="aw-desc">Organised and ran the annual FYP Innovation Showcase, where final-year students present capstone projects.</p></div></article>
-      <article class="aw" data-rv style="--i:2"><img src="sterfvolunteer.jpg" alt="STERF 2023" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2023</span><span class="badge soft">Volunteer</span></div><h3>STERF Science &amp; Tech Camp</h3><p class="aw-org">MRSM Gerik</p><p class="aw-desc">Facilitator for a STEM enrichment camp for secondary school students.</p></div></article>
-      <article class="aw" data-rv style="--i:0"><img src="stemtaiping.jpg" alt="STEM Taiping 2022" loading="lazy"><div class="aw-body"><div class="aw-meta"><span class="y">2022</span><span class="badge soft">Participant</span></div><h3>STEM Digital Ideation Inter-MRSM</h3><p class="aw-org">MARA MRSM · Taiping</p><p class="aw-desc">National inter-MRSM digital ideation showcase. Represented MRSM Gerik.</p></div></article>
     </div>
     <div class="aw-table" data-rv>
+      <div class="row"><span class="y">2026</span><span>FYP Innovation Showcase &mdash; committee</span><span class="o">UniKL MIIT</span></div>
+      <div class="row"><span class="y">2025</span><span>Aerodance Interclass &mdash; 1st runner-up</span><span class="o">Kolej MARA Kuala Nerang</span></div>
       <div class="row"><span class="y">2025</span><span>MUET Band 4.0</span><span class="o">Malaysian University English Test</span></div>
       <div class="row"><span class="y">2023</span><span>GPA Improvement Award</span><span class="o">MRSM Gerik</span></div>
+      <div class="row"><span class="y">2023</span><span>STERF Science &amp; Tech Camp &mdash; facilitator</span><span class="o">MRSM Gerik</span></div>
+      <div class="row"><span class="y">2022</span><span>STEM Digital Ideation Inter-MRSM</span><span class="o">MARA MRSM · Taiping</span></div>
     </div>
   </div>
 </section>
@@ -551,10 +611,44 @@ if(eduEl){
   eduIO.observe(eduEl);
 }
 
+/* Live stats ---------------------------------------------------------------
+   Numbers come from /stats.json, regenerated on the Pi by cron. The markup
+   keeps its last-known values as a fallback, so a failed fetch degrades to
+   stale-but-plausible rather than blank or zero. */
+(function(){
+  function dig(o,path){
+    return path.split(".").reduce(function(a,k){
+      return (a && a[k] !== undefined) ? a[k] : undefined; }, o);
+  }
+  fetch("/stats.json", {cache:"no-cache"})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(d){
+      document.querySelectorAll("[data-stat]").forEach(function(el){
+        var v = dig(d, el.getAttribute("data-stat"));
+        if (v === undefined || v === null) return;   // keep the fallback
+        if (el.hasAttribute("data-n")) {
+          el.setAttribute("data-n", v);
+          // if the count-up already finished, correct the shown value now
+          if (el.textContent.trim() !== "" && !/^0/.test(el.textContent)) {
+            el.textContent = v + (el.getAttribute("data-suf") || "");
+          }
+        } else {
+          el.textContent = v;
+        }
+      });
+      var st = document.getElementById("statsAsOf");
+      if (st && d.generated_at) {
+        st.textContent = "figures refreshed " +
+          new Date(d.generated_at).toLocaleDateString("en-GB",
+            {day:"numeric", month:"short", year:"numeric", timeZone:"Asia/Kuala_Lumpur"});
+      }
+    })
+    .catch(function(){ /* keep hardcoded fallbacks */ });
+})();
+
 qa(".num[data-n]").forEach(function(el){
-  var n=parseInt(el.getAttribute("data-n"),10);
   var suf=el.getAttribute("data-suf")||"";
-  el.textContent=n+suf;
+  el.textContent=el.getAttribute("data-n")+suf;
   if(RM)return;
   var done=false;
   var cio=new IntersectionObserver(function(es){
@@ -564,6 +658,10 @@ qa(".num[data-n]").forEach(function(el){
       var t0=null,DUR=1400;
       function step(ts){
         if(!t0)t0=ts;
+        // Target is read every frame, not captured once: stats.json often
+        // lands mid-animation, and a captured target would animate to the
+        // stale number and overwrite the corrected one.
+        var n=parseInt(el.getAttribute("data-n"),10);
         var p=Math.min((ts-t0)/DUR,1);
         var v=Math.round(n*(1-Math.pow(1-p,3)));
         el.textContent=v+suf;
