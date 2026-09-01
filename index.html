@@ -105,6 +105,7 @@ nav.on{border-color:var(--line)}
 .tkside i{font-style:normal;margin-right:26px;color:var(--gold)}
 .tkside i.c{color:var(--chili)}.tkside i.j{color:var(--jade)}.tkside i.p{color:var(--pink)}
 section{padding:clamp(84px,11vh,132px) 0;border-top:1px solid var(--line-2);position:relative}
+.sec-lede{max-width:62ch;margin:-18px 0 34px;color:var(--dim)}.sec-lede code{font-family:var(--mono,ui-monospace,monospace);font-size:.9em;color:var(--paper);background:rgba(255,255,255,.06);padding:2px 6px;border-radius:5px}
 .sec-head{margin-bottom:52px;max-width:72ch}
 .sec-top{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
 .idx{font-family:var(--mono);font-size:12px;color:var(--gold)}
@@ -274,6 +275,7 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
     <a href="#top" class="brand"><i></i>AQYL.MY</a>
     <div class="nav-links">
       <a href="#live">Live</a>
+      <a href="#oss">Open source</a>
       <a href="#work">Work</a>
       <a href="#stack">Toolkit</a>
       <a href="#about">About</a>
@@ -296,15 +298,15 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
       <span class="w"><span class="wi" style="transition-delay:.24s">for</span></span>
       <span class="w"><span class="wi" style="transition-delay:.29s">Malaysia.</span></span>
     </h1>
-    <p class="lede hero-lede" data-rv style="--i:1">Software engineering student at UniKL MIIT, Class of 2028. Two of my projects are running in production right now: <b>TrafficMY</b>, a transport pulse for Malaysian commuters, and <b>Sah.Bukti</b>, a WhatsApp collections tool for micro-sellers.</p>
+    <p class="lede hero-lede" data-rv style="--i:1">Software engineering student at UniKL MIIT, Class of 2028. Two of my projects are running in production right now: <b>TrafficMY</b>, a transport pulse for Malaysian commuters, and <b>Sah.Bukti</b>, a WhatsApp collections tool for micro-sellers. Alongside them, eight open-source libraries that get Malaysian rules right: payroll, holidays, identifiers, electricity bills, EPF.</p>
     <div class="hero-ctas" data-rv style="--i:2">
       <a href="#live" class="btn" data-mag>See live apps ↓</a>
       <a href="https://github.com/arifaqyl" target="_blank" rel="noopener" class="btn btn-ghost" data-mag>GitHub</a>
     </div>
     <div class="stats" data-rv style="--i:3">
       <div class="stat"><div class="num" data-stat="apps_live" data-n="2">2</div><div class="lbl">apps live</div></div>
-      <div class="stat"><div class="num" data-stat="public_repos" data-n="11">11</div><div class="lbl">public repos</div></div>
-      <div class="stat"><div class="num" data-stat="tests_passing" data-n="246">246</div><div class="lbl">tests passing</div></div>
+      <div class="stat"><div class="num" data-stat="public_repos" data-n="19">19</div><div class="lbl">public repos</div></div>
+      <div class="stat"><div class="num" data-stat="tests_passing" data-n="961">961</div><div class="lbl">tests passing</div></div>
       <div class="stat"><div class="num" data-stat="refresh_minutes" data-n="15" data-suf="m">15m</div><div class="lbl">refresh cycle</div></div>
     </div>
   </div>
@@ -313,8 +315,8 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
 
 <div class="tick" aria-hidden="true">
   <div class="tk">
-    <div class="tkside"><b>TrafficMY live</b><i>✦</i><b>15 min refresh</b><i class="j">✦</i><b>Sah.Bukti live</b><i class="c">✦</i><b>review-gated ledger</b><i class="p">✦</i><b><span data-stat="tests_passing">246</span> tests green</b><i>✦</i><b>FastAPI</b><i class="j">✦</i><b>Python automation</b><i class="c">✦</i><b>GTFS rail data</b><i>✦</i><b>WhatsApp ops</b><i class="p">✦</i><b>Raspberry Pi homelab</b><i class="j">✦</i><b>Cloudflare Tunnel</b><i>✦</i><b>open source</b><i class="c">✦</i><b>Kuala Lumpur MYT</b><i class="j">✦</i></div>
-    <div class="tkside"><b>TrafficMY live</b><i>✦</i><b>15 min refresh</b><i class="j">✦</i><b>Sah.Bukti live</b><i class="c">✦</i><b>review-gated ledger</b><i class="p">✦</i><b><span data-stat="tests_passing">246</span> tests green</b><i>✦</i><b>FastAPI</b><i class="j">✦</i><b>Python automation</b><i class="c">✦</i><b>GTFS rail data</b><i>✦</i><b>WhatsApp ops</b><i class="p">✦</i><b>Raspberry Pi homelab</b><i class="j">✦</i><b>Cloudflare Tunnel</b><i>✦</i><b>open source</b><i class="c">✦</i><b>Kuala Lumpur MYT</b><i class="j">✦</i></div>
+    <div class="tkside"><b>TrafficMY live</b><i>✦</i><b>15 min refresh</b><i class="j">✦</i><b>Sah.Bukti live</b><i class="c">✦</i><b>review-gated ledger</b><i class="p">✦</i><b><span data-stat="tests_passing">961</span> tests green</b><i>✦</i><b>FastAPI</b><i class="j">✦</i><b>Python automation</b><i class="c">✦</i><b>GTFS rail data</b><i>✦</i><b>WhatsApp ops</b><i class="p">✦</i><b>Raspberry Pi homelab</b><i class="j">✦</i><b>Cloudflare Tunnel</b><i>✦</i><b>8 open-source libraries for MY</b><i class="c">✦</i><b>Kuala Lumpur MYT</b><i class="j">✦</i></div>
+    <div class="tkside"><b>TrafficMY live</b><i>✦</i><b>15 min refresh</b><i class="j">✦</i><b>Sah.Bukti live</b><i class="c">✦</i><b>review-gated ledger</b><i class="p">✦</i><b><span data-stat="tests_passing">961</span> tests green</b><i>✦</i><b>FastAPI</b><i class="j">✦</i><b>Python automation</b><i class="c">✦</i><b>GTFS rail data</b><i>✦</i><b>WhatsApp ops</b><i class="p">✦</i><b>Raspberry Pi homelab</b><i class="j">✦</i><b>Cloudflare Tunnel</b><i>✦</i><b>8 open-source libraries for MY</b><i class="c">✦</i><b>Kuala Lumpur MYT</b><i class="j">✦</i></div>
   </div>
 </div>
 
@@ -398,11 +400,71 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
   </div>
 </section>
 
+<section id="oss">
+  <div class="wrap-wide">
+    <div class="sec-head">
+      <div class="sec-top" data-rv><span class="idx">02</span><p class="label">// open source · malaysia</p></div>
+      <h2 class="h2 split" data-split>Libraries for Malaysian developers.</h2>
+    </div>
+    <p class="lede sec-lede" data-rv>Small, dependency-free Python packages that get the local rules right and say where each one comes from. Every one ships a CLI, a test suite, and CI. <code>pip install</code> and go.</p>
+    <div class="work" id="osslist">
+      <a class="work-row" data-accent="gold" data-name="gaji" data-letter="G" href="https://github.com/arifaqyl/gaji" target="_blank" rel="noopener" data-rv style="--i:0">
+        <span class="wr-idx">01</span>
+        <span class="wr-yr">2026 · Python</span>
+        <span class="wr-main"><h3>gaji</h3><p>Malaysian take-home pay from the statutory tables: EPF, SOCSO, EIS and PCB with the s6A rebate. Reverse mode finds the gross for a target net.</p><span class="wr-stack">kwsp · perkeso · lhdn · 209 tests</span></span>
+        <span class="wr-arr">→</span>
+      </a>
+      <a class="work-row" data-accent="jade" data-name="cuti" data-letter="C" href="https://github.com/arifaqyl/cuti" target="_blank" rel="noopener" data-rv style="--i:1">
+        <span class="wr-idx">02</span>
+        <span class="wr-yr">2026 · Python</span>
+        <span class="wr-main"><h3>cuti</h3><p>Public holidays for all sixteen states, read from the JPM gazette, with Friday–Saturday weekends handled. A subscribable .ics feed per state.</p><span class="wr-stack">jpm gazette · ical · 40 tests</span></span>
+        <span class="wr-arr">→</span>
+      </a>
+      <a class="work-row" data-accent="chili" data-name="sahih" data-letter="S" href="https://github.com/arifaqyl/sahih" target="_blank" rel="noopener" data-rv style="--i:2">
+        <span class="wr-idx">03</span>
+        <span class="wr-yr">2026 · Python</span>
+        <span class="wr-main"><h3>sahih</h3><p>MyKad, phone numbers, postcodes and plates validated against the published rules, and honest about what a number does not tell you.</p><span class="wr-stack">jpn · mcmc · pos malaysia · 80 tests</span></span>
+        <span class="wr-arr">→</span>
+      </a>
+      <a class="work-row" data-accent="paper" data-name="tnb" data-letter="T" href="https://github.com/arifaqyl/tnb" target="_blank" rel="noopener" data-rv style="--i:3">
+        <span class="wr-idx">04</span>
+        <span class="wr-yr">2026 · Python</span>
+        <span class="wr-main"><h3>tnb</h3><p>Your electricity bill line by line on the July 2025 tariff. Six published bill totals reproduced to the sen.</p><span class="wr-stack">rp4 tariff · eei · sst · 15 tests</span></span>
+        <span class="wr-arr">→</span>
+      </a>
+      <a class="work-row" data-accent="gold" data-name="kwsp" data-letter="K" href="https://github.com/arifaqyl/kwsp" target="_blank" rel="noopener" data-rv style="--i:4">
+        <span class="wr-idx">05</span>
+        <span class="wr-yr">2026 · Python</span>
+        <span class="wr-main"><h3>kwsp</h3><p>EPF dividend history since 1983 and a retirement projection on the aggregate-balance method, with the rate it assumed stated.</p><span class="wr-stack">kwsp · decimal · 20 tests</span></span>
+        <span class="wr-arr">→</span>
+      </a>
+      <a class="work-row" data-accent="jade" data-name="ringgit" data-letter="R" href="https://github.com/arifaqyl/ringgit" target="_blank" rel="noopener" data-rv style="--i:5">
+        <span class="wr-idx">06</span>
+        <span class="wr-yr">2026 · Python</span>
+        <span class="wr-main"><h3>ringgit</h3><p>Money as Decimal: BNM 5-sen cash rounding, SST by category, and amounts in Malay words for cheques and invoices.</p><span class="wr-stack">bnm · rmcd · 47 tests</span></span>
+        <span class="wr-arr">→</span>
+      </a>
+      <a class="work-row" data-accent="chili" data-name="duitnow" data-letter="D" href="https://github.com/arifaqyl/duitnow" target="_blank" rel="noopener" data-rv style="--i:6">
+        <span class="wr-idx">07</span>
+        <span class="wr-yr">2026 · Python</span>
+        <span class="wr-main"><h3>duitnow</h3><p>Parse and validate DuitNow and EMVCo QR payloads: TLV decoding, CRC-16 check, merchant fields. Builds valid payloads too.</p><span class="wr-stack">emvco · crc-16 · 10 tests</span></span>
+        <span class="wr-arr">→</span>
+      </a>
+      <a class="work-row" data-accent="paper" data-name="pi-lab" data-letter="P" href="https://github.com/arifaqyl/pi-lab" target="_blank" rel="noopener" data-rv style="--i:7">
+        <span class="wr-idx">08</span>
+        <span class="wr-yr">2026 · Runbook</span>
+        <span class="wr-main"><h3>pi-lab</h3><p>Four production apps on a Raspberry Pi 4 with zero open ports: PM2, nginx, Cloudflare Tunnel, SQLite backups. The configs that run this site.</p><span class="wr-stack">pm2 · nginx · cloudflared · shellcheck ci</span></span>
+        <span class="wr-arr">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section id="work">
   <div class="wrap-wide">
     <div class="sec-head">
-      <div class="sec-top" data-rv><span class="idx">02</span><p class="label">// selected work</p></div>
-      <h2 class="h2 split" data-split>Other things I've shipped.</h2>
+      <div class="sec-top" data-rv><span class="idx">03</span><p class="label">// earlier work</p></div>
+      <h2 class="h2 split" data-split>Earlier things I've shipped.</h2>
     </div>
     <div class="work" id="worklist">
       <a class="work-row" data-accent="gold" data-name="Threadterm" data-letter="T" href="https://github.com/arifaqyl/threadterm" target="_blank" rel="noopener" data-rv style="--i:0">
@@ -436,7 +498,7 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
 <section id="stack">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-top" data-rv><span class="idx">03</span><p class="label">// toolkit</p></div>
+      <div class="sec-top" data-rv><span class="idx">04</span><p class="label">// toolkit</p></div>
       <h2 class="h2 split" data-split>How I build things.</h2>
     </div>
     <div class="stack-grid">
@@ -474,7 +536,7 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
 <section id="about">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-top" data-rv><span class="idx">04</span><p class="label">// about</p></div>
+      <div class="sec-top" data-rv><span class="idx">05</span><p class="label">// about</p></div>
       <h2 class="h2 split" data-split>Based in Wangsa Maju, building after class.</h2>
     </div>
     <div class="about-grid">
@@ -515,7 +577,7 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
 <section id="recognition">
   <div class="wrap-wide">
     <div class="sec-head">
-      <div class="sec-top" data-rv><span class="idx">05</span><p class="label">// recognition</p></div>
+      <div class="sec-top" data-rv><span class="idx">06</span><p class="label">// recognition</p></div>
       <h2 class="h2 split" data-split>Awards &amp; journey.</h2>
       <p class="lede" data-rv style="margin-top:16px">Secondary to the shipped work, but it is where the building started.</p>
     </div>
@@ -544,7 +606,7 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
 
 <section id="contact">
   <div class="wrap">
-    <div class="sec-top" data-rv><span class="idx">06</span><p class="label">// contact</p></div>
+    <div class="sec-top" data-rv><span class="idx">07</span><p class="label">// contact</p></div>
     <h2 class="contact-h" data-rv>Let's talk.<br><a href="mailto:arifaqyl@gmail.com">arifaqyl@gmail.com</a></h2>
     <p class="contact-sub" data-rv style="--i:1">Open to software engineering internships in backend or automation, KL or remote. Email is fastest.</p>
     <div class="soc" data-rv style="--i:2">
