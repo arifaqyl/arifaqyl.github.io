@@ -1,9 +1,16 @@
 {
-  "generated_at": "2026-09-01T17:57:18.732762Z",
+  "generated_at": "2026-09-01T20:35:59.296550Z",
   "tests": {
-    "trafficmy": 333,
+    "trafficmy": 385,
     "sahbukti": 70,
-    "studentbot": 85
+    "studentbot": 85,
+    "gaji": 209,
+    "cuti": 40,
+    "sahih": 80,
+    "tnb": 15,
+    "kwsp": 20,
+    "ringgit": 47,
+    "duitnow": 10
   },
-  "total": 488
+  "total": 961
 }

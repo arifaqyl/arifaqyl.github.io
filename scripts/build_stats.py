@@ -33,6 +33,7 @@ import argparse
 import json
 import pathlib
 import re
+import subprocess
 import sys
 import urllib.request
 from datetime import datetime, timezone
@@ -43,6 +44,14 @@ SOURCE_REPOS = {
     "trafficmy": "D:/aduanmy",
     "sahbukti": "D:/kedai-ops",
     "studentbot": "D:/student-bot",
+    # open-source libraries for malaysian developers
+    "gaji": "D:/gaji",
+    "cuti": "D:/cuti",
+    "sahih": "D:/sahih",
+    "tnb": "D:/tnb",
+    "kwsp": "D:/kwsp",
+    "ringgit": "D:/ringgit",
+    "duitnow": "D:/duitnow",
 }
 
 # Public endpoints that must answer to count as "live".
@@ -57,6 +66,17 @@ TEST_DEF = re.compile(rb"^\s*(?:async\s+)?def test_", re.M)
 
 
 def count_tests(repo: str) -> int:
+    """What `pytest` would run: collected items, so parametrized cases count
+    the way the README and the terminal count them. Falls back to counting
+    test functions if collection is not possible here."""
+    try:
+        out = subprocess.run([sys.executable, "-m", "pytest", "--collect-only", "-q", "-p", "no:cacheprovider"],
+                             cwd=repo, capture_output=True, text=True, timeout=180).stdout
+        m = re.search(r"(\d+) tests? collected", out)
+        if m:
+            return int(m.group(1))
+    except Exception:
+        pass
     root = pathlib.Path(repo) / "tests"
     if not root.is_dir():
         return 0
