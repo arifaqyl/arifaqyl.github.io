@@ -4,94 +4,96 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="What Arif Aqyl is focused on right now — projects, learning, and goals.">
-<meta name="theme-color" content="#050506">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23050506'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-style='italic' font-size='36' fill='%23d4ff4a' text-anchor='middle'%3Ea%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#f2ebde">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23f2ebde'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='40' font-weight='700' fill='%23d9603a' text-anchor='middle'%3Ea%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <title>Now — Arif Aqyl</title>
 <style>
 :root{
-  --bg:#050506;--bg2:#0a0a0c;--bg3:#111114;
-  --border:rgba(255,255,255,.08);--border-2:rgba(255,255,255,.04);--hairline:rgba(255,255,255,.05);
-  --text:#e8e6e0;--text-hi:#ffffff;--muted:#55554e;--muted2:#7d7c73;
-  --accent:#d4ff4a;--accent-h:#e5ff7a;--accent-2:rgba(212,255,74,.10);
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --display:'Fraunces','Times New Roman',Georgia,serif;
+  --bg:#f2ebde;--bg2:#eae1cf;--panel:#f7f1e5;
+  --ink:#1c1815;--ink-hi:#0a0805;--muted:#6b6055;--muted2:#95897a;
+  --line:rgba(28,24,21,.12);--line-2:rgba(28,24,21,.06);--hairline:rgba(28,24,21,.09);
+  --accent:#d9603a;--accent-h:#c04d29;--accent-2:rgba(217,96,58,.10);
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;font-size:15px;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:.9rem;line-height:1.65;overflow-x:hidden;letter-spacing:-.005em;-webkit-font-smoothing:antialiased;min-height:100dvh}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:.9rem;line-height:1.65;overflow-x:hidden;letter-spacing:-.005em;-webkit-font-smoothing:antialiased;min-height:100dvh}
 a{color:inherit;text-decoration:none}
+ul{list-style:none}
 ::selection{background:var(--accent);color:var(--bg)}
 :focus-visible{outline:1px solid var(--accent);outline-offset:2px}
 
-.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)'/%3E%3C/svg%3E");background-size:320px 320px}
-#webgl{position:fixed;inset:0;width:100vw;height:100dvh;z-index:0;pointer-events:none;opacity:.7}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.09;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)'/%3E%3C/svg%3E");background-size:320px 320px}
+.ruled{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:repeating-linear-gradient(180deg,transparent 0 47px,rgba(28,24,21,.025) 47px 48px);opacity:.6}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 1.75rem;background:rgba(5,5,6,.6);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--hairline)}
-.brand{font-family:var(--display);font-variation-settings:"opsz" 144,"wght" 500,"SOFT" 100,"WONK" 0;font-style:italic;font-size:1.35rem;color:var(--text-hi);letter-spacing:-.03em;line-height:1;transition:color .15s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 1.75rem;background:rgba(242,235,222,.8);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--hairline)}
+.brand{font-family:var(--display);font-variation-settings:"opsz" 96,"wdth" 100,"wght" 700;font-size:1.5rem;color:var(--ink);letter-spacing:-.035em;line-height:1;transition:color .15s}
 .brand:hover{color:var(--accent)}
-.back{font-family:var(--mono);font-size:.72rem;color:var(--muted2);padding:.35rem .65rem;border:1px solid var(--border);border-radius:3px;transition:border-color .15s,color .15s,background .15s}
-.back:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-2)}
+.brand span{color:var(--accent)}
+.back{font-family:var(--mono);font-size:.75rem;color:var(--muted);padding:.4rem .8rem;background:var(--ink);color:var(--bg);border-radius:2px;transition:background .15s}
+.back:hover{background:var(--accent);color:var(--bg)}
 
 main{position:relative;z-index:1;padding-top:96px}
-.wrap{max-width:820px;margin:0 auto;padding:0 1.75rem}
+.wrap{max-width:860px;margin:0 auto;padding:0 1.75rem}
 
 .hero{padding:6vh 0 4rem;position:relative}
-.hero-meta{font-family:var(--mono);font-size:.7rem;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2rem;display:inline-flex;align-items:center;gap:.55rem}
-.hero-meta i{width:6px;height:6px;background:var(--accent);border-radius:50%;box-shadow:0 0 10px rgba(212,255,74,.75)}
-.hero-h1{font-family:var(--display);font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 40,"WONK" 0;font-style:italic;font-size:clamp(84px,15vw,220px);line-height:.86;letter-spacing:-.055em;color:var(--text-hi);margin-bottom:1.5rem}
-.hero-h1 em{font-style:italic;color:var(--accent);font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 100,"WONK" 1}
-.hero-sub{font-family:var(--mono);font-size:.9rem;color:var(--muted2);letter-spacing:-.005em;max-width:56ch;margin-top:1.5rem;line-height:1.7}
-.hero-sub b{color:var(--text-hi);font-weight:500}
+.hero-meta{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem;display:inline-flex;align-items:center;gap:.55rem}
+.hero-meta i{width:6px;height:6px;background:var(--accent);border-radius:50%;box-shadow:0 0 10px rgba(217,96,58,.5)}
+.hero-h1{font-family:var(--display);font-variation-settings:"opsz" 96,"wdth" 100,"wght" 500;font-size:clamp(96px,17vw,240px);line-height:.86;letter-spacing:-.06em;color:var(--ink-hi);margin-bottom:1.5rem}
+.hero-h1 em{font-family:var(--display);font-variation-settings:"opsz" 96,"wdth" 100,"wght" 400;font-style:italic;color:var(--accent)}
+.hero-sub{font-family:var(--mono);font-size:.95rem;color:var(--ink);letter-spacing:-.005em;max-width:56ch;margin-top:1.5rem;line-height:1.7}
+.hero-sub b{color:var(--ink-hi);font-weight:500}
 
-section.blk{padding:3rem 0;border-top:1px solid var(--hairline);position:relative}
-.blk-head{display:grid;grid-template-columns:130px 1fr;gap:2rem;align-items:baseline}
+section.blk{padding:3.5rem 0;border-top:1px solid var(--hairline);position:relative}
+.blk-head{display:grid;grid-template-columns:140px 1fr;gap:2rem;align-items:baseline}
 @media(max-width:640px){.blk-head{grid-template-columns:1fr;gap:.4rem}}
-.blk-num{font-family:var(--mono);font-size:.66rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase}
-.blk-t{font-family:var(--display);font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 60,"WONK" 0;font-style:italic;font-size:clamp(30px,3.8vw,44px);color:var(--text-hi);letter-spacing:-.02em;line-height:1}
-.blk-t em{font-style:italic;color:var(--accent);font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 100,"WONK" 1}
-.blk-body{margin-top:2rem;display:grid;grid-template-columns:130px 1fr;gap:2rem}
+.blk-num{font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.blk-t{font-family:var(--display);font-variation-settings:"opsz" 96,"wdth" 100,"wght" 500;font-size:clamp(30px,4.2vw,52px);color:var(--ink-hi);letter-spacing:-.025em;line-height:1.02}
+.blk-t em{font-family:var(--display);font-variation-settings:"opsz" 96,"wdth" 100,"wght" 400;font-style:italic;color:var(--accent)}
+.blk-body{margin-top:2rem;display:grid;grid-template-columns:140px 1fr;gap:2rem}
 @media(max-width:640px){.blk-body{grid-template-columns:1fr;gap:.4rem}}
-.blk-lede{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding-top:.15rem}
+.blk-lede{font-family:var(--mono);font-size:.72rem;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;padding-top:.15rem}
 
 .items{display:flex;flex-direction:column}
-.item{padding:1.1rem 0;border-bottom:1px solid var(--border-2);display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;transition:padding-left .2s}
+.item{padding:1.2rem 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;transition:padding-left .2s}
 .item:last-child{border-bottom:none}
 .item:hover{padding-left:.5rem}
-.item .lb{font-family:var(--mono);font-size:.9rem;color:var(--text);line-height:1.6;letter-spacing:-.005em}
-.item .lb b{color:var(--text-hi);font-weight:500}
-.item .lb em{font-family:var(--display);font-style:italic;font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 100;color:var(--accent);font-size:1.1em;letter-spacing:-.02em}
-.item .tg{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;flex:none}
+.item .lb{font-family:var(--mono);font-size:.92rem;color:var(--ink);line-height:1.6;letter-spacing:-.005em}
+.item .lb b{color:var(--ink-hi);font-weight:500}
+.item .lb em{font-family:var(--display);font-variation-settings:"opsz" 96,"wdth" 100,"wght" 400;font-style:italic;color:var(--accent);font-size:1.1em;letter-spacing:-.02em}
+.item .tg{font-family:var(--mono);font-size:.62rem;color:var(--muted2);letter-spacing:.12em;text-transform:uppercase;flex:none}
 
-.note{font-family:var(--mono);font-size:.88rem;color:var(--text);line-height:1.75;letter-spacing:-.005em}
-.note b{color:var(--text-hi);font-weight:500}
-.note a{color:var(--accent);border-bottom:1px solid var(--accent-2);transition:border-color .15s}
+.note{font-family:var(--mono);font-size:.9rem;color:var(--ink);line-height:1.75;letter-spacing:-.005em}
+.note b{color:var(--ink-hi);font-weight:500}
+.note a{color:var(--accent);border-bottom:1.5px solid var(--accent-2);transition:border-color .15s}
 .note a:hover{border-color:var(--accent)}
 
-footer{position:relative;z-index:1;border-top:1px solid var(--hairline);padding:2rem 0;font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-top:4rem}
-.foot-in{max-width:820px;margin:0 auto;padding:0 1.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-.foot-in a{color:var(--muted2);transition:color .15s}
+footer{position:relative;z-index:1;border-top:1px solid var(--hairline);padding:2rem 0;font-family:var(--mono);font-size:.72rem;color:var(--muted2);margin-top:4rem}
+.foot-in{max-width:860px;margin:0 auto;padding:0 1.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.foot-in a{color:var(--muted);transition:color .15s}
 .foot-in a:hover{color:var(--accent)}
 
 .js [data-rv]{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*80ms)}
 .js [data-rv].in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){#webgl{display:none !important}*,*::before,*::after{transition-duration:.001s !important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.001s !important}}
 </style>
 </head>
 <body>
+<div class="ruled"></div>
 <div class="grain"></div>
-<canvas id="webgl" aria-hidden="true"></canvas>
 
 <nav>
-  <a href="/" class="brand">aqyl</a>
+  <a href="/" class="brand">aqyl<span>·</span>me</a>
   <a href="/" class="back">← back</a>
 </nav>
 
 <main>
   <section class="hero wrap">
-    <div class="hero-meta" data-rv><i></i>updated 11 Sep 2026 · Kuala Lumpur</div>
+    <div class="hero-meta" data-rv><i></i>updated 11 sep 2026 · kuala lumpur</div>
     <h1 class="hero-h1" data-rv style="--i:1">Now<em>.</em></h1>
     <p class="hero-sub" data-rv style="--i:2">What I'm focused on this week. A public log because a <b>/now</b> page keeps me honest — if it hasn't shipped, it doesn't count.</p>
   </section>
@@ -105,9 +107,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--hairline);padding:
       <div class="blk-body">
         <span class="blk-lede">Shipping</span>
         <div class="items">
-          <div class="item"><span class="lb"><b>Kira v9.</b> Landing screen with a real Three.js hero — distorted icosahedron responding to cursor. Full <em>Fraunces</em> display type. Deep black + electric lime.</span><span class="tg">Design</span></div>
-          <div class="item"><span class="lb"><b>Portfolio overhaul.</b> Horizontal-pinned Live section, per-character hero reveal, count-up stats, WebGL torus knot drifting across scroll.</span><span class="tg">Design</span></div>
-          <div class="item"><span class="lb"><b>TrafficMY landing.</b> Same design system applied to the transit app's public face.</span><span class="tg">Ship</span></div>
+          <div class="item"><span class="lb"><b>Kira v9.</b> Landing screen with a Three.js hero — distorted icosahedron reacting to cursor. Full <em>Fraunces</em> display type. Deep black + electric lime.</span><span class="tg">Design</span></div>
+          <div class="item"><span class="lb"><b>Portfolio overhaul.</b> Warm cream paper aesthetic, <em>Bricolage Grotesque</em> variable display, horizontal-pinned Live section, character-by-character hero reveal.</span><span class="tg">Design</span></div>
+          <div class="item"><span class="lb"><b>TrafficMY visual pass.</b> Overhauled tokens + fonts on the transit app dashboard.</span><span class="tg">Ship</span></div>
         </div>
       </div>
     </div>
@@ -123,7 +125,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--hairline);padding:
         <span class="blk-lede">Deep-diving</span>
         <div class="items">
           <div class="item"><span class="lb">Three.js shaders — fresnel edge glow, vertex displacement with noise fields, wireframe overlays on solid meshes.</span><span class="tg">WebGL</span></div>
-          <div class="item"><span class="lb">Variable font axes — opsz, wght, SOFT, WONK on Fraunces. Making one font feel like five.</span><span class="tg">Type</span></div>
+          <div class="item"><span class="lb">Variable font axes — opsz, wght, wdth on Bricolage Grotesque. Making one font feel like five.</span><span class="tg">Type</span></div>
           <div class="item"><span class="lb">GLSL fundamentals — how the rasterizer actually turns math into pixels.</span><span class="tg">Graphics</span></div>
         </div>
       </div>
@@ -180,64 +182,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--hairline);padding:
 
 <footer>
   <div class="foot-in">
-    <span>/now — a <a href="https://nownownow.com" target="_blank" rel="noopener" style="color:var(--muted2)">nownownow</a> page. Updated when the log changes.</span>
+    <span>/now — a <a href="https://nownownow.com" target="_blank" rel="noopener">nownownow</a> page. Updated when the log changes.</span>
     <a href="/">← arifaqyl.me</a>
   </div>
 </footer>
-
-<script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-const canvas = document.getElementById('webgl');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 100);
-camera.position.set(0, 0, 6);
-const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true, powerPreference:'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.setSize(innerWidth, innerHeight, false);
-renderer.setClearColor(0x000000, 0);
-
-// Concentric rings — different silhouette from portfolio/kira
-const rings = new THREE.Group();
-for (let i = 0; i < 5; i++) {
-  const rGeo = new THREE.TorusGeometry(1 + i*0.28, 0.006, 6, 160);
-  const rMat = new THREE.MeshBasicMaterial({color:0xd4ff4a, transparent:true, opacity:Math.max(0.05, 0.22 - i*0.035)});
-  const ring = new THREE.Mesh(rGeo, rMat);
-  ring.rotation.x = Math.random() * Math.PI;
-  ring.rotation.y = Math.random() * Math.PI;
-  ring.userData = { rx:(Math.random()-0.5)*0.2, ry:(Math.random()-0.5)*0.2 };
-  rings.add(ring);
-}
-scene.add(rings);
-
-let tmx=0, tmy=0, mx=0, my=0;
-addEventListener('mousemove', e => {
-  tmx = (e.clientX/innerWidth)*2-1;
-  tmy = -((e.clientY/innerHeight)*2-1);
-});
-addEventListener('resize', () => {
-  camera.aspect = innerWidth/innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight, false);
-});
-const clock = new THREE.Clock();
-function tick(){
-  const t = clock.getElapsedTime();
-  mx += (tmx-mx)*.04; my += (tmy-my)*.04;
-  rings.rotation.y = t * 0.06 + mx*0.4;
-  rings.rotation.x = my * 0.3;
-  rings.children.forEach((r, i) => {
-    r.rotation.x += r.userData.rx * 0.008;
-    r.rotation.y += r.userData.ry * 0.008;
-  });
-  const scr = Math.min(scrollY / (innerHeight*2), 1);
-  rings.position.x = innerWidth > 900 ? (2 - scr*4) : 0;
-  rings.position.y = -0.3 + scr * 1.2;
-  rings.scale.setScalar(1 - scr*0.4);
-  renderer.render(scene, camera);
-  requestAnimationFrame(tick);
-}
-tick();
-</script>
 
 <script>
 document.documentElement.classList.add('js');
