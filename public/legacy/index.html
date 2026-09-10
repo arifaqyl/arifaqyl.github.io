@@ -12,6 +12,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0a0a'/%3E%3Ctext x='32' y='45' font-family='Arial Black,sans-serif' font-size='40' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,700,800,900&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400,500,700&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
 <title>Arif Aqyl — software that ships</title>
 <style>
 :root{
@@ -35,6 +36,15 @@ ul{list-style:none}
 
 /* Progress */
 #progress{position:fixed;top:0;left:0;height:1px;width:0;z-index:120;background:var(--text)}
+
+/* WebGL canvas — always visible, behind content */
+#gl{position:fixed;inset:0;width:100vw;height:100dvh;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+#gl.on{opacity:1}
+/* Content sits above, keeps sections readable but shows scene through gaps */
+main,section,footer,nav{position:relative;z-index:2}
+.showcase{background:linear-gradient(180deg,transparent 0%,rgba(10,10,10,.55) 15%,rgba(10,10,10,.85) 45%,rgba(10,10,10,.85) 55%,rgba(10,10,10,.55) 85%,transparent 100%)}
+#work,#about,#contact,footer.site{background:rgba(10,10,10,.88);backdrop-filter:blur(2px)}
+#hero{background:transparent}
 
 /* ── Nav ─────────────────────────────────────────────── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;padding:0 2rem;background:rgba(10,10,10,.55);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
@@ -219,6 +229,7 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
 </head>
 <body>
 <div id="progress"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
 
 <nav id="nav">
   <a href="#top" class="brand">AQYL<span>·ME</span></a>
@@ -439,6 +450,211 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
     <a href="/now.html">Now page ↗</a>
   </div>
 </footer>
+
+<script type="module">
+// ─── Three.js scene — particle nebula + morphing sphere ───
+import * as THREE from 'three';
+
+const canvas = document.getElementById('gl');
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x0a0a0a, 0.08);
+
+const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0, 0, 8);
+
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true, powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight, false);
+renderer.setClearColor(0x000000, 0);
+
+// ─── Central morphing sphere (heavy displacement, warm emissive glow) ───
+const sphereGeo = new THREE.IcosahedronGeometry(1.6, 48);
+const basePos = sphereGeo.attributes.position.array.slice();
+const uniforms = {
+  uTime:    {value: 0},
+  uMouse:   {value: new THREE.Vector2()},
+  uScroll:  {value: 0},
+  uAccent:  {value: new THREE.Color(0xf5ede0)},  // warm white
+  uEdge:    {value: new THREE.Color(0xffb078)},  // warm orange edge
+  uInner:   {value: new THREE.Color(0x111111)},  // near-black core
+  uFresPow: {value: 2.5}
+};
+const sphereMat = new THREE.ShaderMaterial({
+  uniforms,
+  transparent: true,
+  side: THREE.DoubleSide,
+  vertexShader: /* glsl */`
+    varying vec3 vN; varying vec3 vV; varying float vGlow;
+    void main(){
+      vN = normalize(normalMatrix * normal);
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      vV = normalize(-mv.xyz);
+      vGlow = 1.0 - clamp(length(mv.xyz) / 12.0, 0.0, 1.0);
+      gl_Position = projectionMatrix * mv;
+    }
+  `,
+  fragmentShader: /* glsl */`
+    varying vec3 vN; varying vec3 vV; varying float vGlow;
+    uniform vec3 uAccent; uniform vec3 uEdge; uniform vec3 uInner;
+    uniform float uFresPow; uniform float uScroll;
+    void main(){
+      float f = pow(1.0 - max(dot(vN, vV), 0.0), uFresPow);
+      vec3 c = mix(uInner, uAccent, f * 0.7);
+      c = mix(c, uEdge, f * f * 0.9);
+      c *= vGlow;
+      float a = f * 0.92 + 0.08;
+      gl_FragColor = vec4(c, a);
+    }
+  `,
+});
+const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+scene.add(sphere);
+
+// Wireframe halo
+const wireGeo = new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(1.62, 6));
+const wireMat = new THREE.LineBasicMaterial({color: 0xffb078, transparent: true, opacity: 0.08});
+const wire = new THREE.LineSegments(wireGeo, wireMat);
+scene.add(wire);
+
+// ─── Particle nebula ─────────────────────────────────────
+const PART = 2400;
+const pGeo = new THREE.BufferGeometry();
+const positions = new Float32Array(PART * 3);
+const speeds = new Float32Array(PART);
+const radii = new Float32Array(PART);
+for (let i = 0; i < PART; i++) {
+  const r = 3 + Math.random() * 9;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  positions[i*3]     = r * Math.sin(phi) * Math.cos(theta);
+  positions[i*3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.55;
+  positions[i*3 + 2] = r * Math.cos(phi);
+  speeds[i] = 0.15 + Math.random() * 0.6;
+  radii[i] = r;
+}
+pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+const pMat = new THREE.ShaderMaterial({
+  uniforms: {uTime:{value:0}, uSize:{value: 1.5 * renderer.getPixelRatio()}, uColor:{value: new THREE.Color(0xffe8c8)}, uScroll:{value:0}},
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  vertexShader: /* glsl */`
+    uniform float uTime; uniform float uSize; uniform float uScroll;
+    varying float vA;
+    void main(){
+      vec3 p = position;
+      float ph = uTime * 0.15 + position.x * 0.4 + position.y * 0.3;
+      p.y += sin(ph) * 0.1;
+      p.x += cos(ph * 0.8) * 0.08;
+      vec4 mv = modelViewMatrix * vec4(p, 1.0);
+      float d = length(mv.xyz);
+      gl_Position = projectionMatrix * mv;
+      gl_PointSize = uSize * (14.0 / d) * (0.6 + 0.4 * sin(ph * 2.0));
+      vA = clamp(1.0 - d / 14.0, 0.0, 1.0) * (0.6 + 0.4 * sin(ph * 2.0));
+    }
+  `,
+  fragmentShader: /* glsl */`
+    varying float vA;
+    uniform vec3 uColor;
+    void main(){
+      vec2 c = gl_PointCoord - 0.5;
+      float d = length(c);
+      if (d > 0.5) discard;
+      float glow = smoothstep(0.5, 0.0, d);
+      gl_FragColor = vec4(uColor, glow * vA * 0.75);
+    }
+  `,
+});
+const particles = new THREE.Points(pGeo, pMat);
+scene.add(particles);
+
+// ─── Interaction state ───────────────────────────────────
+let tmx = 0, tmy = 0, mx = 0, my = 0;
+let scroll = 0, scrollN = 0;
+addEventListener('mousemove', e => {
+  tmx = (e.clientX/innerWidth) * 2 - 1;
+  tmy = -((e.clientY/innerHeight) * 2 - 1);
+}, {passive: true});
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight, false);
+});
+addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  scroll = window.scrollY / Math.max(1, doc.scrollHeight - innerHeight);
+}, {passive:true});
+
+const clock = new THREE.Clock();
+
+function noise3(x, y, z, t) {
+  return (
+    Math.sin(x * 1.7 + t * 1.2) * 0.5 +
+    Math.cos(y * 2.1 + t * 0.9) * 0.35 +
+    Math.sin(z * 1.4 + t * 1.5) * 0.25
+  ) * 0.5 + 0.5;
+}
+
+const positionsAttr = sphereGeo.attributes.position;
+const posArr = positionsAttr.array;
+
+function animate(){
+  const t = clock.getElapsedTime();
+  mx += (tmx - mx) * 0.055;
+  my += (tmy - my) * 0.055;
+  scrollN += (scroll - scrollN) * 0.08;
+
+  uniforms.uTime.value = t;
+  uniforms.uMouse.value.set(mx, my);
+  uniforms.uScroll.value = scrollN;
+  pMat.uniforms.uTime.value = t;
+  pMat.uniforms.uScroll.value = scrollN;
+
+  // Vertex displacement — more chaotic with cursor + scroll
+  const amp = 0.22 + Math.abs(mx) * 0.12 + Math.abs(my) * 0.12 + scrollN * 0.15;
+  for (let i = 0; i < posArr.length; i += 3) {
+    const x = basePos[i], y = basePos[i+1], z = basePos[i+2];
+    const n = noise3(x * 1.5, y * 1.5, z * 1.5, t * 0.35);
+    const disp = 1.0 + (n - 0.5) * amp;
+    posArr[i]   = x * disp;
+    posArr[i+1] = y * disp;
+    posArr[i+2] = z * disp;
+  }
+  positionsAttr.needsUpdate = true;
+  sphereGeo.computeVertexNormals();
+
+  // Rotation
+  sphere.rotation.y = t * 0.12 + mx * 0.4 + scrollN * 1.2;
+  sphere.rotation.x = Math.sin(t * 0.32) * 0.24 + my * 0.28 + scrollN * 0.6;
+  wire.rotation.copy(sphere.rotation);
+
+  // Scroll drives camera through space + shape shrinks + shifts
+  camera.position.z = 8 - scrollN * 3.5;
+  camera.position.x = scrollN * 1.6;
+  camera.position.y = -scrollN * 0.9;
+  camera.lookAt(-scrollN * 3, scrollN * 1.5, 0);
+
+  sphere.position.x = -scrollN * 4;
+  sphere.position.y = scrollN * 2;
+  const s = 1 - scrollN * 0.35;
+  sphere.scale.setScalar(s);
+  wire.position.copy(sphere.position);
+  wire.scale.copy(sphere.scale);
+
+  particles.rotation.y = t * 0.02 + scrollN * 0.6;
+  particles.rotation.x = scrollN * 0.4;
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Fade in canvas after first frame
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => canvas.classList.add('on'));
+});
+</script>
 
 <script>
 (function(){
