@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kira — Malaysian Financial Tools</title>
+  <meta name="description" content="Gaji, TNB, KWSP, Cuti, Sahih, Ringgit. Correct math, sourced data. Built for Malaysians.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand"><em>kira</em>.my</a>
+  <div class="nav-right">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="bm">BM</button>
+  </div>
+</nav>
+
+<div class="tool-nav">
+  <button class="tab-btn active" data-tab="gaji">Gaji</button>
+  <button class="tab-btn" data-tab="tnb">TNB</button>
+  <button class="tab-btn" data-tab="kwsp">KWSP</button>
+  <button class="tab-btn" data-tab="raise">Raise</button>
+  <button class="tab-btn" data-tab="cuti">Cuti</button>
+  <button class="tab-btn" data-tab="sahih">Sahih</button>
+  <button class="tab-btn" data-tab="ringgit">Ringgit</button>
+</div>
+
+<!-- ── GAJI ──────────────────────────────────────────────────── -->
+<section id="panel-gaji" class="tool-panel active">
+  <div class="split">
+    <div class="pane-inputs">
+      <div>
+        <div class="pane-title">Mode</div>
+        <div class="mode-toggle" id="gaji-mode-group">
+          <button class="mode-btn active" data-mode="normal">Gross → Net</button>
+          <button class="mode-btn" data-mode="reverse">Net → Gross</button>
+          <button class="mode-btn" data-mode="ctc">Cost to Company</button>
+        </div>
+      </div>
+
+      <div class="field" id="gaji-gross-field">
+        <label id="lbl-gross">Monthly gross salary (RM)</label>
+        <input type="number" id="gaji-gross" placeholder="3500" min="0" step="100" autocomplete="off">
+      </div>
+      <div class="field" id="gaji-net-field" style="display:none">
+        <label>Desired net take-home (RM)</label>
+        <input type="number" id="gaji-net-input" placeholder="2800" min="0" step="100" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>Employee EPF rate</label>
+        <select id="gaji-epf">
+          <option value="11">11% — standard</option>
+          <option value="9">9% — opt-down</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="pane-result">
+      <div class="result-hero">
+        <div class="hero-label" id="gaji-hero-label">net take-home / month</div>
+        <div class="hero-currency">RM</div>
+        <div class="hero-number empty" id="gaji-hero-num">—</div>
+        <div class="hero-sublabel" id="gaji-hero-sub"></div>
+        <button class="copy-btn" id="gaji-copy" style="display:none" title="Copy result">Copy result</button>
+      </div>
+      <div class="breakdown" id="gaji-breakdown">
+        <div class="result-placeholder">Enter a salary to see the full breakdown.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TNB ────────────────────────────────────────────────────── -->
+<section id="panel-tnb" class="tool-panel">
+  <div class="split">
+    <div class="pane-inputs">
+      <div class="field">
+        <label>Monthly usage (kWh)</label>
+        <input type="number" id="tnb-kwh" placeholder="350" min="0" step="10" autocomplete="off">
+      </div>
+
+      <div>
+        <div class="pane-title">Appliances <span style="color:var(--muted);font-family:var(--mono);font-size:0.6rem">(optional — fills kWh above)</span></div>
+        <ul class="app-list" id="tnb-app-list"></ul>
+        <div class="add-row">
+          <input type="text" id="tnb-app-name" placeholder="Appliance">
+          <input type="number" id="tnb-app-watts" placeholder="Watts" min="0">
+          <input type="number" id="tnb-app-hours" placeholder="h/day" min="0" max="24" step="0.5">
+          <button class="add-icon" id="tnb-add">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane-result">
+      <div class="result-hero">
+        <div class="hero-label">estimated monthly bill</div>
+        <div class="hero-currency">RM</div>
+        <div class="hero-number empty" id="tnb-hero-num">—</div>
+        <div class="hero-sublabel" id="tnb-hero-sub"></div>
+      </div>
+      <div class="breakdown" id="tnb-breakdown">
+        <div class="result-placeholder">Enter kWh to see the block-rate breakdown.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── KWSP ───────────────────────────────────────────────────── -->
+<section id="panel-kwsp" class="tool-panel">
+  <div class="split">
+    <div class="pane-inputs">
+      <div class="field">
+        <label>Current EPF balance (RM)</label>
+        <input type="number" id="kwsp-balance" placeholder="0" min="0" step="1000">
+      </div>
+      <div class="field">
+        <label>Current age</label>
+        <input type="number" id="kwsp-age" placeholder="25" min="18" max="54">
+      </div>
+      <div class="field">
+        <label>Monthly gross salary (RM)</label>
+        <input type="number" id="kwsp-salary" placeholder="3500" min="0">
+      </div>
+      <div class="field">
+        <label>Voluntary top-up / month (RM)</label>
+        <input type="number" id="kwsp-extra" placeholder="0" min="0">
+      </div>
+      <button class="submit-btn" id="kwsp-calc">Project balance →</button>
+    </div>
+
+    <div class="pane-result" id="kwsp-result-pane">
+      <div class="result-hero">
+        <div class="hero-label">balance at age 55</div>
+        <div class="hero-currency">RM</div>
+        <div class="hero-number empty" id="kwsp-hero-num">—</div>
+      </div>
+      <div id="kwsp-score" style="display:none">
+        <div class="retire-score-row" id="kwsp-track-status"></div>
+        <div class="retire-bars" id="kwsp-bars"></div>
+        <div class="retire-nudge" id="kwsp-nudge"></div>
+      </div>
+    </div>
+  </div>
+  <div class="proj-wrap" id="kwsp-proj-wrap" style="display:none">
+    <table class="proj-table" id="kwsp-table"></table>
+  </div>
+  <div class="proj-note" id="kwsp-note" style="display:none">
+    Assumes 5.5% annual dividend (conservative — actual 2024: 6.30%). Employee 11%, employer 13% (≤RM5k) / 12% (> RM5k).
+  </div>
+</section>
+
+<!-- ── RAISE ──────────────────────────────────────────────────── -->
+<section id="panel-raise" class="tool-panel">
+  <div class="split">
+    <div class="pane-inputs">
+      <div class="field">
+        <label>Current gross salary (RM)</label>
+        <input type="number" id="raise-current" placeholder="3500" min="0" step="100" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>New gross salary (RM)</label>
+        <input type="number" id="raise-new" placeholder="3800" min="0" step="100" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Employee EPF rate</label>
+        <select id="raise-epf">
+          <option value="11">11% — standard</option>
+          <option value="9">9% — opt-down</option>
+        </select>
+      </div>
+      <p class="raise-hint">See exactly how much of your raise you actually take home — and what your employer pays extra.</p>
+    </div>
+
+    <div class="pane-result">
+      <div class="result-hero">
+        <div class="hero-label">net increase per month</div>
+        <div class="hero-currency">+RM</div>
+        <div class="hero-number empty" id="raise-hero-num">—</div>
+        <div class="hero-sublabel" id="raise-hero-sub"></div>
+      </div>
+      <div class="breakdown" id="raise-breakdown">
+        <div class="result-placeholder">Enter current and new salary to see the real impact.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CUTI ───────────────────────────────────────────────────── -->
+<section id="panel-cuti" class="tool-panel">
+  <div class="pane-inputs" style="border-right:none; border-bottom:1px solid var(--border); padding:1.5rem 2rem">
+    <div class="cuti-controls">
+      <div class="field">
+        <label>Year</label>
+        <select id="cuti-year">
+          <option value="2026">2026</option>
+          <option value="2027">2027</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>State</label>
+        <select id="cuti-state">
+          <option>Johor</option><option>Kedah</option><option>Kelantan</option>
+          <option>Melaka</option><option>Negeri Sembilan</option><option>Pahang</option>
+          <option>Perak</option><option>Perlis</option><option>Pulau Pinang</option>
+          <option>Sabah</option><option>Sarawak</option><option>Selangor</option>
+          <option>Terengganu</option><option selected>W.P. Kuala Lumpur</option>
+          <option>W.P. Labuan</option><option>W.P. Putrajaya</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <ul class="holiday-list" id="cuti-list"></ul>
+</section>
+
+<!-- ── SAHIH ──────────────────────────────────────────────────── -->
+<section id="panel-sahih" class="tool-panel">
+  <div class="sahih-split">
+    <div class="sahih-pane">
+
+      <div class="sahih-section">
+        <div class="pane-title">Phone number</div>
+        <div class="field">
+          <input type="text" id="sahih-phone" placeholder="012-345 6789">
+        </div>
+        <button class="submit-btn" id="sahih-phone-btn">Check</button>
+        <div class="val-result" id="sahih-phone-res"></div>
+      </div>
+
+      <div class="sahih-section">
+        <div class="pane-title">Postcode → state</div>
+        <div class="field">
+          <input type="text" id="sahih-postcode" placeholder="50450" maxlength="5">
+        </div>
+        <button class="submit-btn" id="sahih-pc-btn">Check</button>
+        <div class="val-result" id="sahih-pc-res"></div>
+      </div>
+
+      <div class="sahih-section">
+        <div class="pane-title">Vehicle plate → state of registration</div>
+        <div class="field">
+          <input type="text" id="sahih-plate" placeholder="WA 1234 A" style="text-transform:uppercase">
+        </div>
+        <button class="submit-btn" id="sahih-plate-btn">Check</button>
+        <div class="val-result" id="sahih-plate-res"></div>
+      </div>
+
+    </div>
+
+    <div class="sahih-result-pane">
+      <div class="pane-title" style="margin-bottom:1rem">About Sahih</div>
+      <p style="font-family:var(--mono);font-size:0.75rem;color:var(--muted2);line-height:1.8;max-width:480px">
+        All validation runs in your browser. Nothing is sent to a server.<br><br>
+        Phone prefix data: MCMC numbering plan.<br>
+        Postcode ranges: Pos Malaysia gazette.<br>
+        Plate prefixes: JPJ state series.<br><br>
+        <span style="color:var(--muted)">Plate → owner is not available and cannot be made available. Vehicle owner records are personal data under PDPA. No legitimate third-party lookup exists.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── RINGGIT ────────────────────────────────────────────────── -->
+<section id="panel-ringgit" class="tool-panel">
+  <div class="split">
+    <div class="pane-inputs">
+      <div class="field">
+        <label>Amount (RM)</label>
+        <input type="number" id="ringgit-amount" placeholder="99.90" min="0" step="0.01" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>SST category</label>
+        <select id="ringgit-sst">
+          <option value="0">No SST</option>
+          <option value="0.08">Service — 8%</option>
+          <option value="0.10">Goods — 10%</option>
+          <option value="0.06">Prepared food — 6%</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="pane-result">
+      <div class="result-hero">
+        <div class="hero-label">cash rounded (BNM 5-sen rule)</div>
+        <div class="hero-currency">RM</div>
+        <div class="hero-number empty" id="ringgit-hero-num">—</div>
+      </div>
+      <div class="breakdown" id="ringgit-breakdown">
+        <div class="result-placeholder">Enter an amount to calculate.</div>
+      </div>
+      <div class="ringgit-words" id="ringgit-words">
+        <div class="words-label">In Malay words</div>
+        <div id="ringgit-words-text"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>kira.my</span>
+  <span>Data: KWSP, PERKESO, LHDN, TNB, BNM, JPM gazette</span>
+  <a href="https://arifaqyl.me" target="_blank" rel="noopener">arifaqyl.me</a>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
