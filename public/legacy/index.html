@@ -10,8 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="/og-image.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0a0a'/%3E%3Ctext x='32' y='45' font-family='Arial Black,sans-serif' font-size='40' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
-<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,700,800,900&display=swap" rel="stylesheet">
-<link href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400,500,700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=ranade@100,200,300,400,500,700,800&f[]=satoshi@300,400,500,700,900&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","lenis":"https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.mjs"}}</script>
 <title>Arif Aqyl — software that ships</title>
 <style>
@@ -20,7 +19,8 @@
   --text:#ffffff;--text-hi:#ffffff;--muted:#6b6b6b;--muted2:#9a9a9a;--muted3:#3a3a3a;
   --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.05);--hairline:rgba(255,255,255,.06);
   --accent:#d4ff4a;--accent-h:#e5ff7a;--accent-2:rgba(212,255,74,.10);--accent-3:rgba(212,255,74,.22);
-  --display:'Cabinet Grotesk','Helvetica Neue',Arial,sans-serif;
+  --display:'Ranade','Helvetica Neue',Arial,sans-serif;
+  --body:'Satoshi','Helvetica Neue',Arial,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
   --max:1400px;
 }
@@ -57,7 +57,7 @@ html.lenis,html.lenis body{height:auto}
 ::selection{background:var(--accent);color:var(--bg)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;font-size:15px;scroll-behavior:smooth;background:var(--bg);color-scheme:dark}
-body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:.85rem;line-height:1.5;overflow-x:hidden;letter-spacing:0;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:.95rem;line-height:1.6;overflow-x:hidden;letter-spacing:-.005em;-webkit-font-smoothing:antialiased;font-weight:400}
 a{color:inherit;text-decoration:none}
 img,video{max-width:100%;display:block}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
@@ -80,7 +80,7 @@ main,section,footer,nav{position:relative;z-index:2}
 /* ── Nav ─────────────────────────────────────────────── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;padding:0 2rem;background:rgba(10,10,10,.55);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
 nav.on{border-color:var(--hairline);background:rgba(10,10,10,.85)}
-.brand{font-family:var(--display);font-weight:900;font-size:1.1rem;color:var(--text);letter-spacing:-.02em;line-height:1;transition:color .15s;text-transform:uppercase}
+.brand{font-family:var(--display);font-weight:600;font-size:1.15rem;color:var(--text);letter-spacing:-.02em;line-height:1;transition:color .15s}
 .brand span{color:var(--muted)}
 .brand:hover span{color:var(--text)}
 .nav-mid{display:flex;justify-content:center;gap:2rem;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
@@ -100,17 +100,17 @@ main,section,footer{position:relative;z-index:1}
 /* ── Hero ────────────────────────────────────────────── */
 #hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:8rem 0 4rem;position:relative;overflow:hidden}
 .hero-in{max-width:var(--max);margin:0 auto;padding:0 2rem;width:100%;position:relative}
-.hero-eyeline{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-bottom:2rem;border-bottom:1px solid var(--hairline);margin-bottom:2.5rem;font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;flex-wrap:wrap}
+.hero-eyeline{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-bottom:2rem;border-bottom:1px solid var(--hairline);margin-bottom:2.5rem;font-family:var(--mono);font-size:.68rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.14em;flex-wrap:wrap;font-weight:500}
 .hero-eyeline span{display:inline-flex;align-items:center;gap:.55rem}
 .hero-eyeline .live{color:var(--text)}
 .hero-eyeline .live::before{content:"";width:6px;height:6px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px var(--accent-3)}
 
-.hero-h1{font-family:var(--display);font-weight:900;font-size:clamp(64px,13vw,240px);line-height:.86;letter-spacing:-.045em;color:var(--text);text-transform:uppercase;margin-bottom:2rem}
+.hero-h1{font-family:var(--display);font-weight:500;font-size:clamp(60px,12vw,220px);line-height:.92;letter-spacing:-.035em;color:var(--text);margin-bottom:2rem}
 .hero-h1 .ln{display:block;overflow:hidden}
-.hero-h1 .wr{display:inline-block;overflow:hidden;vertical-align:top;line-height:.86}
+.hero-h1 .wr{display:inline-block;overflow:hidden;vertical-align:top;line-height:.92}
 .hero-h1 .wi{display:inline-block;transform:translateY(105%);transition:transform 1s cubic-bezier(.2,.9,.2,1)}
 .js .hero-h1.go .wi{transform:translateY(0)}
-.hero-h1 em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--muted2);letter-spacing:-.05em;text-transform:lowercase}
+.hero-h1 em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--accent);letter-spacing:-.045em}
 
 .hero-foot{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:end;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--hairline)}
 @media(max-width:900px){.hero-foot{grid-template-columns:1fr}}
@@ -138,8 +138,8 @@ main,section,footer{position:relative;z-index:1}
 .sc-eyebrow{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:.75rem}
 .sc-eyebrow i{width:24px;height:1px;background:var(--muted3);display:inline-block}
 .sc-num{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.06em}
-.sc-h{font-family:var(--display);font-weight:800;font-size:clamp(56px,9vw,140px);line-height:.9;letter-spacing:-.045em;color:var(--text);text-transform:uppercase;margin-top:1rem}
-.sc-h em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--muted);letter-spacing:-.05em;text-transform:lowercase}
+.sc-h{font-family:var(--display);font-weight:500;font-size:clamp(48px,7.5vw,110px);line-height:.98;letter-spacing:-.03em;color:var(--text);margin-top:1rem}
+.sc-h em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--accent);letter-spacing:-.035em}
 
 .sc-body{display:grid;grid-template-columns:1fr 1.6fr;gap:3rem;align-items:start;margin-top:3rem}
 @media(max-width:1000px){.sc-body{grid-template-columns:1fr;gap:2rem}}
@@ -154,26 +154,57 @@ main,section,footer{position:relative;z-index:1}
 .sc-cta{margin-top:1rem;display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.3rem;background:transparent;color:var(--text);border:1px solid var(--text);font-family:var(--mono);font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;border-radius:999px;transition:background .15s,color .15s;align-self:flex-start;width:fit-content}
 .sc-cta:hover{background:var(--text);color:var(--bg)}
 
-.sc-visual{position:relative;aspect-ratio:16/11;background:var(--bg2);border:1px solid var(--hairline);border-radius:8px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.02)}
-.sc-visual img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-.sc-visual:hover img{transform:scale(1.03)}
-.sc-visual .sc-tag-abs{position:absolute;top:1.25rem;left:1.25rem;padding:.35rem .7rem;background:rgba(10,10,10,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--hairline);border-radius:999px;font-family:var(--mono);font-size:.62rem;color:var(--text);letter-spacing:.12em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem}
+.sc-visual{position:relative;aspect-ratio:16/10;background:var(--bg2);border:1px solid var(--hairline);border-radius:10px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.03),inset 0 1px 0 rgba(255,255,255,.04);will-change:transform}
+.sc-visual .sc-tag-abs{position:absolute;top:1.25rem;left:1.25rem;padding:.4rem .75rem;background:rgba(10,10,10,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--hairline);border-radius:999px;font-family:var(--mono);font-size:.62rem;color:var(--text);letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem;z-index:3}
 .sc-visual .sc-tag-abs i{width:6px;height:6px;background:var(--accent);border-radius:50%;box-shadow:0 0 10px var(--accent-3)}
-.sc-visual .sc-url-abs{position:absolute;bottom:1.25rem;left:1.25rem;padding:.35rem .7rem;background:rgba(10,10,10,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--hairline);border-radius:999px;font-family:var(--mono);font-size:.66rem;color:var(--text);letter-spacing:.03em}
+.sc-visual .sc-url-abs{position:absolute;bottom:1.25rem;left:1.25rem;padding:.4rem .75rem;background:rgba(10,10,10,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--hairline);border-radius:999px;font-family:var(--mono);font-size:.66rem;color:var(--text);letter-spacing:.02em;z-index:3}
 
-/* Custom Kira mockup (no image) */
-.sc-visual.kira-mock{background:radial-gradient(120% 60% at 50% -10%,rgba(34,211,238,.08),transparent 60%),radial-gradient(80% 50% at 100% 100%,rgba(34,211,238,.05),transparent 55%),#050506;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:2.5rem 3rem}
-.kira-mock .kmw{font-family:'Times New Roman',serif;font-style:italic;font-size:clamp(64px,7vw,110px);line-height:.86;color:#fff;letter-spacing:-.05em;margin-bottom:1rem}
-.kira-mock .kmw em{color:#22d3ee;font-style:italic}
-.kira-mock .kml{font-family:var(--mono);font-size:.8rem;color:#7d7c73;letter-spacing:-.005em;max-width:38ch;line-height:1.6}
-.kira-mock .kmd{margin-top:1.5rem;font-family:var(--mono);font-size:.65rem;color:#22d3ee;letter-spacing:.14em;text-transform:uppercase;padding:.35rem .7rem;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);border-radius:999px;display:inline-flex;align-items:center;gap:.5rem}
+/* Base mockup shell */
+.mock{position:absolute;inset:0;padding:2.75rem 2.75rem 3rem;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.mock .mock-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:1rem;max-width:80%}
+.mock-wm{font-family:var(--display);font-weight:500;font-size:clamp(52px,6.5vw,96px);line-height:.9;letter-spacing:-.04em;color:var(--text)}
+.mock-wm em{font-family:var(--display);font-weight:300;font-style:italic;letter-spacing:-.045em}
+.mock-sub{font-family:var(--body);font-size:.88rem;color:var(--muted2);line-height:1.6;max-width:36ch;letter-spacing:-.005em}
+.mock-badge{font-family:var(--mono);font-size:.62rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;padding:.35rem .7rem;background:var(--accent-2);border:1px solid var(--accent-3);border-radius:999px;display:inline-flex;align-items:center;gap:.45rem;align-self:flex-start;margin-top:.5rem}
+.mock-badge::before{content:"";width:5px;height:5px;background:var(--accent);border-radius:50%}
+
+/* Kira — dark blue-black + cyan */
+.sc-visual.mock-kira{background:radial-gradient(140% 60% at 50% -10%,rgba(34,211,238,.10),transparent 60%),radial-gradient(80% 50% at 100% 100%,rgba(34,211,238,.06),transparent 55%),#06090f}
+.mock-kira .mock-wm{font-family:'Times New Roman',serif;font-style:italic;color:#f4f6f8}
+.mock-kira .mock-wm em{color:#22d3ee}
+.mock-kira .mock-badge{color:#22d3ee;background:rgba(34,211,238,.08);border-color:rgba(34,211,238,.28)}
+.mock-kira .mock-badge::before{background:#22d3ee}
+.mock-kira .mock-glow{position:absolute;right:-6%;top:35%;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.35),transparent 65%);filter:blur(40px);z-index:1}
+
+/* TrafficMY — dark + transit signal indicators */
+.sc-visual.mock-traffic{background:radial-gradient(120% 60% at 20% -10%,rgba(212,255,74,.06),transparent 60%),#0a0a0c}
+.mock-traffic .mock-wm{color:var(--text)}
+.mock-traffic .mock-wm em{color:var(--accent)}
+.mock-traffic .signals{margin-top:1.25rem;display:flex;flex-direction:column;gap:.55rem}
+.mock-traffic .sig{display:grid;grid-template-columns:64px 1fr 60px;gap:.75rem;align-items:center;font-family:var(--mono);font-size:.72rem;padding:.4rem 0;border-bottom:1px dashed rgba(255,255,255,.06)}
+.mock-traffic .sig .ln{color:var(--text);font-weight:500;letter-spacing:.04em}
+.mock-traffic .sig .st{color:var(--muted2);letter-spacing:-.005em}
+.mock-traffic .sig .dot{width:8px;height:8px;border-radius:50%;justify-self:end;box-shadow:0 0 8px currentColor}
+.mock-traffic .ok .dot{background:var(--accent);color:var(--accent)}
+.mock-traffic .amber .dot{background:#f5a524;color:#f5a524}
+.mock-traffic .red .dot{background:#ff4d4d;color:#ff4d4d}
+
+/* Sah.Bukti — dark + WhatsApp-like conversation cards */
+.sc-visual.mock-sah{background:radial-gradient(120% 60% at 80% -10%,rgba(37,211,102,.05),transparent 60%),#0a0a0c}
+.mock-sah .mock-wm{color:var(--text)}
+.mock-sah .mock-wm em{color:#25d366}
+.mock-sah .bubbles{margin-top:1.25rem;display:flex;flex-direction:column;gap:.5rem;max-width:80%}
+.mock-sah .b{padding:.55rem .85rem;border-radius:12px;font-family:var(--body);font-size:.8rem;line-height:1.4;letter-spacing:-.005em;max-width:80%}
+.mock-sah .b.in{background:rgba(255,255,255,.04);border:1px solid var(--hairline);align-self:flex-start;color:var(--text);border-bottom-left-radius:3px}
+.mock-sah .b.out{background:rgba(37,211,102,.14);border:1px solid rgba(37,211,102,.28);align-self:flex-end;color:#e8ffe8;border-bottom-right-radius:3px}
+.mock-sah .b b{color:#25d366;font-weight:500}
 
 /* ── Work section ────────────────────────────────────── */
 #work{padding:8rem 0 6rem;border-top:1px solid var(--hairline)}
 .work-head{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:end;margin-bottom:4rem;padding-bottom:2rem;border-bottom:1px solid var(--hairline)}
 @media(max-width:720px){.work-head{grid-template-columns:1fr;gap:1rem}}
-.work-head .l{font-family:var(--display);font-weight:800;font-size:clamp(48px,8vw,120px);line-height:.9;color:var(--text);letter-spacing:-.045em;text-transform:uppercase}
-.work-head .l em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--muted);letter-spacing:-.05em;text-transform:lowercase}
+.work-head .l{font-family:var(--display);font-weight:500;font-size:clamp(44px,6.5vw,96px);line-height:.98;color:var(--text);letter-spacing:-.03em}
+.work-head .l em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--accent);letter-spacing:-.035em}
 .work-head .r{font-family:var(--mono);font-size:.85rem;color:var(--muted2);max-width:32ch;line-height:1.65;letter-spacing:-.005em;text-align:right;justify-self:end}
 @media(max-width:720px){.work-head .r{text-align:left;justify-self:start}}
 
@@ -183,7 +214,7 @@ main,section,footer{position:relative;z-index:1}
 .wr:hover::before{transform:scaleX(1)}
 .wr-idx{font-family:var(--mono);font-size:.72rem;color:var(--muted2);letter-spacing:.04em}
 .wr-meta{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.04em}
-.wr-main h3{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.2vw,44px);line-height:1;color:var(--text);letter-spacing:-.03em;transition:transform .35s cubic-bezier(.2,.8,.2,1);display:inline-block;text-transform:uppercase}
+.wr-main h3{font-family:var(--display);font-weight:500;font-size:clamp(24px,2.8vw,38px);line-height:1;color:var(--text);letter-spacing:-.025em;transition:transform .35s cubic-bezier(.2,.8,.2,1);display:inline-block}
 .wr:hover h3{transform:translateX(10px)}
 .wr-main p{font-family:var(--mono);font-size:.85rem;color:var(--muted2);margin-top:.55rem;max-width:64ch;line-height:1.65;transition:transform .35s cubic-bezier(.2,.8,.2,1) .04s;letter-spacing:-.005em}
 .wr:hover p{transform:translateX(10px)}
@@ -196,8 +227,8 @@ main,section,footer{position:relative;z-index:1}
 #about{padding:8rem 0 6rem;border-top:1px solid var(--hairline)}
 .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:5rem;align-items:start}
 @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:2.5rem}}
-.about-h{font-family:var(--display);font-weight:800;font-size:clamp(48px,8vw,120px);line-height:.9;color:var(--text);letter-spacing:-.045em;text-transform:uppercase;margin-bottom:3rem}
-.about-h em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--muted);letter-spacing:-.05em;text-transform:lowercase}
+.about-h{font-family:var(--display);font-weight:500;font-size:clamp(44px,6.5vw,96px);line-height:.98;color:var(--text);letter-spacing:-.03em;margin-bottom:3rem}
+.about-h em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--accent);letter-spacing:-.035em}
 .about-body{font-family:var(--mono);font-size:.92rem;line-height:1.75;color:var(--muted2);max-width:56ch;letter-spacing:-.005em}
 .about-body p{margin-bottom:1.25rem}
 .about-body b{color:var(--text);font-weight:500}
@@ -218,14 +249,14 @@ main,section,footer{position:relative;z-index:1}
 .edu-row{position:relative;display:grid;grid-template-columns:130px 1fr;gap:2rem;align-items:start;padding:1.5rem 0}
 .edu-row::before{content:"";position:absolute;left:-36px;top:2rem;width:8px;height:8px;border-radius:50%;background:var(--text)}
 .edu-row .y{font-family:var(--mono);font-size:.78rem;color:var(--muted);padding-top:.25rem;letter-spacing:.02em}
-.edu-row .inst{font-family:var(--display);font-weight:700;font-size:1.35rem;color:var(--text);letter-spacing:-.02em;text-transform:uppercase}
+.edu-row .inst{font-family:var(--display);font-weight:500;font-size:1.35rem;color:var(--text);letter-spacing:-.02em}
 .edu-row .deg{color:var(--muted2);font-family:var(--mono);font-size:.8rem;margin-top:.3rem;letter-spacing:-.005em}
 @media(max-width:640px){.edu-row{grid-template-columns:1fr;gap:.3rem}.edu-row .y{padding-top:0}}
 
 /* ── Contact ─────────────────────────────────────────── */
 #contact{padding:8rem 0 4rem;border-top:1px solid var(--hairline);background:var(--bg)}
-.contact-h{font-family:var(--display);font-weight:800;font-size:clamp(56px,12vw,200px);line-height:.86;letter-spacing:-.05em;color:var(--text);text-transform:uppercase;margin:2rem 0 3rem;max-width:14ch}
-.contact-h em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--muted);letter-spacing:-.055em;text-transform:lowercase}
+.contact-h{font-family:var(--display);font-weight:500;font-size:clamp(52px,10vw,180px);line-height:.94;letter-spacing:-.04em;color:var(--text);margin:2rem 0 3rem;max-width:14ch}
+.contact-h em{font-family:var(--display);font-weight:300;font-style:italic;color:var(--accent);letter-spacing:-.045em}
 .contact-h a{transition:color .3s;color:var(--text)}
 .contact-h a:hover{color:var(--muted2)}
 .contact-sub{font-family:var(--mono);font-size:1rem;color:var(--muted2);max-width:56ch;margin-bottom:3rem;line-height:1.7;letter-spacing:-.005em}
@@ -289,8 +320,8 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
       <span>Software Engineer · KL, MY · 2026</span>
     </div>
     <h1 class="hero-h1" id="heroH1">
-      <span class="ln"><span class="wr"><span class="wi" style="transition-delay:.05s">SOFTWARE</span></span></span>
-      <span class="ln"><span class="wr"><span class="wi" style="transition-delay:.15s"><em>that</em></span></span> <span class="wr"><span class="wi" style="transition-delay:.25s">SHIPS.</span></span></span>
+      <span class="ln"><span class="wr"><span class="wi" style="transition-delay:.05s">Software</span></span></span>
+      <span class="ln"><span class="wr"><span class="wi" style="transition-delay:.15s"><em>that</em></span></span> <span class="wr"><span class="wi" style="transition-delay:.25s">ships.</span></span></span>
     </h1>
     <div class="hero-foot" data-rv style="--i:2">
       <p class="hero-lede">Software engineering student at UniKL MIIT. Three live products from my own homelab in KL: <b>Kira</b> (financial tools), <b>TrafficMY</b> (transit signals), <b>Sah.Bukti</b> (WhatsApp collections). No cloud bill — one Pi 4 and a Cloudflare Tunnel.</p>
@@ -310,7 +341,7 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
       <div class="sc-eyebrow"><i></i>Live product · 01</div>
       <div class="sc-num">arifaqyl.me / kira</div>
     </div>
-    <h2 class="sc-h" data-rv style="--i:1">KIRA <em>— financial tools.</em></h2>
+    <h2 class="sc-h" data-rv style="--i:1">Kira <em>— financial tools.</em></h2>
     <div class="sc-body">
       <div class="sc-meta" data-rv style="--i:2">
         <span class="sc-tag"><i></i>In production</span>
@@ -322,11 +353,16 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
         </div>
         <a href="https://arifaqyl.me/kira/" class="sc-cta" target="_blank" rel="noopener">Visit Kira →</a>
       </div>
-      <a href="https://arifaqyl.me/kira/" class="sc-visual kira-mock" data-rv-scale target="_blank" rel="noopener">
+      <a href="https://arifaqyl.me/kira/" class="sc-visual mock-kira" data-rv-scale target="_blank" rel="noopener">
         <span class="sc-tag-abs"><i></i>Live</span>
-        <div class="kmw">k<em>i</em>ra</div>
-        <div class="kml">correct math on Malaysian money · gaji, TNB, KWSP, cuti, sahih, ringgit · seven tools, one page.</div>
-        <div class="kmd">enter tools →</div>
+        <div class="mock-glow" aria-hidden="true"></div>
+        <div class="mock">
+          <div class="mock-inner">
+            <div class="mock-wm">k<em>i</em>ra</div>
+            <div class="mock-sub">Correct math on Malaysian money — gaji, TNB, KWSP, cuti, sahih, ringgit. Seven tools, one page, no backend.</div>
+            <div class="mock-badge">enter tools</div>
+          </div>
+        </div>
         <span class="sc-url-abs">arifaqyl.me/kira</span>
       </a>
     </div>
@@ -340,7 +376,7 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
       <div class="sc-eyebrow"><i></i>Live product · 02</div>
       <div class="sc-num">arifaqyl.me / traffic</div>
     </div>
-    <h2 class="sc-h" data-rv style="--i:1">TRAFFICMY <em>— transit signals.</em></h2>
+    <h2 class="sc-h" data-rv style="--i:1">TrafficMY <em>— transit signals.</em></h2>
     <div class="sc-body">
       <div class="sc-meta" data-rv style="--i:2">
         <span class="sc-tag"><i></i>In production</span>
@@ -352,9 +388,19 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
         </div>
         <a href="https://arifaqyl.me/traffic/" class="sc-cta" target="_blank" rel="noopener">Visit TrafficMY →</a>
       </div>
-      <a href="https://arifaqyl.me/traffic/" class="sc-visual" data-rv-scale target="_blank" rel="noopener">
+      <a href="https://arifaqyl.me/traffic/" class="sc-visual mock-traffic" data-rv-scale target="_blank" rel="noopener">
         <span class="sc-tag-abs"><i></i>Live</span>
-        <img src="trafficmy.png" alt="TrafficMY dashboard preview" loading="lazy">
+        <div class="mock">
+          <div class="mock-inner">
+            <div class="mock-wm">Traffic<em>My</em></div>
+            <div class="signals">
+              <div class="sig ok"><span class="ln">LRT KJ</span><span class="st">clear · 3 stations active</span><span class="dot"></span></div>
+              <div class="sig amber"><span class="ln">MRT PY</span><span class="st">rider report · Kajang bound</span><span class="dot"></span></div>
+              <div class="sig red"><span class="ln">KTM KV</span><span class="st">disruption · Seremban Line</span><span class="dot"></span></div>
+              <div class="sig ok"><span class="ln">Monorail</span><span class="st">clear · normal service</span><span class="dot"></span></div>
+            </div>
+          </div>
+        </div>
         <span class="sc-url-abs">arifaqyl.me/traffic</span>
       </a>
     </div>
@@ -368,7 +414,7 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
       <div class="sc-eyebrow"><i></i>Live product · 03</div>
       <div class="sc-num">arifaqyl.me / sahbukti</div>
     </div>
-    <h2 class="sc-h" data-rv style="--i:1">SAH.BUKTI <em>— collections.</em></h2>
+    <h2 class="sc-h" data-rv style="--i:1">Sah.Bukti <em>— collections.</em></h2>
     <div class="sc-body">
       <div class="sc-meta" data-rv style="--i:2">
         <span class="sc-tag"><i></i>In production</span>
@@ -380,9 +426,19 @@ footer.site{border-top:1px solid var(--hairline);padding:1.5rem 0;font-family:va
         </div>
         <a href="https://arifaqyl.me/sahbukti/" class="sc-cta" target="_blank" rel="noopener">Visit Sah.Bukti →</a>
       </div>
-      <a href="https://arifaqyl.me/sahbukti/" class="sc-visual" data-rv-scale target="_blank" rel="noopener">
+      <a href="https://arifaqyl.me/sahbukti/" class="sc-visual mock-sah" data-rv-scale target="_blank" rel="noopener">
         <span class="sc-tag-abs"><i></i>Live</span>
-        <img src="sahbukti.png" alt="Sah.Bukti dashboard preview" loading="lazy">
+        <div class="mock">
+          <div class="mock-inner">
+            <div class="mock-wm">Sah<em>.Bukti</em></div>
+            <div class="bubbles">
+              <div class="b in">Order 2 kek lapis, RM45 each</div>
+              <div class="b out">Invoice sent · RM90.00 · <b>pending</b></div>
+              <div class="b in">Dah bayar bank in</div>
+              <div class="b out">Bukti received · <b>verified ✓</b></div>
+            </div>
+          </div>
+        </div>
         <span class="sc-url-abs">arifaqyl.me/sahbukti</span>
       </a>
     </div>
