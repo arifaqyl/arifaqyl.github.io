@@ -296,9 +296,9 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
     <div class="sec-head">
       <div class="sec-top" data-rv><span class="idx">01</span><p class="label">// live apps</p></div>
       <h2 class="h2 split" data-split>Live in production.</h2>
-      <p class="lede" data-rv style="margin-top:16px">Two products serving real users on <span class="mono accent">arifaqyl.me</span> right now, deployed on my own infrastructure. The screenshots are the actual apps.</p>
+      <p class="lede" data-rv style="margin-top:16px">Three projects running in production on <span class="mono accent">arifaqyl.me</span> right now, deployed on my own homelab infrastructure.</p>
     </div>
-    <div class="cards-2">
+    <div class="cards-live">
       <article class="lc tilt" data-accent="gold" data-rv style="--i:0">
         <a href="https://arifaqyl.me/traffic/" target="_blank" rel="noopener" class="shot">
           <img src="trafficmy.png" alt="TrafficMY live dashboard" loading="lazy">
@@ -355,6 +355,13 @@ footer{border-top:1px solid var(--line-2);padding:30px 0}
     </div>
   </div>
 </section>
+
+<style>
+.cards-live{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.cards-live .lc:last-child{grid-column:1/-1}
+.lc[data-accent=jade]{--ca:var(--jade)}
+@media(max-width:860px){.cards-live{grid-template-columns:1fr}.cards-live .lc:last-child{grid-column:auto}}
+</style>
 
 <section id="work">
   <div class="wrap-wide">

@@ -129,7 +129,7 @@ function reverseGaji(targetNet, epfRate) {
   let lo = targetNet, hi = targetNet * 2.5;
   for (let i = 0; i < 64; i++) {
     const mid = (lo + hi) / 2;
-    (calcGaji(mid, epfRate).net < targetNet ? lo : hi) = mid;
+    if (calcGaji(mid, epfRate).net < targetNet) { lo = mid; } else { hi = mid; }
   }
   return calcGaji((lo + hi) / 2, epfRate);
 }
@@ -198,7 +198,12 @@ function runGaji() {
   bd.innerHTML = html;
 }
 
-document.getElementById('gaji-gross').addEventListener('input', runGaji);
+document.getElementById('gaji-gross').addEventListener('input', () => {
+  runGaji();
+  syncURL();
+  const v = document.getElementById('gaji-gross').value;
+  document.getElementById('gaji-copy').style.display = v ? 'inline-block' : 'none';
+});
 document.getElementById('gaji-net-input').addEventListener('input', runGaji);
 document.getElementById('gaji-epf').addEventListener('change', runGaji);
 
@@ -645,8 +650,7 @@ function showRetirementScore(rows, monthly) {
   }
 }
 
-// Patch KWSP calc to call retirement score
-const _origKwspCalc = document.getElementById('kwsp-calc').onclick;
+// ── KWSP click handler ────────────────────────────────────────
 document.getElementById('kwsp-calc').addEventListener('click', () => {
   const bal   = parseFloat(document.getElementById('kwsp-balance').value) || 0;
   const age   = parseInt(document.getElementById('kwsp-age').value);
@@ -711,10 +715,7 @@ function loadURL() {
   }
 }
 
-// Patch runGaji to also sync URL
-const _origRunGaji = runGaji;
-// We'll inline the sync in the input listener
-document.getElementById('gaji-gross').addEventListener('input', syncURL);
+// syncURL is called inside the consolidated gaji-gross input listener above
 
 // ── Copy result ───────────────────────────────────────────────
 document.getElementById('gaji-copy').addEventListener('click', () => {
@@ -739,12 +740,7 @@ document.getElementById('gaji-copy').addEventListener('click', () => {
   });
 });
 
-// Show copy button when there's a result
-const origRunGajiForCopy = runGaji;
-document.getElementById('gaji-gross').addEventListener('input', () => {
-  const v = document.getElementById('gaji-gross').value;
-  document.getElementById('gaji-copy').style.display = v ? 'inline-block' : 'none';
-});
+// copy button visibility handled in consolidated gaji-gross input listener
 
 // ── Keyboard shortcuts ────────────────────────────────────────
 const KB_MAP = { g:'gaji', t:'tnb', k:'kwsp', r:'raise', c:'cuti', s:'sahih', m:'ringgit' };
