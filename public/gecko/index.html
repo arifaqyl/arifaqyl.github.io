@@ -11,6 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="gecko.">
 <link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..900,0..100&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -666,7 +667,10 @@ input,textarea{font-family:inherit;font-size:inherit}
   <div class="sheet-handle"></div>
   <div class="sheet-title">AI health check.</div>
   <div id="ai-idle">
-    <div class="ai-key-hint" id="ai-no-key" style="display:none">No Gemini API key found.<br>Add it in Settings to enable this feature.</div>
+    <div id="ai-no-key" style="display:none">
+      <p class="ai-key-hint" style="padding-bottom:.75rem">No Gemini API key found.<br>Add it in Settings → Gemini API key.</p>
+      <button class="btn-main" id="ai-goto-settings">Open Settings</button>
+    </div>
     <div id="ai-ready" style="display:none">
       <p class="ai-data-lbl">Sends the last 60 days of feeds, weights, sheds, and notes to Gemini 2.0 Flash. Your key never leaves your device — the request goes directly from your phone to Google.</p>
       <button class="btn-main" id="ai-go">Analyse health data</button>
@@ -1292,6 +1296,7 @@ document.getElementById('btn-ai').addEventListener('click',openAiSheet);
 document.getElementById('btn-export').addEventListener('click',()=>{exportData();closeM('m-settings')});
 document.getElementById('ai-go').addEventListener('click',askGemini);
 document.getElementById('ai-rerun').addEventListener('click',askGemini);
+document.getElementById('ai-goto-settings').addEventListener('click',()=>{closeM('m-ai');document.getElementById('btn-settings').click()});
 
 // ── SERVICE WORKER ──
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});

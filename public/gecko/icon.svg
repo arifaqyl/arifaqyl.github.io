@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#e8c547"/>
+  <g transform="translate(96,86) scale(2)" fill="none">
+    <!-- shadow under tail -->
+    <ellipse cx="80" cy="142" rx="40" ry="4.5" fill="#1f1a12" opacity=".12"/>
+    <!-- tail -->
+    <path d="M62 116 C54 130 56 142 80 145 C104 142 106 130 98 116Z" fill="#b88e1a"/>
+    <!-- body -->
+    <path d="M40 72 C38 50 80 44 80 44 C80 44 122 50 120 72 L118 114 C116 128 80 132 80 132 C80 132 44 128 42 114Z" fill="#e8c84a"/>
+    <!-- body spots -->
+    <circle cx="62" cy="82" r="7" fill="#1f1a12" opacity=".18"/>
+    <circle cx="98" cy="78" r="6" fill="#1f1a12" opacity=".18"/>
+    <circle cx="69" cy="104" r="5" fill="#1f1a12" opacity=".18"/>
+    <circle cx="92" cy="110" r="5.5" fill="#1f1a12" opacity=".18"/>
+    <!-- front legs -->
+    <path d="M44 78 C28 74 18 84 14 96" stroke="#b88e1a" stroke-width="12" stroke-linecap="round"/>
+    <path d="M116 78 C132 74 142 84 146 96" stroke="#b88e1a" stroke-width="12" stroke-linecap="round"/>
+    <!-- back legs -->
+    <path d="M46 118 C28 122 18 136 16 144" stroke="#b88e1a" stroke-width="12" stroke-linecap="round"/>
+    <path d="M114 118 C132 122 142 136 144 144" stroke="#b88e1a" stroke-width="12" stroke-linecap="round"/>
+    <!-- head -->
+    <ellipse cx="80" cy="30" rx="32" ry="27" fill="#e8c84a"/>
+    <!-- eyes white -->
+    <circle cx="62" cy="25" r="13" fill="white"/>
+    <circle cx="98" cy="25" r="13" fill="white"/>
+    <!-- iris -->
+    <circle cx="62" cy="25" r="9.5" fill="#c8941a"/>
+    <circle cx="98" cy="25" r="9.5" fill="#c8941a"/>
+    <!-- pupil -->
+    <ellipse cx="62" cy="25" rx="3" ry="8.5" fill="#1f1a12"/>
+    <ellipse cx="98" cy="25" rx="3" ry="8.5" fill="#1f1a12"/>
+    <!-- catchlight -->
+    <circle cx="65.5" cy="21" r="3" fill="white"/>
+    <circle cx="101.5" cy="21" r="3" fill="white"/>
+    <!-- smile -->
+    <path d="M72 54 Q80 61 88 54" stroke="#8b6914" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>
