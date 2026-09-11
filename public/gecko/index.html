@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>gecko.</title>
+<meta name="description" content="A gentle health log for your leopard gecko.">
+<meta name="theme-color" content="#fdf9f0">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="gecko.">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@1,9..144,300..900,0..100&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf9f0;--bg2:#f7f1e8;--card:#fff;
+  --ink:#1f1a12;--ink2:#8b7a65;--ink3:#c4b49e;
+  --line:rgba(31,26,18,.08);
+  --shadow:0 2px 20px rgba(31,26,18,.07);
+  --yellow:#e8c547;--yellow2:rgba(232,197,71,.13);
+  --green:#4a8f5e;--green2:rgba(74,143,94,.1);
+  --amber:#d4860a;--amber2:rgba(212,134,10,.1);
+  --red:#c94040;--red2:rgba(201,64,64,.1);
+  --display:'Fraunces',Georgia,serif;
+  --body:'Figtree',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --r-sm:8px;--r-md:14px;--r-pill:999px;
+  --sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);font-size:15px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:.88rem;line-height:1.55;min-height:100dvh;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;user-select:none}
+button{border:none;background:none;cursor:pointer;font-family:inherit;color:inherit;font-size:inherit}
+input,textarea{font-family:inherit;font-size:inherit}
+::selection{background:var(--yellow);color:var(--ink)}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:2px;border-radius:4px}
+
+/* ── GRAIN ── */
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.036;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
+
+/* ── SHELL ── */
+.app{display:flex;flex-direction:column;height:100dvh;max-width:430px;margin:0 auto;position:relative;overflow:hidden}
+.screen{display:none;flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(68px + var(--sab));-webkit-overflow-scrolling:touch}
+.screen.active{display:block}
+.screen::-webkit-scrollbar{display:none}
+
+/* ── NAV ── */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;padding-bottom:var(--sab);background:rgba(253,249,240,.94);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:90}
+.nav-b{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:.6rem .25rem .55rem;font-size:.58rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);transition:color .15s;position:relative}
+.nav-b svg{width:22px;height:22px}
+.nav-b.on{color:var(--ink)}
+.nav-b.on::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:20px;height:2.5px;background:var(--yellow);border-radius:2px 2px 0 0}
+
+/* ── HEADER ── */
+.hdr{position:sticky;top:0;z-index:20;padding:calc(var(--sat) + .875rem) 1.25rem .875rem;display:flex;align-items:center;justify-content:space-between;background:rgba(253,249,240,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.hdr-mark{font-family:var(--display);font-style:italic;font-size:1.1rem;font-weight:300;letter-spacing:-.025em;color:var(--ink)}
+.hdr-label{font-family:var(--body);font-size:.82rem;font-weight:600;color:var(--ink)}
+.hdr-btn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink2);border:1.5px solid var(--line);background:var(--card);box-shadow:var(--shadow);transition:border-color .15s,color .15s}
+.hdr-btn:hover{border-color:var(--yellow);color:var(--ink)}
+.hdr-add{padding:.5rem 1rem;border-radius:var(--r-pill);background:var(--yellow);color:var(--ink);font-size:.72rem;font-weight:600;letter-spacing:.04em;box-shadow:0 2px 12px rgba(232,197,71,.3)}
+
+/* ── HOME HERO ── */
+.home-hero{padding:1.25rem 1.25rem .5rem;display:flex;flex-direction:column;align-items:center}
+.hero-top{width:100%;display:flex;align-items:center;gap:.875rem;margin-bottom:1.125rem}
+.photo-slot{width:52px;height:52px;flex-shrink:0;border-radius:50%;background:var(--bg2);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;transition:border-color .2s;position:relative}
+.photo-slot:hover{border-color:var(--yellow)}
+.photo-slot img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.photo-ph{font-family:var(--display);font-style:italic;font-size:1.5rem;font-weight:300;color:var(--ink3);line-height:1;pointer-events:none}
+.photo-clear{position:absolute;inset:0;border-radius:50%;background:rgba(31,26,18,.45);display:none;align-items:center;justify-content:center;color:#fff;transition:opacity .15s}
+.photo-clear.visible{display:flex;opacity:.7}
+.photo-slot:hover .photo-clear.visible{opacity:1}
+.hero-id{flex:1;min-width:0}
+.gecko-name{font-family:var(--display);font-style:italic;font-size:clamp(24px,7vw,32px);font-weight:300;line-height:1;letter-spacing:-.04em;color:var(--ink);margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gecko-meta{font-size:.65rem;font-weight:500;color:var(--ink2);letter-spacing:.06em;text-transform:uppercase}
+
+/* ── GECKO WRAP ── */
+.gecko-wrap{width:210px;height:194px;margin:0 auto .25rem;position:relative;cursor:pointer;--g-aura:rgba(232,197,71,.3)}
+.gecko-wrap::before{content:'';position:absolute;width:70%;height:52%;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(ellipse,var(--g-aura) 0%,transparent 70%);animation:aura-pulse 3.5s ease-in-out infinite;transition:background .7s;z-index:0;pointer-events:none}
+.gecko-wrap.concern{--g-aura:rgba(212,134,10,.28)}
+.gecko-wrap.alarm{--g-aura:rgba(201,64,64,.24)}
+@keyframes aura-pulse{0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.13)}}
+
+/* ── GECKO SVG ── */
+.gecko-illo,.cg-illo{--g-body:#e8c84a;--g-mid:#c8a030;--g-spot:#8b6914;--g-iris:#c8941a;--g-pupil:#1f1a12}
+.gecko-illo{width:100%;height:100%;position:relative;z-index:1;filter:drop-shadow(0 10px 28px rgba(232,197,71,.2));transition:filter .4s}
+.gecko-illo.concern{filter:drop-shadow(0 10px 28px rgba(212,134,10,.2))}
+.gecko-illo.alarm{filter:drop-shadow(0 10px 28px rgba(201,64,64,.2))}
+.cg-illo{width:100%;height:100%;position:relative;z-index:1;filter:drop-shadow(0 6px 18px rgba(232,197,71,.2))}
+
+/* SVG color classes — CSS overrides SVG presentation attrs */
+.g-body{fill:var(--g-body)}.g-mid{fill:var(--g-mid)}.g-mid-s{stroke:var(--g-mid);fill:none}
+.g-spot{fill:var(--g-spot)}.g-spot-s{stroke:var(--g-spot);fill:none}
+.g-iris{fill:var(--g-iris)}.g-pupil{fill:var(--g-pupil)}.g-eyelid{fill:var(--g-body)}
+
+/* ── ANIMATIONS ── */
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.022)}}
+.gecko-breathe{animation:breathe 4.6s ease-in-out infinite;transform-origin:80px 80px}
+
+@keyframes blink{0%,83%,100%{transform:scaleY(0)}89%{transform:scaleY(1)}95%{transform:scaleY(0)}}
+.eyelid{transform-box:fill-box;transform-origin:center 0%;animation:blink 7s ease-in-out infinite}
+.eyelid-r{animation-delay:.08s}
+
+@keyframes gecko-wiggle{0%{transform:rotate(0)}16%{transform:rotate(-5deg) scale(1.04)}33%{transform:rotate(4.5deg)}50%{transform:rotate(-3deg)}68%{transform:rotate(2deg)}84%{transform:rotate(-1deg)}100%{transform:rotate(0)}}
+.gecko-illo.wiggle{animation:gecko-wiggle .52s ease!important}
+
+@keyframes btn-pulse{0%,100%{box-shadow:0 4px 16px rgba(232,197,71,.32)}50%{box-shadow:0 4px 28px rgba(232,197,71,.65),0 0 0 5px rgba(232,197,71,.1)}}
+.btn-main.overdue{animation:btn-pulse 2s ease-in-out infinite}
+
+/* ── HEADLINE / STREAK / FACT ── */
+.home-headline{font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(.92rem,3.8vw,1.1rem);color:var(--ink2);letter-spacing:-.02em;line-height:1.4;text-align:center;margin-bottom:.65rem}
+.home-headline b{color:var(--ink);font-weight:300}
+.streak-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .8rem;border-radius:var(--r-pill);background:var(--yellow2);border:1.5px solid rgba(232,197,71,.28);font-family:var(--mono);font-size:.63rem;font-weight:500;color:var(--amber);letter-spacing:.04em;margin-bottom:.65rem}
+.streak-pill svg{width:10px;height:10px}
+.fact-card{width:100%;background:var(--bg2);border-radius:var(--r-md);padding:.7rem .9rem;text-align:left;border-left:3px solid rgba(232,197,71,.45);margin-bottom:.2rem}
+.fact-lbl{font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.25rem}
+.fact-txt{font-size:.76rem;color:var(--ink2);line-height:1.6}
+
+/* ── ALERT ── */
+.alert-strip{margin:.5rem 1.25rem 0;padding:.875rem 1rem;border-radius:var(--r-md);font-size:.8rem;line-height:1.55;display:none}
+.alert-strip.show{display:block}
+.alert-strip.amber{background:var(--amber2);border-left:3px solid var(--amber)}
+.alert-strip.red{background:var(--red2);border-left:3px solid var(--red)}
+.alert-strip strong{font-weight:600}
+.alert-strip.amber strong{color:var(--amber)}.alert-strip.red strong{color:var(--red)}
+
+/* ── CARDS ── */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:.625rem;padding:.875rem 1.25rem .625rem}
+.card{background:var(--card);border-radius:var(--r-md);padding:1rem 1rem .875rem;box-shadow:var(--shadow)}
+.card.full{grid-column:1/-1}.card.warn{box-shadow:var(--shadow),0 0 0 1.5px var(--amber)}.card.alrt{box-shadow:var(--shadow),0 0 0 1.5px var(--red)}
+.c-label{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:.5rem;display:flex;align-items:center;gap:.35rem}
+.c-label svg{width:11px;height:11px;flex-shrink:0}
+.c-num{font-family:var(--display);font-style:italic;font-size:clamp(32px,9vw,42px);font-weight:300;line-height:.95;letter-spacing:-.035em;margin-bottom:.3rem}
+.c-num.ok{color:var(--green)}.c-num.warn{color:var(--amber)}.c-num.alrt{color:var(--red)}
+.c-num.dim{color:var(--ink3);font-size:1.5rem;font-style:normal;font-family:var(--mono)}
+.c-sub{font-size:.72rem;color:var(--ink2);line-height:1.4}.c-sub b{color:var(--ink);font-weight:600}
+.c-tag{display:inline-flex;align-items:center;margin-top:.5rem;padding:.2rem .6rem;border-radius:var(--r-pill);font-size:.58rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.tag-shed{background:var(--amber2);color:var(--amber)}.tag-ok{background:var(--green2);color:var(--green)}
+
+/* ── ACTIONS ── */
+.actions{padding:.25rem 1.25rem 1rem;display:flex;flex-direction:column;gap:.5rem}
+.btn-main{width:100%;padding:1rem;border-radius:var(--r-md);background:var(--yellow);color:var(--ink);font-family:var(--body);font-size:.82rem;font-weight:600;letter-spacing:.04em;text-align:center;transition:background .15s,transform .1s;box-shadow:0 4px 16px rgba(232,197,71,.32)}
+.btn-main:active{transform:scale(.98);background:#dbb93e}
+.btn-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.btn-sec{padding:.75rem .5rem;border-radius:var(--r-md);background:var(--card);box-shadow:var(--shadow);font-size:.7rem;font-weight:500;color:var(--ink2);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.btn-sec svg{width:18px;height:18px}
+.btn-sec:active{transform:scale(.97)}
+
+/* ── HISTORY ── */
+.log-list{padding:1rem 1.25rem}
+.log-day{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:.875rem 0 .5rem}
+.log-day:first-child{padding-top:0}
+.log-item{background:var(--card);border-radius:var(--r-md);padding:.875rem 1rem;display:flex;gap:.875rem;align-items:flex-start;margin-bottom:.4rem;box-shadow:var(--shadow)}
+.log-icon{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.log-icon svg{width:18px;height:18px}
+.li-feed .log-icon{background:var(--yellow2);color:var(--amber)}.li-weight .log-icon{background:var(--green2);color:var(--green)}.li-shed .log-icon{background:var(--amber2);color:var(--amber)}.li-note .log-icon{background:var(--bg2);color:var(--ink2)}
+.log-body{flex:1;min-width:0}
+.log-type{font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:.15rem}
+.log-detail{font-size:.82rem;color:var(--ink);line-height:1.45}
+.log-detail.refused{color:var(--ink3);text-decoration:line-through}
+.log-note{font-size:.72rem;color:var(--ink2);margin-top:.2rem}
+
+/* ── WEIGHT ── */
+.wt-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.625rem;padding:1.25rem 1.25rem .875rem}
+.wt-stat{background:var(--card);border-radius:var(--r-md);box-shadow:var(--shadow);padding:.875rem .75rem;text-align:center}
+.wts-val{font-family:var(--display);font-style:italic;font-size:1.6rem;font-weight:300;line-height:1;letter-spacing:-.03em;margin-bottom:.3rem}
+.wts-val.green{color:var(--green)}.wts-val.amber{color:var(--amber)}.wts-val.red{color:var(--red)}
+.wts-label{font-size:.58rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.chart-box{margin:0 1.25rem 1rem;background:var(--card);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.25rem}
+.chart-title{font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:1rem}
+#wt-chart{width:100%;display:block}
+
+/* ── GUIDE ── */
+.guide-wrap{padding:1rem 1.25rem 1.5rem}
+.guide-sec{margin-bottom:1.5rem}
+.guide-h{font-family:var(--display);font-style:italic;font-size:1.1rem;font-weight:300;letter-spacing:-.02em;color:var(--ink);margin-bottom:.75rem;padding-bottom:.75rem;border-bottom:2px solid var(--yellow)}
+.guide-row{padding:.75rem 0;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--ink);line-height:1.6}
+.guide-row:last-child{border-bottom:none}
+.guide-q{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:.25rem}
+.guide-row .warn{color:var(--amber);font-weight:600}.guide-row .danger{color:var(--red);font-weight:600}.guide-row .ok{color:var(--green);font-weight:600}
+
+/* ── SHEETS ── */
+.overlay{position:fixed;inset:0;background:rgba(31,26,18,.32);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.sheet{width:100%;max-width:430px;background:var(--bg);border-radius:24px 24px 0 0;padding:0 1.375rem calc(1.5rem + var(--sab));max-height:92dvh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.overlay.open .sheet{transform:none}
+.sheet::-webkit-scrollbar{display:none}
+.sheet-handle{width:40px;height:4px;background:var(--line);border-radius:2px;margin:1rem auto 1.5rem}
+.sheet-title{font-family:var(--display);font-style:italic;font-size:1.5rem;font-weight:300;letter-spacing:-.03em;color:var(--ink);margin-bottom:1.375rem}
+
+/* ── FORM ── */
+.field{margin-bottom:1.1rem}
+.f-label{display:block;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:.5rem}
+.f-input{width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:.8rem .9rem;font-size:.92rem;color:var(--ink);outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none;box-shadow:var(--shadow)}
+.f-input:focus{border-color:var(--yellow)}
+.f-input::placeholder{color:var(--ink3)}
+.chips{display:flex;flex-wrap:wrap;gap:.375rem}
+.chip{padding:.45rem .875rem;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-pill);font-size:.72rem;font-weight:500;color:var(--ink2);box-shadow:var(--shadow);transition:all .15s}
+.chip.on{border-color:var(--yellow);color:var(--ink);background:var(--yellow2)}
+.toggles{display:flex;flex-wrap:wrap;gap:.375rem}
+.tgl{padding:.45rem .875rem;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-sm);font-size:.72rem;font-weight:500;color:var(--ink2);box-shadow:var(--shadow);transition:all .15s}
+.tgl.on{border-color:var(--green);color:var(--green);background:var(--green2)}
+.refused-tgl{width:100%;padding:.8rem;border-radius:var(--r-sm);background:var(--card);border:1.5px solid var(--line);font-size:.8rem;font-weight:500;color:var(--ink2);text-align:center;box-shadow:var(--shadow);transition:all .15s;margin-bottom:1.1rem}
+.refused-tgl.on{border-color:var(--red);color:var(--red);background:var(--red2)}
+.bcs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.375rem}
+.bcs-b{aspect-ratio:1;border-radius:var(--r-sm);background:var(--card);border:1.5px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;transition:all .15s}
+.bcs-b .bcs-n{font-size:1rem;font-weight:600;color:var(--ink2)}
+.bcs-b .bcs-l{font-size:.5rem;font-weight:500;color:var(--ink3);letter-spacing:.04em;text-align:center;line-height:1.2}
+.bcs-b.on{border-color:var(--yellow);background:var(--yellow2)}.bcs-b.on .bcs-n{color:var(--ink)}
+.divider{height:1px;background:var(--line);margin:1rem 0}
+.link-btn{width:100%;padding:.875rem;text-align:center;font-size:.75rem;font-weight:500;color:var(--ink2);letter-spacing:.04em;transition:color .15s}
+.link-btn:hover{color:var(--ink)}
+.link-btn.danger{color:var(--red)}
+
+/* ── SWATCHES ── */
+.swatch-sec{margin-bottom:1.5rem}
+.swatch-lbl{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:.6rem}
+.swatch-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+.swatch-grid.cols-6{grid-template-columns:repeat(6,1fr)}
+.swatch{aspect-ratio:1;border-radius:50%;cursor:pointer;position:relative;box-shadow:0 1px 6px rgba(31,26,18,.18);transition:transform .15s}
+.swatch:active{transform:scale(.9)}
+.swatch.on{transform:scale(1.1)}
+.swatch.on::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2.5px solid var(--ink)}
+.swatch-check{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0;filter:drop-shadow(0 0 1.5px rgba(0,0,0,.5));pointer-events:none}
+.swatch.on .swatch-check{opacity:1}
+
+/* ── CUSTOMIZE PREVIEW ── */
+.cg-wrap{width:130px;height:120px;margin:0 auto 1.5rem;position:relative;--g-aura:rgba(232,197,71,.3)}
+.cg-wrap::before{content:'';position:absolute;width:70%;height:52%;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(ellipse,var(--g-aura) 0%,transparent 70%);animation:aura-pulse 3.5s ease-in-out infinite;z-index:0;pointer-events:none}
+
+/* ── ENIGMA WARN ── */
+.enigma-warn{background:var(--amber2);border:1.5px solid rgba(212,134,10,.22);border-radius:var(--r-sm);padding:.7rem .875rem;font-size:.75rem;color:var(--ink2);line-height:1.6;margin-top:.625rem}
+.enigma-warn strong{color:var(--amber);font-weight:600}
+
+/* ── ONBOARDING ── */
+.onboard{position:fixed;inset:0;z-index:500;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:calc(var(--sat) + 2.5rem) 1.5rem 2rem;overflow-y:auto;max-width:430px;margin:0 auto}
+.onboard.done{display:none}
+.ob-gecko{width:110px;height:102px;margin-bottom:.875rem}
+.ob-title{font-family:var(--display);font-style:italic;font-size:clamp(44px,15vw,60px);font-weight:300;letter-spacing:-.05em;color:var(--yellow);line-height:1;margin-bottom:.5rem;text-align:center}
+.ob-sub{font-size:.82rem;color:var(--ink2);text-align:center;line-height:1.65;margin-bottom:2rem;max-width:30ch}
+.ob-form{width:100%;display:flex;flex-direction:column;gap:.875rem}
+.ob-hint{font-size:.68rem;color:var(--ink3);text-align:center;margin-top:.25rem}
+
+/* ── EMPTY ── */
+.empty{display:flex;flex-direction:column;align-items:center;padding:3rem 1.5rem;text-align:center;gap:.875rem}
+.empty-art{width:80px;height:74px;opacity:.25}
+.empty-t{font-size:.82rem;color:var(--ink3);line-height:1.6}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:calc(76px + var(--sab) + .75rem);left:50%;transform:translateX(-50%) translateY(10px);background:var(--ink);color:#fff;border-radius:var(--r-pill);padding:.58rem 1.2rem;font-size:.78rem;font-weight:500;z-index:9990;opacity:0;transition:opacity .2s,transform .22s;pointer-events:none;max-width:calc(100% - 3rem);text-align:center;line-height:1.45}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── MOTION ── */
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card,.log-item{animation:up .22s ease both}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.001s!important;animation-duration:.001s!important}}
+
+/* ── LOG DELETE ── */
+.log-del{flex-shrink:0;align-self:center;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink3);transition:color .15s,background .15s;margin-top:.1rem}
+.log-del:active{color:var(--red);background:var(--red2)}
+@media(hover:hover){.log-del:hover{color:var(--red);background:var(--red2)}}
+
+/* ── AI SHEET ── */
+.ai-data-lbl{font-size:.8rem;color:var(--ink2);line-height:1.7;margin-bottom:1.1rem}
+.ai-status{display:flex;flex-direction:column;align-items:center;padding:2.5rem 1rem;gap:1rem;text-align:center}
+.ai-thinking{display:flex;gap:.45rem;align-items:center}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:var(--yellow)}
+.ai-dot:nth-child(1){animation:ai-bounce .9s ease-in-out infinite}
+.ai-dot:nth-child(2){animation:ai-bounce .9s .15s ease-in-out infinite}
+.ai-dot:nth-child(3){animation:ai-bounce .9s .3s ease-in-out infinite}
+@keyframes ai-bounce{0%,80%,100%{opacity:.35;transform:translateY(0)}40%{opacity:1;transform:translateY(-7px)}}
+.ai-status-lbl{font-size:.75rem;color:var(--ink2);letter-spacing:.04em}
+.ai-response{background:var(--bg2);border-radius:var(--r-md);padding:1rem 1.1rem;font-size:.82rem;color:var(--ink);line-height:1.75;white-space:pre-wrap;word-break:break-word;max-height:52dvh;overflow-y:auto}
+.ai-response::-webkit-scrollbar{display:none}
+.ai-key-hint{font-size:.8rem;color:var(--ink2);line-height:1.7;padding:1.5rem 0;text-align:center}
+.ai-meta{font-size:.62rem;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-top:.75rem;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div id="toast" class="toast"></div>
+
+<!-- ── ONBOARDING ── -->
+<div class="onboard" id="onboard">
+  <svg class="ob-gecko" id="ob-illo" viewBox="0 0 160 148" fill="none" aria-hidden="true"
+    style="--g-body:#e8c84a;--g-mid:#c8a030;--g-spot:#8b6914;--g-iris:#c8941a;--g-pupil:#1f1a12">
+    <ellipse cx="80" cy="146" rx="44" ry="5" class="g-body" opacity=".16"/>
+    <g class="gecko-breathe">
+      <path d="M58 120 C50 132 52 144 80 147 C108 144 110 132 102 120Z" class="g-mid"/>
+      <path d="M38 70 C36 48 80 42 80 42C80 42 124 48 122 70L120 118C118 130 80 132 80 132C80 132 42 130 40 118Z" class="g-body"/>
+      <circle cx="62" cy="82" r="7" class="g-spot" opacity=".3"/><circle cx="98" cy="78" r="6" class="g-spot" opacity=".3"/>
+      <circle cx="69" cy="104" r="5.5" class="g-spot" opacity=".3"/><circle cx="92" cy="110" r="6" class="g-spot" opacity=".3"/>
+      <path d="M42 76 C28 73 18 82 15 92" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+      <path d="M118 76 C132 73 142 82 145 92" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+      <path d="M44 118 C26 122 18 134 16 142" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+      <path d="M116 118 C134 122 142 134 144 142" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="80" cy="30" rx="32" ry="26" class="g-body"/>
+      <circle cx="62" cy="25" r="13" fill="white"/><circle cx="62" cy="25" r="9.5" class="g-iris"/><ellipse cx="62" cy="25" rx="3" ry="8.5" class="g-pupil"/><circle cx="65.5" cy="21" r="3" fill="white"/>
+      <ellipse cx="62" cy="25" rx="13" ry="13" class="eyelid g-eyelid"/>
+      <circle cx="98" cy="25" r="13" fill="white"/><circle cx="98" cy="25" r="9.5" class="g-iris"/><ellipse cx="98" cy="25" rx="3" ry="8.5" class="g-pupil"/><circle cx="101.5" cy="21" r="3" fill="white"/>
+      <ellipse cx="98" cy="25" rx="13" ry="13" class="eyelid eyelid-r g-eyelid"/>
+      <path d="M72 54 Q80 61 88 54" class="g-spot-s" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    </g>
+  </svg>
+  <div class="ob-title">gecko.</div>
+  <p class="ob-sub">A gentle health log for your leopard gecko. 30 seconds to set up.</p>
+  <div class="ob-form">
+    <div class="field">
+      <label class="f-label" for="ob-name">Name</label>
+      <input class="f-input" id="ob-name" type="text" placeholder="luna" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label class="f-label" for="ob-dob">Birthday or hatch date</label>
+      <input class="f-input" id="ob-dob" type="date">
+    </div>
+    <div class="field">
+      <label class="f-label">Morph</label>
+      <div class="chips" id="ob-morph">
+        <button class="chip on" data-v="normal">Normal</button>
+        <button class="chip" data-v="albino">Albino</button>
+        <button class="chip" data-v="enigma">Enigma</button>
+        <button class="chip" data-v="eclipse">Eclipse</button>
+        <button class="chip" data-v="blizzard">Blizzard</button>
+        <button class="chip" data-v="other">Other</button>
+      </div>
+      <div id="enigma-warn" class="enigma-warn" style="display:none">
+        <strong>Note on Enigma Syndrome.</strong> Head wobbling, circling, or star-gazing are neurological symptoms — not personality quirks. Monitor closely and keep a vet contact ready from day one.
+      </div>
+    </div>
+    <div class="field">
+      <label class="f-label">Sex</label>
+      <div class="chips" id="ob-sex">
+        <button class="chip on" data-v="female">Female</button>
+        <button class="chip" data-v="male">Male</button>
+        <button class="chip" data-v="unknown">Unknown</button>
+      </div>
+    </div>
+    <button class="btn-main" id="ob-go" style="margin-top:.5rem">Let's go</button>
+    <p class="ob-hint">You can change everything later in settings.</p>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div class="app" id="app" hidden>
+
+  <!-- HOME -->
+  <div class="screen active" id="s-home">
+    <div class="hdr">
+      <span class="hdr-mark">gecko.</span>
+      <button class="hdr-btn" id="btn-settings" aria-label="Settings">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" viewBox="0 0 20 20">
+          <circle cx="10" cy="10" r="2.5"/>
+          <path d="M10 2v1.5m0 13V18m8-8h-1.5m-13 0H2m11.31-5.66-.96 1.1M9.65 12.56l-.96 1.1m8-1.1-.96-1.1M9.65 7.44l-.96-1.1"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="home-hero">
+      <div class="hero-top">
+        <div class="photo-slot" id="photo-slot" title="Tap to add a photo">
+          <img id="photo-img" src="" alt="" style="display:none">
+          <div class="photo-ph" id="photo-ph">g</div>
+          <div class="photo-clear" id="photo-clear"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>
+          <input type="file" id="photo-file" accept="image/*" style="display:none;position:absolute;opacity:0">
+        </div>
+        <div class="hero-id">
+          <div class="gecko-name" id="gname">gecko.</div>
+          <div class="gecko-meta" id="gmeta"></div>
+        </div>
+      </div>
+
+      <div class="gecko-wrap" id="gecko-wrap">
+        <svg class="gecko-illo" id="gecko-illo" viewBox="0 0 160 148" fill="none" aria-hidden="true">
+          <ellipse cx="80" cy="146" rx="44" ry="5" class="g-body" opacity=".16"/>
+          <g class="gecko-breathe">
+            <path d="M58 120 C50 132 52 144 80 147 C108 144 110 132 102 120Z" class="g-mid"/>
+            <path d="M56 127 Q80 123 104 127" class="g-spot-s" stroke-width="2.5" stroke-linecap="round" opacity=".38"/>
+            <path d="M58 137 Q80 133 102 137" class="g-spot-s" stroke-width="2" stroke-linecap="round" opacity=".28"/>
+            <path d="M38 70 C36 48 80 42 80 42C80 42 124 48 122 70L120 118C118 130 80 132 80 132C80 132 42 130 40 118Z" class="g-body"/>
+            <circle cx="62" cy="82" r="7" class="g-spot" opacity=".3"/>
+            <circle cx="98" cy="78" r="6" class="g-spot" opacity=".3"/>
+            <circle cx="69" cy="104" r="5.5" class="g-spot" opacity=".3"/>
+            <circle cx="92" cy="110" r="6" class="g-spot" opacity=".3"/>
+            <circle cx="80" cy="93" r="5" class="g-spot" opacity=".26"/>
+            <circle cx="55" cy="98" r="4.5" class="g-spot" opacity=".26"/>
+            <circle cx="106" cy="97" r="4.5" class="g-spot" opacity=".26"/>
+            <path d="M56 56 C65 50 95 50 104 56" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity=".16"/>
+            <path d="M42 76 C28 73 18 82 15 92" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+            <path d="M15 88 C6 84 4 91 7 96" class="g-mid-s" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M14 93 C5 92 5 100 8 104" class="g-mid-s" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M16 97 C10 100 11 108 14 110" class="g-mid-s" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M20 98 C16 102 17 109 20 111" class="g-mid-s" stroke-width="3" stroke-linecap="round"/>
+            <path d="M118 76 C132 73 142 82 145 92" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+            <path d="M145 88 C154 84 156 91 153 96" class="g-mid-s" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M146 93 C155 92 155 100 152 104" class="g-mid-s" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M144 97 C150 100 149 108 146 110" class="g-mid-s" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M140 98 C144 102 143 109 140 111" class="g-mid-s" stroke-width="3" stroke-linecap="round"/>
+            <path d="M44 118 C26 122 18 134 16 142" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+            <path d="M116 118 C134 122 142 134 144 142" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+            <ellipse cx="80" cy="30" rx="32" ry="26" class="g-body"/>
+            <circle cx="68" cy="18" r="4" class="g-spot" opacity=".26"/>
+            <circle cx="93" cy="17" r="3.5" class="g-spot" opacity=".26"/>
+            <circle cx="80" cy="11" r="3.5" class="g-spot" opacity=".2"/>
+            <circle cx="62" cy="25" r="13" fill="white"/>
+            <circle cx="62" cy="25" r="9.5" class="g-iris"/>
+            <ellipse cx="62" cy="25" rx="3" ry="8.5" class="g-pupil"/>
+            <circle cx="65.5" cy="21" r="3" fill="white"/>
+            <circle cx="59.5" cy="29" r="1.5" fill="white" opacity=".5"/>
+            <ellipse cx="62" cy="25" rx="13" ry="13" class="eyelid g-eyelid"/>
+            <circle cx="98" cy="25" r="13" fill="white"/>
+            <circle cx="98" cy="25" r="9.5" class="g-iris"/>
+            <ellipse cx="98" cy="25" rx="3" ry="8.5" class="g-pupil"/>
+            <circle cx="101.5" cy="21" r="3" fill="white"/>
+            <circle cx="95.5" cy="29" r="1.5" fill="white" opacity=".5"/>
+            <ellipse cx="98" cy="25" rx="13" ry="13" class="eyelid eyelid-r g-eyelid"/>
+            <circle cx="76" cy="48" r="1.5" class="g-spot" opacity=".42"/>
+            <circle cx="84" cy="48" r="1.5" class="g-spot" opacity=".42"/>
+            <path id="mouth-h" d="M72 54 Q80 61 88 54" class="g-spot-s" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+            <path id="mouth-c" d="M73 57 Q80 53 87 57" class="g-spot-s" stroke-width="2" stroke-linecap="round" opacity=".55" style="display:none"/>
+            <g id="brows" style="display:none">
+              <path d="M55 13 L63 18" class="g-spot-s" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+              <path d="M105 13 L97 18" class="g-spot-s" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <p class="home-headline" id="home-headline"></p>
+      <div class="streak-pill" id="streak-pill" style="display:none">
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M6 1C6 1 9.5 4.5 9.5 7A3.5 3.5 0 0 1 2.5 7C2.5 5 4 3 6 1Z"/>
+        </svg>
+        <span id="streak-text"></span>
+      </div>
+      <div class="fact-card">
+        <div class="fact-lbl">Did you know</div>
+        <div class="fact-txt" id="fact-text"></div>
+      </div>
+    </div>
+
+    <div class="alert-strip" id="alert-strip"></div>
+    <div class="cards" id="cards"></div>
+    <div class="actions">
+      <button class="btn-main" id="btn-feed">Log feed</button>
+      <div class="btn-row">
+        <button class="btn-sec" id="btn-weigh">
+          <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" viewBox="0 0 20 20">
+            <path d="M10 3v13M6 16h8M4 6h12M4 6v5c0 .8 1.1 1.5 2.5 1.5S9 11.8 9 11V6M11 6v5c0 .8 1.1 1.5 2.5 1.5S16 11.8 16 11V6"/>
+          </svg>
+          Weigh
+        </button>
+        <button class="btn-sec" id="btn-shed">
+          <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" viewBox="0 0 20 20">
+            <path d="M4 10C4 5.5 9.5 3 13.5 5.5 17.5 8 17 14 12 15 8 16 5.5 13 6.5 10.5 7.5 8 11 8 12 10 13 12 11 14 9 13"/>
+          </svg>
+          Shed
+        </button>
+        <button class="btn-sec" id="btn-note">
+          <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" viewBox="0 0 20 20">
+            <path d="M13.5 3.5L16.5 6.5L7 16 3 17 4 13Z"/><path d="M11.5 5.5L14.5 8.5"/>
+          </svg>
+          Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOG -->
+  <div class="screen" id="s-log">
+    <div class="hdr"><span class="hdr-label">History</span></div>
+    <div id="log-list" class="log-list"></div>
+  </div>
+
+  <!-- WEIGHT -->
+  <div class="screen" id="s-weight">
+    <div class="hdr">
+      <span class="hdr-label">Weight</span>
+      <button class="hdr-add" id="btn-weigh2">+ Log weight</button>
+    </div>
+    <div class="wt-stats" id="wt-stats"></div>
+    <div class="chart-box">
+      <div class="chart-title">Weight (g) over time</div>
+      <svg id="wt-chart" height="160" viewBox="0 0 360 160"></svg>
+    </div>
+  </div>
+
+  <!-- GUIDE -->
+  <div class="screen" id="s-guide">
+    <div class="hdr"><span class="hdr-label">Care guide</span></div>
+    <div class="guide-wrap">
+      <div class="guide-sec">
+        <div class="guide-h">Not eating?</div>
+        <div class="guide-row"><div class="guide-q">Check first</div>Is she in pre-shed? Skin goes dull or dusty, eyes may cloud slightly. It is normal to refuse food 3–10 days during a shed — do not force feed.</div>
+        <div class="guide-row"><div class="guide-q">Check second</div>Temperatures correct? Warm hide floor <span class="warn">88–92°F (31–33°C)</span>, cool side <span class="warn">72–77°F (22–25°C)</span>. Too cold and she cannot digest — appetite disappears first.</div>
+        <div class="guide-row"><div class="guide-q">Check third</div>Any recent changes? New enclosure, rearranged décor, a new pet nearby. Leopard geckos need 1–2 weeks to settle after any disruption.</div>
+        <div class="guide-row"><div class="guide-q">When to act</div>Over <span class="danger">14 days</span> without eating, not in shed, no recent stressors, and weight is dropping — book a vet visit.</div>
+      </div>
+      <div class="guide-sec">
+        <div class="guide-h">Weight dropping?</div>
+        <div class="guide-row"><div class="guide-q">Under 8% loss</div><span class="ok">Watch closely.</span> Weigh every 3 days. Check temperatures and supplement schedule. Try a different feeder insect — dubia roaches often restart appetite.</div>
+        <div class="guide-row"><div class="guide-q">8–15% loss</div><span class="warn">Get a vet appointment.</span> Possible parasites, bacterial infection, or husbandry issue. Bring your full weight log.</div>
+        <div class="guide-row"><div class="guide-q">Over 15% loss</div><span class="danger">Vet urgently.</span> Possible cryptosporidiosis, severe parasites, or systemic illness. Do not wait.</div>
+      </div>
+      <div class="guide-sec">
+        <div class="guide-h">Stuck shed?</div>
+        <div class="guide-row"><div class="guide-q">Toes or tail tip</div>15–20 minute warm (not hot) water soak. Gently roll shed off with a damp cotton bud — never pull. A dark or purple toe means circulation is cut off: <span class="danger">vet today.</span></div>
+        <div class="guide-row"><div class="guide-q">Eye caps</div>Ensure a humid hide is available (damp moss in a small box). Soak again. If retained after the next shed, a vet visit is needed.</div>
+        <div class="guide-row"><div class="guide-q">Prevention</div>Always keep a humid hide — damp paper towel or moss in a small tupperware with an entry hole. Especially important the week before an expected shed.</div>
+      </div>
+      <div class="guide-sec">
+        <div class="guide-h">Supplements</div>
+        <div class="guide-row"><div class="guide-q">Plain calcium (no D3)</div>Under 12 months: every feed. Adult: every other feed. Dust lightly on feeder insects before offering.</div>
+        <div class="guide-row"><div class="guide-q">Calcium with D3</div>Under 12 months: twice a week. Adult: once a week. <span class="warn">Do not exceed this</span> — D3 is fat-soluble and toxic in high doses.</div>
+        <div class="guide-row"><div class="guide-q">Multivitamin</div>Once per week at any age, alternating with the calcium + D3 day.</div>
+      </div>
+      <div class="guide-sec">
+        <div class="guide-h">Go to the vet now</div>
+        <div class="guide-row"><span class="danger">Mucus from nose or mouth</span> — respiratory infection or mouth rot. Within 48 hours.</div>
+        <div class="guide-row"><span class="danger">Head tilting, wobbling, circling, or star-gazing</span> — neurological. Enigma morphs have higher risk; any morph warrants a vet visit.</div>
+        <div class="guide-row"><span class="danger">Bloody or very liquid stool with no urate</span> — possible cryptosporidiosis or severe infection.</div>
+        <div class="guide-row"><span class="danger">Swollen limbs, jaw, or distended belly</span> — possible metabolic bone disease, abscess, or egg-binding in females.</div>
+        <div class="guide-row"><span class="danger">Over 15% weight loss</span> — always warrants a same-week vet visit, no exceptions.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <button class="nav-b on" data-s="s-home">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.4 2 3.5 5.8 3.5 11c0 4 2.4 7.2 8.5 7.2S20.5 15 20.5 11C20.5 5.8 16.6 2 12 2Z"/><circle cx="8.5" cy="9.5" r="2.5" fill="white"/><ellipse cx="8.5" cy="9.5" rx="1" ry="2.2" fill="currentColor"/><circle cx="15.5" cy="9.5" r="2.5" fill="white"/><ellipse cx="15.5" cy="9.5" rx="1" ry="2.2" fill="currentColor"/><circle cx="10" cy="16.2" r=".75" fill="white" opacity=".55"/><circle cx="14" cy="16.2" r=".75" fill="white" opacity=".55"/></svg>
+      Home
+    </button>
+    <button class="nav-b" data-s="s-log">
+      <svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="14.5" cy="14" rx="5.5" ry="3.5"/><circle cx="7.5" cy="12" r="3"/><path d="M6 9.5L3 5.5M9 9.5L8.5 5.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M10.5 17L9 21M14 17.5V21.5M17.5 17L19.5 21" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M19.5 14L22.5 12.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+      Log
+    </button>
+    <button class="nav-b" data-s="s-weight">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 4v15M7 19h10M4 7h16"/><path d="M4 7v5c0 .9 1.1 1.5 2.5 1.5S9 12.9 9 12V7"/><path d="M15 7v5c0 .9 1.1 1.5 2.5 1.5S20 12.9 20 12V7"/></svg>
+      Weight
+    </button>
+    <button class="nav-b" data-s="s-guide">
+      <svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="17" rx="5" ry="4"/><circle cx="7" cy="10.5" r="2"/><circle cx="9.8" cy="7.8" r="2"/><circle cx="12.5" cy="7" r="2"/><circle cx="15.2" cy="7.8" r="2"/><circle cx="17" cy="10.5" r="2"/></svg>
+      Guide
+    </button>
+  </nav>
+</div>
+
+<!-- ── MODALS ── -->
+
+<!-- Feed -->
+<div class="overlay" id="m-feed"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Log a feed</div>
+  <button class="refused-tgl" id="refused-tgl">She refused to eat</button>
+  <div id="feed-fields">
+    <div class="field"><label class="f-label">What did you feed?</label><div class="chips" id="insect-chips"><button class="chip on" data-v="crickets">Crickets</button><button class="chip" data-v="dubia">Dubia roaches</button><button class="chip" data-v="mealworms">Mealworms</button><button class="chip" data-v="waxworms">Waxworms</button><button class="chip" data-v="other">Other</button></div></div>
+    <div class="field"><label class="f-label" for="feed-count">How many</label><input class="f-input" id="feed-count" type="number" min="1" max="99" placeholder="8" inputmode="numeric"></div>
+    <div class="field"><label class="f-label">Supplements given</label><div class="toggles" id="supp-tgls"><button class="tgl" data-v="calcium">Calcium</button><button class="tgl" data-v="d3">Calcium + D3</button><button class="tgl" data-v="multivit">Multivitamin</button></div></div>
+    <div class="field"><label class="f-label" for="feed-note">Note (optional)</label><input class="f-input" id="feed-note" type="text" placeholder="e.g. ate fast, left 2 behind…" autocomplete="off"></div>
+  </div>
+  <button class="btn-main" id="feed-save">Save</button>
+</div></div>
+
+<!-- Weight -->
+<div class="overlay" id="m-weight"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Log weight</div>
+  <div class="field"><label class="f-label" for="wt-g">Weight in grams</label><input class="f-input" id="wt-g" type="number" step="0.1" min="1" max="250" placeholder="62.5" inputmode="decimal"></div>
+  <div class="field"><label class="f-label">Tail condition</label>
+    <div class="bcs-grid" id="bcs-grid">
+      <button class="bcs-b" data-v="1"><span class="bcs-n">1</span><span class="bcs-l">Very thin</span></button>
+      <button class="bcs-b" data-v="2"><span class="bcs-n">2</span><span class="bcs-l">Thin</span></button>
+      <button class="bcs-b on" data-v="3"><span class="bcs-n">3</span><span class="bcs-l">Normal</span></button>
+      <button class="bcs-b" data-v="4"><span class="bcs-n">4</span><span class="bcs-l">Plump</span></button>
+      <button class="bcs-b" data-v="5"><span class="bcs-n">5</span><span class="bcs-l">Very fat</span></button>
+    </div>
+  </div>
+  <div class="field"><label class="f-label" for="wt-note">Note (optional)</label><input class="f-input" id="wt-note" type="text" placeholder="e.g. before meal, post shed…" autocomplete="off"></div>
+  <button class="btn-main" id="wt-save">Save</button>
+</div></div>
+
+<!-- Shed -->
+<div class="overlay" id="m-shed"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Shed log</div>
+  <div class="field"><label class="f-label">What happened?</label><div class="chips" id="shed-phase"><button class="chip on" data-v="started">Pre-shed started</button><button class="chip" data-v="complete">Shed complete</button></div></div>
+  <div id="shed-extra" style="display:none">
+    <div class="field"><label class="f-label">Any stuck shed?</label><div class="chips" id="stuck-chips"><button class="chip on" data-v="none">None — clean</button><button class="chip" data-v="toes">Toes</button><button class="chip" data-v="tail">Tail tip</button><button class="chip" data-v="eyes">Eye caps</button></div></div>
+  </div>
+  <div class="field"><label class="f-label" for="shed-note">Note (optional)</label><input class="f-input" id="shed-note" type="text" placeholder="e.g. needed a soak, toes all clear…" autocomplete="off"></div>
+  <button class="btn-main" id="shed-save">Save</button>
+</div></div>
+
+<!-- Note -->
+<div class="overlay" id="m-note"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Quick note</div>
+  <div class="field"><label class="f-label" for="note-text">What did you notice?</label><input class="f-input" id="note-text" type="text" placeholder="e.g. hiding more than usual, explored the cool side…" autocomplete="off"></div>
+  <button class="btn-main" id="note-save">Save</button>
+</div></div>
+
+<!-- Settings -->
+<div class="overlay" id="m-settings"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Settings</div>
+  <div class="field"><label class="f-label" for="s-name">Name</label><input class="f-input" id="s-name" type="text" autocomplete="off"></div>
+  <div class="field"><label class="f-label" for="s-dob">Birthday</label><input class="f-input" id="s-dob" type="date"></div>
+  <div class="field"><label class="f-label">Morph</label><div class="chips" id="s-morph"><button class="chip" data-v="normal">Normal</button><button class="chip" data-v="albino">Albino</button><button class="chip" data-v="enigma">Enigma</button><button class="chip" data-v="eclipse">Eclipse</button><button class="chip" data-v="blizzard">Blizzard</button><button class="chip" data-v="other">Other</button></div><div id="s-enigma-warn" class="enigma-warn" style="display:none"><strong>Enigma Syndrome.</strong> Head wobbling, circling, or star-gazing are neurological symptoms — not personality quirks. Monitor closely and keep a vet contact ready.</div></div>
+  <div class="field"><label class="f-label">Sex</label><div class="chips" id="s-sex"><button class="chip" data-v="female">Female</button><button class="chip" data-v="male">Male</button><button class="chip" data-v="unknown">Unknown</button></div></div>
+  <button class="btn-main" id="s-save">Save changes</button>
+  <div class="divider"></div>
+  <button class="link-btn" id="btn-customize">Customize appearance</button>
+  <button class="link-btn" id="btn-ai">AI health analysis</button>
+  <button class="link-btn" id="btn-export">Export data</button>
+  <div class="divider"></div>
+  <div class="field"><label class="f-label" for="s-aikey">Gemini API key</label><input class="f-input" id="s-aikey" type="password" placeholder="AIza…" autocomplete="off" spellcheck="false"></div>
+  <button class="link-btn danger" id="s-reset">Reset all data</button>
+</div></div>
+
+<!-- Customize -->
+<div class="overlay" id="m-customize"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Customize her look.</div>
+  <div class="cg-wrap" id="cg-wrap">
+    <svg class="cg-illo" id="cg-illo" viewBox="0 0 160 148" fill="none" aria-hidden="true">
+      <ellipse cx="80" cy="146" rx="44" ry="5" class="g-body" opacity=".16"/>
+      <g class="gecko-breathe">
+        <path d="M58 120 C50 132 52 144 80 147 C108 144 110 132 102 120Z" class="g-mid"/>
+        <path d="M38 70 C36 48 80 42 80 42C80 42 124 48 122 70L120 118C118 130 80 132 80 132C80 132 42 130 40 118Z" class="g-body"/>
+        <circle cx="62" cy="82" r="7" class="g-spot" opacity=".3"/><circle cx="98" cy="78" r="6" class="g-spot" opacity=".3"/><circle cx="69" cy="104" r="5.5" class="g-spot" opacity=".3"/><circle cx="92" cy="110" r="6" class="g-spot" opacity=".3"/>
+        <path d="M42 76 C28 73 18 82 15 92" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+        <path d="M118 76 C132 73 142 82 145 92" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+        <path d="M44 118 C26 122 18 134 16 142" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+        <path d="M116 118 C134 122 142 134 144 142" class="g-mid-s" stroke-width="11" stroke-linecap="round"/>
+        <ellipse cx="80" cy="30" rx="32" ry="26" class="g-body"/>
+        <circle cx="62" cy="25" r="13" fill="white"/><circle cx="62" cy="25" r="9.5" class="g-iris"/><ellipse cx="62" cy="25" rx="3" ry="8.5" class="g-pupil"/><circle cx="65.5" cy="21" r="3" fill="white"/>
+        <ellipse cx="62" cy="25" rx="13" ry="13" class="eyelid g-eyelid"/>
+        <circle cx="98" cy="25" r="13" fill="white"/><circle cx="98" cy="25" r="9.5" class="g-iris"/><ellipse cx="98" cy="25" rx="3" ry="8.5" class="g-pupil"/><circle cx="101.5" cy="21" r="3" fill="white"/>
+        <ellipse cx="98" cy="25" rx="13" ry="13" class="eyelid eyelid-r g-eyelid"/>
+        <path d="M72 54 Q80 61 88 54" class="g-spot-s" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+      </g>
+    </svg>
+  </div>
+  <div class="swatch-sec">
+    <div class="swatch-lbl">Eyes</div>
+    <div class="swatch-grid" id="iris-swatches"></div>
+  </div>
+  <div class="swatch-sec">
+    <div class="swatch-lbl">Body</div>
+    <div class="swatch-grid" id="body-swatches"></div>
+  </div>
+  <div class="swatch-sec">
+    <div class="swatch-lbl">Markings</div>
+    <div class="swatch-grid cols-6" id="spot-swatches"></div>
+  </div>
+  <button class="btn-main" id="custom-save">Save appearance</button>
+  <div class="divider"></div>
+  <button class="link-btn" id="custom-reset">Reset to morph defaults</button>
+</div></div>
+
+<!-- AI -->
+<div class="overlay" id="m-ai"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">AI health check.</div>
+  <div id="ai-idle">
+    <div class="ai-key-hint" id="ai-no-key" style="display:none">No Gemini API key found.<br>Add it in Settings to enable this feature.</div>
+    <div id="ai-ready" style="display:none">
+      <p class="ai-data-lbl">Sends the last 60 days of feeds, weights, sheds, and notes to Gemini 2.0 Flash. Your key never leaves your device — the request goes directly from your phone to Google.</p>
+      <button class="btn-main" id="ai-go">Analyse health data</button>
+    </div>
+  </div>
+  <div id="ai-loading" class="ai-status" style="display:none">
+    <div class="ai-thinking"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>
+    <div class="ai-status-lbl">Asking Gemini…</div>
+  </div>
+  <div id="ai-result" style="display:none">
+    <div class="ai-response" id="ai-response-text"></div>
+    <div class="ai-meta" id="ai-model-lbl"></div>
+    <div style="height:.75rem"></div>
+    <button class="btn-main" id="ai-rerun">Run again</button>
+  </div>
+</div></div>
+
+<script>
+// ── DATA ──
+const KEY='gecko_v1';
+const empty=(n,dob,morph,sex)=>({gecko:{name:n||'',dob:dob||'',morph:morph||'normal',sex:sex||'female',photo:null,custom:{}},feeds:[],weights:[],sheds:[],notes:[]});
+let db=(()=>{try{const d=JSON.parse(localStorage.getItem(KEY));if(d){if(!d.gecko.custom)d.gecko.custom={};return d}return null}catch{return null}})();
+function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function toDay(){return new Date().toISOString().slice(0,10)}
+function daysBetween(a,b){return Math.floor((new Date(b)-new Date(a))/86400000)}
+function monthsOld(dob){if(!dob)return 18;const d=new Date(dob),n=new Date();return(n.getFullYear()-d.getFullYear())*12+(n.getMonth()-d.getMonth())}
+function fmtDate(iso){if(!iso)return'';return new Date(iso).toLocaleDateString('en-MY',{day:'numeric',month:'short',year:'numeric'})}
+function relDate(iso){const d=daysBetween(iso,toDay());if(d===0)return'today';if(d===1)return'yesterday';return`${d} days ago`}
+function prevDayStr(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+
+// ── COLOR UTILS ──
+function darkenHex(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`#${Math.floor(r*a).toString(16).padStart(2,'0')}${Math.floor(g*a).toString(16).padStart(2,'0')}${Math.floor(b*a).toString(16).padStart(2,'0')}`}
+function hexToRgba(hex,alpha){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`rgba(${r},${g},${b},${alpha})`}
+
+// ── MORPH COLORS ──
+const MORPH={
+  normal:  {body:'#e8c84a',spot:'#8b6914',iris:'#c8941a',pupil:'#1f1a12'},
+  albino:  {body:'#f5e8b8',spot:'#b89830',iris:'#d46060',pupil:'#6b1414'},
+  enigma:  {body:'#d8c040',spot:'#786810',iris:'#c8941a',pupil:'#1f1a12'},
+  eclipse: {body:'#e8c84a',spot:'#8b6914',iris:'#2a2520',pupil:'#0f0c08'},
+  blizzard:{body:'#eeead8',spot:'#b4b0a0',iris:'#d09090',pupil:'#4a1414'},
+  other:   {body:'#e8c84a',spot:'#8b6914',iris:'#c8941a',pupil:'#1f1a12'},
+};
+
+// ── SWATCH OPTIONS ──
+const IRIS_OPTS=[
+  {l:'Amber',  iris:'#c8941a',pupil:'#1f1a12'},
+  {l:'Golden', iris:'#d4a830',pupil:'#1f1a12'},
+  {l:'Ruby',   iris:'#b83030',pupil:'#3a0808'},
+  {l:'Coal',   iris:'#2a2520',pupil:'#0f0c08'},
+  {l:'Forest', iris:'#3a7840',pupil:'#0a180a'},
+  {l:'Azure',  iris:'#3878b4',pupil:'#0a1828'},
+  {l:'Violet', iris:'#7858a8',pupil:'#180c28'},
+  {l:'Rose',   iris:'#c46878',pupil:'#3a0818'},
+];
+const BODY_OPTS=[
+  {l:'Honey',  color:'#e8c84a'},
+  {l:'Butter', color:'#f0e090'},
+  {l:'Cream',  color:'#f5e8b8'},
+  {l:'Snow',   color:'#eeead8'},
+  {l:'Peach',  color:'#e8a870'},
+  {l:'Sage',   color:'#b8c870'},
+  {l:'Dusk',   color:'#c8b870'},
+  {l:'Ghost',  color:'#e0dcd0'},
+];
+const SPOT_OPTS=[
+  {l:'Walnut',    color:'#8b6914'},
+  {l:'Espresso',  color:'#4a3010'},
+  {l:'Terracotta',color:'#7a3820'},
+  {l:'Olive',     color:'#506814'},
+  {l:'Ash',       color:'#8a8470'},
+  {l:'Charcoal',  color:'#484038'},
+];
+
+// ── FACTS ──
+const FACTS=[
+  "Leopard geckos store fat reserves in their tail — a plump tail means she is healthy and well-fed.",
+  "Unlike most gecko species, leopard geckos have true moveable eyelids. They can fully blink.",
+  "In captivity, well-cared-for leopard geckos commonly live 15–20 years.",
+  "After shedding, geckos typically eat their old skin within minutes — it is a source of protein and minerals.",
+  "Leopard geckos are crepuscular — most active at dusk and dawn, not deep in the night.",
+  "They regulate body temperature by moving between warm and cool zones of their enclosure.",
+  "A dull, dusty appearance signals the start of pre-shed — usually 1–2 weeks before the shed itself.",
+  "Dubia roaches are one of the best feeder insects: nutritious, cannot climb smooth glass, and do not drown or chirp.",
+  "Plain calcium (no D3) should be dusted on almost every feeding — it is essential for bone development.",
+  "Never house two male leopard geckos together. They will fight, often causing serious injury.",
+  "Leopard geckos do not have sticky toe pads like most gecko species — they evolved for dry, rocky scrubland.",
+  "A small humid hide prevents most stuck shed issues entirely. Damp moss in a plastic box with an entry hole is all you need.",
+  "The warm hide floor temperature should be 88–92°F measured at floor level — too cool and digestion slows.",
+  "Geckos can recognise their owner's scent over time. Calm, consistent handling builds genuine trust.",
+  "Tail autotomy — deliberate self-amputation when threatened — is possible. The tail regrows, but looks different.",
+];
+function getDailyFact(){return FACTS[Math.floor(Date.now()/86400000)%FACTS.length]}
+
+// ── ALERT LOGIC ──
+function feedWindow(m){return m<4?1:m<12?2:3}
+function inShed(){const s=db.sheds;return s.length&&s[s.length-1].phase==='started'}
+function feedStatus(){
+  const feeds=db.feeds.filter(f=>!f.refused);
+  if(!feeds.length)return{level:'none',days:null,msg:null};
+  const last=feeds[feeds.length-1],days=daysBetween(last.date,toDay());
+  const win=feedWindow(monthsOld(db.gecko.dob)),shed=inShed(),name=db.gecko.name||'She';
+  if(shed){return days<=10?{level:'ok',days,msg:null}:{level:'amber',days,msg:`${name} is in shed but has not eaten in ${days} days — keep an eye on her weight.`}}
+  if(days<=win)return{level:'ok',days,msg:null};
+  if(days<=win+3)return{level:'amber',days,msg:`${name} last ate ${days} days ago. Offer food today.`};
+  if(days<=14)return{level:'amber',days,msg:`${days} days without eating. Try a different feeder — dubia roaches often restart appetite.`};
+  return{level:'red',days,msg:`${days} days without eating. If she is not in shed, book a vet visit — especially if weight is dropping.`};
+}
+function weightStatus(){
+  const w=db.weights;if(w.length<2)return{level:'ok',change:0};
+  const r=w.slice(-4),o=r[0].grams,n=r[r.length-1].grams,c=n-o;
+  return c/o*100<-15?{level:'red',change:c}:c/o*100<-8?{level:'amber',change:c}:{level:'ok',change:c};
+}
+function feedStreak(){
+  const feeds=db.feeds.filter(f=>!f.refused);if(!feeds.length)return 0;
+  const win=feedWindow(monthsOld(db.gecko.dob)),last=feeds[feeds.length-1];
+  if(daysBetween(last.date,toDay())>win+2)return 0;
+  let s=1;
+  for(let i=feeds.length-1;i>=1;i--){if(daysBetween(feeds[i-1].date,feeds[i].date)<=win+2)s++;else break}
+  return s;
+}
+
+// ── APPLY MORPH / CUSTOM COLORS ──
+function resolveColors(){
+  const base=MORPH[db.gecko.morph]||MORPH.normal;
+  const c=db.gecko.custom||{};
+  const body=c.body||base.body;
+  return{body,mid:darkenHex(body,.82),spot:c.spot||base.spot,iris:c.iris||base.iris,pupil:c.pupil||base.pupil};
+}
+function applyColors(iloEl,wrapEl){
+  const co=resolveColors();
+  iloEl.style.setProperty('--g-body',co.body);
+  iloEl.style.setProperty('--g-mid',co.mid);
+  iloEl.style.setProperty('--g-spot',co.spot);
+  iloEl.style.setProperty('--g-iris',co.iris);
+  iloEl.style.setProperty('--g-pupil',co.pupil);
+  if(wrapEl)wrapEl.style.setProperty('--g-aura',hexToRgba(co.body,.28));
+}
+function applyMorphPreview(morph,iloEl){
+  const base=MORPH[morph]||MORPH.normal,body=base.body;
+  iloEl.style.setProperty('--g-body',body);
+  iloEl.style.setProperty('--g-mid',darkenHex(body,.82));
+  iloEl.style.setProperty('--g-spot',base.spot);
+  iloEl.style.setProperty('--g-iris',base.iris);
+  iloEl.style.setProperty('--g-pupil',base.pupil);
+}
+
+// ── MOOD ──
+function setMood(level){
+  const illo=document.getElementById('gecko-illo');
+  const mh=document.getElementById('mouth-h'),mc=document.getElementById('mouth-c'),br=document.getElementById('brows');
+  illo.classList.remove('concern','alarm');
+  if(level==='ok'||level==='none'){mh.style.display='';mc.style.display='none';br.style.display='none'}
+  else{illo.classList.add(level==='red'?'alarm':'concern');mh.style.display='none';mc.style.display='';br.style.display=''}
+}
+
+// ── HEADLINE ──
+function getHeadline(fs){
+  const n=db.gecko.name||'She';
+  if(fs.level==='none')return`Start logging to track <b>${n}'s</b> health.`;
+  if(fs.level==='ok'&&fs.days===0)return`<b>${n}</b> ate today. Good work.`;
+  if(fs.level==='ok'&&fs.days===1)return`<b>${n}</b> ate yesterday. She is doing well.`;
+  if(fs.level==='ok')return`<b>${n}</b> is on track.`;
+  if(inShed())return`<b>${n}</b> is shedding — skipping meals is normal right now.`;
+  if(fs.level==='amber')return`Time to offer <b>${n}</b> some food.`;
+  if(fs.level==='red')return`<b>${n}</b> needs your attention.`;
+  return`Tracking <b>${n}'s</b> health.`;
+}
+
+// ── HAPTIC / TOAST ──
+function haptic(ms=10){try{navigator.vibrate&&navigator.vibrate(ms)}catch{}}
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;
+  t.classList.remove('show');void t.offsetWidth;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+// ── PHOTO ──
+function renderPhotoSlot(){
+  const g=db.gecko,img=document.getElementById('photo-img'),ph=document.getElementById('photo-ph'),cl=document.getElementById('photo-clear');
+  if(g.photo){img.src=g.photo;img.style.display='';ph.style.display='none';cl.classList.add('visible')}
+  else{img.style.display='none';ph.style.display='';ph.textContent=(g.name||'g')[0].toLowerCase();cl.classList.remove('visible')}
+}
+
+// ── ICONS ──
+const ICONS={
+  cricket:`<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><ellipse cx="14.5" cy="14" rx="5.5" ry="3.5"/><circle cx="7.5" cy="12" r="3"/><path d="M6 9.5L3 5.5M9 9.5L8.5 5.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M10.5 17L9 21M14 17.5V21.5M17.5 17L19.5 21" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+  scale:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" width="18" height="18"><path d="M12 4v15M7 19h10M4 7h16M4 7v5c0 .9 1.1 1.5 2.5 1.5S9 12.9 9 12V7M15 7v5c0 .9 1.1 1.5 2.5 1.5S20 12.9 20 12V7"/></svg>`,
+  shed:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" width="18" height="18"><path d="M4 10C4 5.5 9.5 3 13.5 5.5 17.5 8 17 14 12 15 8 16 5.5 13 6.5 10.5 7.5 8 11 8 12 10 13 12 11 14 9 13"/></svg>`,
+  note:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" width="18" height="18"><path d="M13.5 3.5L16.5 6.5L7 16 3 17 4 13Z"/><path d="M11.5 5.5L14.5 8.5"/></svg>`,
+};
+const cLabel=(icon,text)=>`<div class="c-label">${ICONS[icon]||''} ${text}</div>`;
+
+// ── RENDER HOME ──
+function renderHome(){
+  const g=db.gecko;
+  applyColors(document.getElementById('gecko-illo'),document.getElementById('gecko-wrap'));
+  renderPhotoSlot();
+  document.getElementById('gname').textContent=g.name||'gecko.';
+  const age=monthsOld(g.dob);
+  let ageStr='';
+  if(g.dob)ageStr=age<12?`${age}mo`:`${Math.floor(age/12)}yr ${age%12}mo`;
+  document.getElementById('gmeta').textContent=[ageStr,g.morph&&g.morph!=='normal'&&g.morph!=='other'?g.morph:'',g.sex&&g.sex!=='unknown'?g.sex:''].filter(Boolean).join(' · ');
+  const fs=feedStatus(),ws=weightStatus();
+  const worst=fs.level==='red'||ws.level==='red'?'red':fs.level==='amber'||ws.level==='amber'?'amber':'ok';
+  setMood(fs.level==='none'?'none':worst);
+  const wrap=document.getElementById('gecko-wrap');
+  wrap.classList.remove('concern','alarm');
+  if(worst==='amber')wrap.classList.add('concern');
+  if(worst==='red')wrap.classList.add('alarm');
+  document.getElementById('home-headline').innerHTML=getHeadline(fs);
+  document.getElementById('fact-text').textContent=getDailyFact();
+  const streak=feedStreak(),sp=document.getElementById('streak-pill');
+  if(streak>=2){sp.style.display='';document.getElementById('streak-text').textContent=`${streak}-feed streak`}else sp.style.display='none';
+  const strip=document.getElementById('alert-strip');
+  const msg=fs.msg||(ws.level!=='ok'&&ws.change?`Weight has dropped ${Math.abs(ws.change).toFixed(1)}g recently — watch for continued decline.`:null);
+  if(msg){const lvl=fs.level==='red'||ws.level==='red'?'red':'amber';strip.className=`alert-strip show ${lvl}`;strip.innerHTML=`<strong>${lvl==='red'?'Heads up — ':'Watch — '}</strong>${msg}`}
+  else strip.className='alert-strip';
+  document.getElementById('btn-feed').classList.toggle('overdue',fs.level==='amber'||fs.level==='red');
+  const feeds=db.feeds.filter(f=>!f.refused),lastFeed=feeds[feeds.length-1];
+  const lastWt=db.weights[db.weights.length-1],lastShed=db.sheds.filter(s=>s.phase==='complete').pop(),shed=inShed();
+  let html='';
+  if(lastFeed){const days=daysBetween(lastFeed.date,toDay()),nc=fs.level==='red'?'alrt':fs.level==='amber'?'warn':'',nc2=fs.level==='red'?'alrt':fs.level==='amber'?'warn':days===0?'ok':'';html+=`<div class="card${nc?' '+nc:''}">${cLabel('cricket','Last fed')}<div class="c-num ${nc2}">${days}</div><div class="c-sub">${days===0?'today':days===1?'day ago':'days ago'}<br><b>${lastFeed.insect||'fed'}${lastFeed.calcium?' · calcium':''}${lastFeed.d3?' · D3':''}</b></div>${shed?'<span class="c-tag tag-shed">in shed</span>':''}</div>`}
+  else html+=`<div class="card">${cLabel('cricket','Last fed')}<div class="c-num dim">—</div><div class="c-sub">no feeds yet</div></div>`;
+  if(lastWt){const nc=ws.level==='red'?'alrt':ws.level==='amber'?'warn':'',nc2=ws.level==='red'?'alrt':ws.level==='amber'?'warn':'ok',tr=ws.change>0?`↑ +${ws.change.toFixed(1)}g`:ws.change<0?`↓ ${ws.change.toFixed(1)}g`:'→ stable';html+=`<div class="card${nc?' '+nc:''}">${cLabel('scale','Weight')}<div class="c-num ${nc2}">${lastWt.grams}g</div><div class="c-sub">${relDate(lastWt.date)}<br><b>${db.weights.length>1?tr:'first reading'}</b></div></div>`}
+  else html+=`<div class="card">${cLabel('scale','Weight')}<div class="c-num dim">—</div><div class="c-sub">not logged yet</div></div>`;
+  if(shed){const sS=db.sheds.filter(s=>s.phase==='started').pop(),d=sS?daysBetween(sS.date,toDay()):0;html+=`<div class="card full warn">${cLabel('shed','Shed')}<div class="c-num warn">${d}</div><div class="c-sub">${d===1?'day':'days'} in shed<br><b>Normal to skip meals now</b></div><span class="c-tag tag-shed">currently shedding</span></div>`}
+  else if(lastShed){const d=daysBetween(lastShed.date,toDay());html+=`<div class="card full">${cLabel('shed','Last shed')}<div class="c-num ok" style="font-size:1rem;font-style:normal;font-family:var(--mono)">${fmtDate(lastShed.date)}</div><div class="c-sub">${d} days ago${lastShed.stuck&&lastShed.stuck!=='none'?` · stuck: ${lastShed.stuck}`:' · clean shed'}</div></div>`}
+  else html+=`<div class="card full">${cLabel('shed','Last shed')}<div class="c-num dim">—</div><div class="c-sub">log when she starts pre-shed</div></div>`;
+  document.getElementById('cards').innerHTML=html;
+}
+
+// ── RENDER LOG ──
+function renderLog(){
+  const all=[...db.feeds.map(f=>({...f,_t:'feed'})),...db.weights.map(w=>({...w,_t:'weight'})),...db.sheds.map(s=>({...s,_t:'shed'})),...db.notes.map(n=>({...n,_t:'note'}))].sort((a,b)=>new Date(b.ts||b.date)-new Date(a.ts||a.date));
+  const el=document.getElementById('log-list');
+  if(!all.length){el.innerHTML=`<div class="empty"><svg class="empty-art" viewBox="0 0 160 148" fill="none"><path d="M58 120 C50 132 52 144 80 147C108 144 110 132 102 120Z" fill="#c8a030" opacity=".3"/><path d="M38 70 C36 48 80 42 80 42C80 42 124 48 122 70L120 118C118 130 80 132 80 132C80 132 42 130 40 118Z" fill="#e8c84a" opacity=".3"/><circle cx="62" cy="25" r="13" fill="white" opacity=".4"/><circle cx="98" cy="25" r="13" fill="white" opacity=".4"/></svg><div class="empty-t">Nothing logged yet.<br>Start by logging her first feed.</div></div>`;return}
+  const groups={};all.forEach(e=>{const d=(e.ts||e.date||'').slice(0,10);if(!groups[d])groups[d]=[];groups[d].push(e)});
+  let html='';
+  Object.keys(groups).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
+    const lbl=date===toDay()?'Today':date===prevDayStr(-1)?'Yesterday':fmtDate(date);
+    html+=`<div class="log-day">${lbl}</div>`;
+    groups[date].forEach(e=>{
+      const delBtn=`<button class="log-del" data-id="${e.id}" data-type="${e._t}" aria-label="Delete entry"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg></button>`;
+      if(e._t==='feed'){const ref=e.refused,det=ref?'Refused to eat':`${e.insect||'feed'}${e.count?` × ${e.count}`:''}${e.calcium?' · calcium':''}${e.d3?' · D3':''}${e.multivit?' · multivit':''}`;html+=`<div class="log-item li-feed"><div class="log-icon">${ICONS.cricket}</div><div class="log-body"><div class="log-type">Feed</div><div class="log-detail${ref?' refused':''}">${det}</div>${e.notes?`<div class="log-note">${e.notes}</div>`:''}</div>${delBtn}</div>`}
+      else if(e._t==='weight'){html+=`<div class="log-item li-weight"><div class="log-icon">${ICONS.scale}</div><div class="log-body"><div class="log-type">Weight</div><div class="log-detail">${e.grams}g${e.bcs?` · tail ${e.bcs}/5`:''}</div>${e.notes?`<div class="log-note">${e.notes}</div>`:''}</div>${delBtn}</div>`}
+      else if(e._t==='shed'){const det=e.phase==='started'?'Pre-shed started':`Shed complete${e.stuck&&e.stuck!=='none'?` — stuck: ${e.stuck}`:' — clean'}`;html+=`<div class="log-item li-shed"><div class="log-icon">${ICONS.shed}</div><div class="log-body"><div class="log-type">Shed</div><div class="log-detail">${det}</div>${e.notes?`<div class="log-note">${e.notes}</div>`:''}</div>${delBtn}</div>`}
+      else html+=`<div class="log-item li-note"><div class="log-icon">${ICONS.note}</div><div class="log-body"><div class="log-type">Note</div><div class="log-detail">${e.text}</div></div>${delBtn}</div>`;
+    });
+  });
+  el.innerHTML=html;
+}
+
+// Log delete delegation
+document.getElementById('log-list').addEventListener('click',e=>{
+  const btn=e.target.closest('.log-del');if(!btn)return;
+  const {id,type}=btn.dataset;
+  if(!confirm('Delete this entry?'))return;
+  const map={feed:db.feeds,weight:db.weights,shed:db.sheds,note:db.notes};
+  const arr=map[type];if(!arr)return;
+  const idx=arr.findIndex(x=>x.id===id);if(idx!==-1)arr.splice(idx,1);
+  persist();renderLog();renderHome();haptic();
+  if(type==='weight'&&activeScreen==='s-weight')renderWeight();
+  toast('Entry deleted.');
+});
+
+// ── RENDER WEIGHT (smooth bezier curve) ──
+function renderWeight(){
+  const wts=db.weights,statsEl=document.getElementById('wt-stats'),svg=document.getElementById('wt-chart');
+  if(!wts.length){
+    statsEl.innerHTML=`<div class="wt-stat"><div class="wts-val" style="color:var(--ink3);font-size:1.2rem;font-style:normal;font-family:var(--mono)">—</div><div class="wts-label">Current</div></div><div class="wt-stat"><div class="wts-val" style="color:var(--ink3);font-size:1.2rem;font-style:normal;font-family:var(--mono)">—</div><div class="wts-label">Trend</div></div><div class="wt-stat"><div class="wts-val" style="color:var(--ink3);font-size:1.2rem;font-style:normal;font-family:var(--mono)">—</div><div class="wts-label">Average</div></div>`;
+    svg.innerHTML=`<text x="180" y="80" text-anchor="middle" fill="#c4b49e" font-family="Figtree,sans-serif" font-size="13">No weight data yet</text><text x="180" y="102" text-anchor="middle" fill="#c4b49e" font-family="Figtree,sans-serif" font-size="11">Tap + Log weight above to start</text>`;
+    return;
+  }
+  const last=wts[wts.length-1],ws=weightStatus();
+  const tc=ws.level==='red'?'red':ws.level==='amber'?'amber':'green';
+  const tv=ws.change>0?`+${ws.change.toFixed(1)}g`:ws.change<0?`${ws.change.toFixed(1)}g`:'—';
+  const avg=wts.length>1?(wts.reduce((s,w)=>s+w.grams,0)/wts.length).toFixed(1):'—';
+  statsEl.innerHTML=`<div class="wt-stat"><div class="wts-val green">${last.grams}g</div><div class="wts-label">Current</div></div><div class="wt-stat"><div class="wts-val ${tc}">${tv}</div><div class="wts-label">Trend</div></div><div class="wt-stat"><div class="wts-val">${avg}g</div><div class="wts-label">Average</div></div>`;
+  if(wts.length<2){svg.innerHTML=`<text x="180" y="88" text-anchor="middle" fill="#c4b49e" font-family="Figtree,sans-serif" font-size="13">Add a second reading to see chart</text>`;return}
+  const W=360,H=160,pt=22,pb=28,pl=8,pr=8;
+  const grams=wts.map(w=>w.grams),mn=Math.min(...grams)*.97,mx=Math.max(...grams)*1.03;
+  const px=i=>pl+(i/(wts.length-1))*(W-pl-pr);
+  const py=g=>pt+(1-(g-mn)/(mx-mn))*(H-pt-pb);
+  const pts=wts.map((w,i)=>[px(i),py(w.grams)]);
+  // Smooth bezier path
+  let line=`M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+  for(let i=1;i<pts.length;i++){const cpx=(pts[i-1][0]+pts[i][0])/2;line+=` C${cpx.toFixed(1)},${pts[i-1][1].toFixed(1)} ${cpx.toFixed(1)},${pts[i][1].toFixed(1)} ${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)}`}
+  const area=`${line} L${pts[pts.length-1][0].toFixed(1)},${(H-pb).toFixed(1)} L${pts[0][0].toFixed(1)},${(H-pb).toFixed(1)}Z`;
+  // Grid lines
+  const gridY=[.25,.5,.75].map(t=>pt+(1-t)*(H-pt-pb));
+  let s=`<defs><linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8c547" stop-opacity=".18"/><stop offset="100%" stop-color="#e8c547" stop-opacity="0"/></linearGradient></defs>`;
+  gridY.forEach(y=>s+=`<line x1="${pl}" y1="${y.toFixed(1)}" x2="${W-pr}" y2="${y.toFixed(1)}" stroke="rgba(31,26,18,.04)" stroke-width="1"/>`);
+  s+=`<path d="${area}" fill="url(#wg)"/><path d="${line}" fill="none" stroke="#c8a030" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const show=wts.slice(-6),off=wts.length-show.length;
+  show.forEach((w,ii)=>{const i=ii+off,x=px(i).toFixed(1),y=py(w.grams).toFixed(1);s+=`<circle cx="${x}" cy="${y}" r="3.5" fill="#c8a030"/>`;s+=`<text x="${x}" y="${(parseFloat(y)-9).toFixed(1)}" text-anchor="middle" fill="#8b6914" font-family="DM Mono,monospace" font-size="10" font-weight="500">${w.grams}g</text>`});
+  s+=`<text x="${px(0).toFixed(1)}" y="${H-8}" text-anchor="start" fill="#c4b49e" font-family="DM Mono,monospace" font-size="9">${fmtDate(wts[0].date)}</text>`;
+  s+=`<text x="${px(wts.length-1).toFixed(1)}" y="${H-8}" text-anchor="end" fill="#c4b49e" font-family="DM Mono,monospace" font-size="9">${fmtDate(wts[wts.length-1].date)}</text>`;
+  svg.innerHTML=s;
+}
+
+// ── NAV ──
+let activeScreen='s-home';
+document.querySelectorAll('.nav-b').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const t=btn.dataset.s;if(!t||t===activeScreen)return;
+    document.getElementById(activeScreen).classList.remove('active');
+    document.querySelectorAll('.nav-b').forEach(b=>b.classList.remove('on'));
+    document.getElementById(t).classList.add('active');btn.classList.add('on');activeScreen=t;
+    if(t==='s-log')renderLog();if(t==='s-weight')renderWeight();if(t==='s-home')renderHome();
+  });
+});
+
+// ── MODALS ──
+function openM(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
+function closeM(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
+document.querySelectorAll('.overlay').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)closeM(el.id)}));
+
+// Swipe-to-dismiss
+document.querySelectorAll('.overlay').forEach(ov=>{
+  const sh=ov.querySelector('.sheet');let sy=0,sTop=0;
+  sh.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;sTop=sh.scrollTop},{passive:true});
+  sh.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sy>80&&sTop<4)closeM(ov.id)},{passive:true});
+});
+
+// ── CHIPS / TOGGLES ──
+function initChips(wrap){wrap.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{wrap.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on')}))}
+function chipVal(wrap){return wrap.querySelector('.chip.on')?.dataset.v||null}
+function initToggles(wrap){wrap.querySelectorAll('.tgl').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on')))}
+function tglVals(wrap){return[...wrap.querySelectorAll('.tgl.on')].map(t=>t.dataset.v)}
+
+// ── SWATCHES ──
+function buildSwatches(containerId,opts,type){
+  const c=document.getElementById(containerId);c.innerHTML='';
+  opts.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='swatch';btn.style.background=opt.iris||opt.color;btn.title=opt.l;
+    btn.innerHTML=`<svg class="swatch-check" viewBox="0 0 12 12" width="12" height="12"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    btn.addEventListener('click',()=>{
+      const wasOn=btn.classList.contains('on');
+      c.querySelectorAll('.swatch').forEach(s=>s.classList.remove('on'));
+      if(!wasOn){
+        btn.classList.add('on');
+        if(type==='iris'){tempCustom.iris=opt.iris;tempCustom.pupil=opt.pupil}
+        if(type==='body')tempCustom.body=opt.color;
+        if(type==='spot')tempCustom.spot=opt.color;
+      } else {
+        if(type==='iris'){delete tempCustom.iris;delete tempCustom.pupil}
+        if(type==='body')delete tempCustom.body;
+        if(type==='spot')delete tempCustom.spot;
+      }
+      updateCgPreview();haptic();
+    });
+    c.appendChild(btn);
+  });
+}
+let tempCustom={};
+function syncSwatches(){
+  document.querySelectorAll('#iris-swatches .swatch').forEach((s,i)=>s.classList.toggle('on',IRIS_OPTS[i]&&IRIS_OPTS[i].iris===tempCustom.iris));
+  document.querySelectorAll('#body-swatches .swatch').forEach((s,i)=>s.classList.toggle('on',BODY_OPTS[i]&&BODY_OPTS[i].color===tempCustom.body));
+  document.querySelectorAll('#spot-swatches .swatch').forEach((s,i)=>s.classList.toggle('on',SPOT_OPTS[i]&&SPOT_OPTS[i].color===tempCustom.spot));
+}
+function updateCgPreview(){
+  const base=MORPH[db.gecko.morph]||MORPH.normal;
+  const body=tempCustom.body||base.body;
+  const cg=document.getElementById('cg-illo'),cgw=document.getElementById('cg-wrap');
+  cg.style.setProperty('--g-body',body);
+  cg.style.setProperty('--g-mid',darkenHex(body,.82));
+  cg.style.setProperty('--g-spot',tempCustom.spot||base.spot);
+  cg.style.setProperty('--g-iris',tempCustom.iris||base.iris);
+  cg.style.setProperty('--g-pupil',tempCustom.pupil||base.pupil);
+  cgw.style.setProperty('--g-aura',hexToRgba(body,.28));
+}
+
+// ── ONBOARDING ──
+const obEl=document.getElementById('onboard'),appEl=document.getElementById('app');
+initChips(document.getElementById('ob-morph'));
+initChips(document.getElementById('ob-sex'));
+document.getElementById('ob-morph').addEventListener('click',e=>{
+  const v=e.target.dataset.v;if(!v)return;
+  document.getElementById('enigma-warn').style.display=v==='enigma'?'block':'none';
+  applyMorphPreview(v,document.getElementById('ob-illo'));
+});
+if(db){obEl.classList.add('done');appEl.hidden=false;renderHome()}else{db=empty()}
+document.getElementById('ob-go').addEventListener('click',()=>{
+  const name=document.getElementById('ob-name').value.trim()||'gecko';
+  const dob=document.getElementById('ob-dob').value;
+  const morph=chipVal(document.getElementById('ob-morph'))||'normal';
+  const sex=chipVal(document.getElementById('ob-sex'))||'female';
+  db=empty(name,dob,morph,sex);persist();obEl.classList.add('done');appEl.hidden=false;renderHome();
+});
+
+// ── GECKO WIGGLE ──
+document.getElementById('gecko-wrap').addEventListener('click',()=>{
+  const illo=document.getElementById('gecko-illo');
+  illo.classList.add('wiggle');haptic(15);
+  setTimeout(()=>illo.classList.remove('wiggle'),520);
+});
+
+// ── PHOTO ──
+document.getElementById('photo-slot').addEventListener('click',e=>{if(e.target===document.getElementById('photo-clear'))return;document.getElementById('photo-file').click()});
+document.getElementById('photo-clear').addEventListener('click',e=>{e.stopPropagation();db.gecko.photo=null;persist();renderPhotoSlot();toast('Photo removed.')});
+document.getElementById('photo-file').addEventListener('change',e=>{
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{db.gecko.photo=ev.target.result;persist();renderPhotoSlot();toast('Photo updated.')};
+  reader.readAsDataURL(file);
+});
+
+// ── SETTINGS ──
+initChips(document.getElementById('s-morph'));initChips(document.getElementById('s-sex'));
+document.getElementById('s-morph').addEventListener('click',e=>{
+  const v=e.target.dataset.v;if(!v)return;
+  document.getElementById('s-enigma-warn').style.display=v==='enigma'?'block':'none';
+});
+document.getElementById('btn-settings').addEventListener('click',()=>{
+  const g=db.gecko;
+  document.getElementById('s-name').value=g.name||'';document.getElementById('s-dob').value=g.dob||'';
+  document.querySelectorAll('#s-morph .chip').forEach(c=>c.classList.toggle('on',c.dataset.v===g.morph));
+  document.querySelectorAll('#s-sex .chip').forEach(c=>c.classList.toggle('on',c.dataset.v===g.sex));
+  document.getElementById('s-enigma-warn').style.display=g.morph==='enigma'?'block':'none';
+  document.getElementById('s-aikey').value=aiKey;
+  openM('m-settings');
+});
+document.getElementById('s-save').addEventListener('click',()=>{
+  db.gecko.name=document.getElementById('s-name').value.trim()||db.gecko.name;
+  db.gecko.dob=document.getElementById('s-dob').value||db.gecko.dob;
+  db.gecko.morph=chipVal(document.getElementById('s-morph'))||db.gecko.morph;
+  db.gecko.sex=chipVal(document.getElementById('s-sex'))||db.gecko.sex;
+  const k=document.getElementById('s-aikey').value.trim();
+  if(k!==aiKey){aiKey=k;localStorage.setItem(AI_STORE,aiKey)}
+  persist();closeM('m-settings');renderHome();toast('Profile updated.');haptic();
+});
+document.getElementById('s-reset').addEventListener('click',()=>{
+  if(confirm(`Delete all data for ${db.gecko.name||'gecko'}? This cannot be undone.`)){localStorage.removeItem(KEY);location.reload()}
+});
+
+// ── CUSTOMIZE ──
+buildSwatches('iris-swatches',IRIS_OPTS,'iris');
+buildSwatches('body-swatches',BODY_OPTS,'body');
+buildSwatches('spot-swatches',SPOT_OPTS,'spot');
+document.getElementById('btn-customize').addEventListener('click',()=>{
+  tempCustom={...(db.gecko.custom||{})};syncSwatches();updateCgPreview();closeM('m-settings');openM('m-customize');
+});
+document.getElementById('custom-save').addEventListener('click',()=>{
+  db.gecko.custom={...tempCustom};persist();closeM('m-customize');renderHome();toast('Appearance saved.');haptic();
+});
+document.getElementById('custom-reset').addEventListener('click',()=>{
+  tempCustom={};syncSwatches();updateCgPreview();
+});
+
+// ── FEED MODAL ──
+let feedRefused=false;
+initChips(document.getElementById('insect-chips'));initToggles(document.getElementById('supp-tgls'));
+const refBtn=document.getElementById('refused-tgl');
+refBtn.addEventListener('click',()=>{feedRefused=!feedRefused;refBtn.classList.toggle('on',feedRefused);const ff=document.getElementById('feed-fields');ff.style.opacity=feedRefused?'.38':'1';ff.style.pointerEvents=feedRefused?'none':''});
+document.getElementById('btn-feed').addEventListener('click',()=>{
+  feedRefused=false;refBtn.classList.remove('on');const ff=document.getElementById('feed-fields');ff.style.opacity='1';ff.style.pointerEvents='';
+  document.getElementById('feed-count').value='';document.getElementById('feed-note').value='';
+  document.querySelectorAll('#insect-chips .chip').forEach((c,i)=>c.classList.toggle('on',i===0));
+  document.querySelectorAll('#supp-tgls .tgl').forEach(t=>t.classList.remove('on'));
+  openM('m-feed');
+});
+document.getElementById('feed-save').addEventListener('click',()=>{
+  const supps=tglVals(document.getElementById('supp-tgls'));
+  db.feeds.push({id:uid(),ts:new Date().toISOString(),date:toDay(),refused:feedRefused,insect:feedRefused?null:chipVal(document.getElementById('insect-chips')),count:feedRefused?null:parseInt(document.getElementById('feed-count').value)||null,calcium:supps.includes('calcium'),d3:supps.includes('d3'),multivit:supps.includes('multivit'),notes:document.getElementById('feed-note').value.trim()});
+  persist();closeM('m-feed');renderHome();haptic();toast(feedRefused?'Refusal logged.':'Feed logged.');
+});
+
+// ── WEIGHT MODAL ──
+document.getElementById('bcs-grid').querySelectorAll('.bcs-b').forEach(b=>b.addEventListener('click',()=>{document.getElementById('bcs-grid').querySelectorAll('.bcs-b').forEach(x=>x.classList.remove('on'));b.classList.add('on')}));
+function openWeigh(){document.getElementById('wt-g').value='';document.getElementById('wt-note').value='';document.getElementById('bcs-grid').querySelectorAll('.bcs-b').forEach((b,i)=>b.classList.toggle('on',i===2));openM('m-weight')}
+document.getElementById('btn-weigh').addEventListener('click',openWeigh);
+document.getElementById('btn-weigh2').addEventListener('click',openWeigh);
+document.getElementById('wt-save').addEventListener('click',()=>{
+  const g=parseFloat(document.getElementById('wt-g').value);if(!g||g<=0){toast('Enter a valid weight in grams.');return}
+  const bcs=parseInt(document.getElementById('bcs-grid').querySelector('.bcs-b.on')?.dataset.v)||3;
+  db.weights.push({id:uid(),ts:new Date().toISOString(),date:toDay(),grams:g,bcs,notes:document.getElementById('wt-note').value.trim()});
+  persist();closeM('m-weight');renderHome();haptic();toast('Weight saved.');
+  if(activeScreen==='s-weight')renderWeight();
+});
+
+// ── SHED MODAL ──
+initChips(document.getElementById('shed-phase'));initChips(document.getElementById('stuck-chips'));
+document.getElementById('shed-phase').querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{document.getElementById('shed-extra').style.display=chipVal(document.getElementById('shed-phase'))==='complete'?'block':'none'}));
+document.getElementById('btn-shed').addEventListener('click',()=>{
+  document.getElementById('shed-note').value='';
+  document.querySelectorAll('#shed-phase .chip').forEach((c,i)=>c.classList.toggle('on',i===0));
+  document.getElementById('shed-extra').style.display='none';
+  document.querySelectorAll('#stuck-chips .chip').forEach((c,i)=>c.classList.toggle('on',i===0));
+  openM('m-shed');
+});
+document.getElementById('shed-save').addEventListener('click',()=>{
+  const phase=chipVal(document.getElementById('shed-phase'))||'started';
+  db.sheds.push({id:uid(),ts:new Date().toISOString(),date:toDay(),phase,stuck:phase==='complete'?(chipVal(document.getElementById('stuck-chips'))||'none'):null,notes:document.getElementById('shed-note').value.trim()});
+  persist();closeM('m-shed');renderHome();haptic();toast(phase==='started'?'Pre-shed logged.':'Shed complete — logged.');
+});
+
+// ── NOTE MODAL ──
+document.getElementById('btn-note').addEventListener('click',()=>{document.getElementById('note-text').value='';openM('m-note')});
+document.getElementById('note-save').addEventListener('click',()=>{
+  const text=document.getElementById('note-text').value.trim();if(!text)return closeM('m-note');
+  db.notes.push({id:uid(),ts:new Date().toISOString(),date:toDay(),text});
+  persist();closeM('m-note');haptic();toast('Note saved.');if(activeScreen==='s-log')renderLog();
+});
+
+// ── AI ──
+const AI_STORE='gecko_ai_key';
+let aiKey=localStorage.getItem(AI_STORE)||'';
+
+function buildHealthPrompt(){
+  const g=db.gecko;
+  const age=monthsOld(g.dob);
+  const ageStr=g.dob?(age<12?`${age} months`:`${Math.floor(age/12)} year${Math.floor(age/12)>1?'s':''} ${age%12} months`):'unknown age';
+  const since=new Date();since.setDate(since.getDate()-60);
+  const rFeeds=db.feeds.filter(f=>new Date(f.date)>=since).slice(-40);
+  const rWeights=db.weights.filter(w=>new Date(w.date)>=since);
+  const rSheds=db.sheds.filter(s=>new Date(s.date)>=since);
+  const rNotes=db.notes.filter(n=>new Date(n.date)>=since).slice(-10);
+  let p=`You are a knowledgeable reptile health assistant. Analyse the following leopard gecko health data and provide a factual, concise assessment. Be direct. Do not speculate beyond what the data shows. If data is sparse, say so and note what additional information would help.
+
+GECKO PROFILE
+Name: ${g.name||'Unknown'}
+Age: ${ageStr}
+Morph: ${g.morph||'normal'}
+Sex: ${g.sex||'unknown'}
+
+FEEDING (last 60 days — ${rFeeds.length} entries)
+`;
+  if(!rFeeds.length){p+='No feeds recorded in this period.\n'}else{
+    const refused=rFeeds.filter(f=>f.refused).length;
+    const ate=rFeeds.filter(f=>!f.refused);
+    const insects=[...new Set(ate.map(f=>f.insect).filter(Boolean))];
+    const lastAte=ate[ate.length-1];
+    p+=`Successful: ${ate.length} | Refusals: ${refused}\n`;
+    p+=`Feeder insects: ${insects.join(', ')||'unspecified'}\n`;
+    if(lastAte)p+=`Last successful: ${lastAte.date} (${daysBetween(lastAte.date,toDay())} days ago)\n`;
+    p+=`Calcium (no D3): ${rFeeds.filter(f=>f.calcium).length} times | Calcium+D3: ${rFeeds.filter(f=>f.d3).length} times | Multivitamin: ${rFeeds.filter(f=>f.multivit).length} times\n`;
+  }
+  p+=`\nWEIGHT (${rWeights.length} readings)\n`;
+  if(!rWeights.length){p+='No weight data in this period.\n'}else{
+    rWeights.forEach(w=>p+=`${w.date}: ${w.grams}g, tail ${w.bcs}/5${w.notes?` (${w.notes})`:''}\n`);
+    if(rWeights.length>=2){
+      const first=rWeights[0],last=rWeights[rWeights.length-1];
+      const diff=last.grams-first.grams,pct=(diff/first.grams*100).toFixed(1);
+      p+=`Net change: ${diff>=0?'+':''}${diff.toFixed(1)}g (${pct}%) over ${daysBetween(first.date,last.date)} days\n`;
+    }
+  }
+  p+=`\nSHED EVENTS (${rSheds.length})\n`;
+  if(!rSheds.length){p+='No sheds recorded in this period.\n'}else rSheds.forEach(s=>p+=`${s.date}: ${s.phase==='started'?'Pre-shed started':`Complete${s.stuck&&s.stuck!=='none'?`, stuck: ${s.stuck}`:' (clean)'}`}${s.notes?` — ${s.notes}`:''}\n`);
+  if(rNotes.length){p+=`\nOWNER NOTES\n`;rNotes.forEach(n=>p+=`${n.date}: ${n.text}\n`)}
+  p+=`\nPlease provide:
+1. Overall health assessment (1–2 sentences)
+2. Feeding pattern — is frequency and food variety appropriate for a ${ageStr}${g.morph&&g.morph!=='normal'&&g.morph!=='other'?' '+g.morph:''}${g.sex&&g.sex!=='unknown'?' '+g.sex:''} leopard gecko?
+3. Weight trend — healthy, concerning, or insufficient data?
+4. Supplement schedule — correct frequency for age, any gaps?
+5. Concerns or flags — list them plainly. If there are none, say so.
+6. Top 2–3 specific, actionable recommendations.
+
+Write in plain text. No markdown symbols or bullet characters. Use numbered lists only. Speak as if advising a responsible owner who will act on this.`;
+  return p;
+}
+
+async function askGemini(){
+  const key=aiKey.trim();
+  if(!key){toast('No API key — add it in Settings.');return}
+  document.getElementById('ai-idle').style.display='none';
+  document.getElementById('ai-result').style.display='none';
+  document.getElementById('ai-loading').style.display='flex';
+  try{
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        contents:[{parts:[{text:buildHealthPrompt()}]}],
+        generationConfig:{temperature:0.25,topK:40,topP:0.9,maxOutputTokens:1200}
+      })
+    });
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Error ${res.status}`)}
+    const data=await res.json();
+    const text=data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(!text)throw new Error('Model returned no response.');
+    const clean=text.trim()
+      .replace(/\*\*(.*?)\*\*/g,'$1')
+      .replace(/\*(.*?)\*/g,'$1')
+      .replace(/^#{1,6}\s*/gm,'')
+      .replace(/^[-•]\s+/gm,'  ');
+    document.getElementById('ai-loading').style.display='none';
+    document.getElementById('ai-result').style.display='';
+    document.getElementById('ai-response-text').textContent=clean;
+    document.getElementById('ai-model-lbl').textContent=`Gemini 2.0 Flash · ${new Date().toLocaleDateString('en-MY',{day:'numeric',month:'short',year:'numeric'})}`;
+  }catch(e){
+    document.getElementById('ai-loading').style.display='none';
+    document.getElementById('ai-idle').style.display='';
+    document.getElementById('ai-no-key').style.display='none';
+    document.getElementById('ai-ready').style.display='';
+    const msg=e.message||'Unknown error';
+    toast(`AI: ${msg.length>72?msg.slice(0,72)+'…':msg}`);
+  }
+}
+
+function openAiSheet(){
+  document.getElementById('ai-loading').style.display='none';
+  document.getElementById('ai-result').style.display='none';
+  document.getElementById('ai-idle').style.display='';
+  const has=!!(aiKey.trim());
+  document.getElementById('ai-no-key').style.display=has?'none':'';
+  document.getElementById('ai-ready').style.display=has?'':'none';
+  closeM('m-settings');openM('m-ai');
+}
+
+function exportData(){
+  const g=db.gecko;
+  const payload={exported:new Date().toISOString(),gecko:{name:g.name,dob:g.dob,morph:g.morph,sex:g.sex},feeds:db.feeds,weights:db.weights,sheds:db.sheds,notes:db.notes};
+  const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
+  const a=document.createElement('a');a.href=url;a.download=`gecko-${(g.name||'data').replace(/\s+/g,'-')}-${toDay()}.json`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  toast('Data exported.');
+}
+
+document.getElementById('btn-ai').addEventListener('click',openAiSheet);
+document.getElementById('btn-export').addEventListener('click',()=>{exportData();closeM('m-settings')});
+document.getElementById('ai-go').addEventListener('click',askGemini);
+document.getElementById('ai-rerun').addEventListener('click',askGemini);
+
+// ── SERVICE WORKER ──
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>

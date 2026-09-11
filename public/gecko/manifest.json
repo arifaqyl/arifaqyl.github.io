@@ -1,0 +1,12 @@
+{
+  "name": "gecko.",
+  "short_name": "gecko.",
+  "description": "A gentle health log for your leopard gecko.",
+  "start_url": "/gecko/",
+  "scope": "/gecko/",
+  "display": "standalone",
+  "background_color": "#fdf9f0",
+  "theme_color": "#fdf9f0",
+  "orientation": "portrait",
+  "icons": []
+}
